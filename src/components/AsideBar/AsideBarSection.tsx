@@ -1,18 +1,16 @@
-import { ChildrenProps } from "~/lib/definitions";
+import LinkSection from "@/UI/LinkSection/LinkSection";
+import { LinkSectionProps } from "~/lib/definitions";
+
 import classes from "./AsideBar.module.css";
 
-export interface AsideBarSectionProps extends ChildrenProps {
-  label: string;
-}
-
-export default function AsideBarSection({
-  label,
-  children,
-}: AsideBarSectionProps) {
+export default function AsideBarSection({ children, label }: LinkSectionProps) {
   return (
-    <div className={classes["category-section"]}>
-      <h4 className={classes["category-main"]}>{label}</h4>
+    <LinkSection
+      sectionClass={classes["category-section"]}
+      labelClass={classes["category-main"]}
+      label={label}
+    >
       {children}
-    </div>
+    </LinkSection>
   );
 }

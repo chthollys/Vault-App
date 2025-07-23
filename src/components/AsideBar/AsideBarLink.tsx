@@ -1,14 +1,6 @@
-import Link from "next/link";
-import { ChildrenProps } from "~/lib/definitions";
+import LinkItem from "@/UI/LinkSection/LinkItem";
+import { LinkItemProps } from "~/lib/definitions";
 
-export interface AsideBarLinkProps extends ChildrenProps {
-  href: string;
-}
-
-export default function AsideBarLink({ href, children }: AsideBarLinkProps) {
-  return (
-    <li>
-      <Link href={href}>{children}</Link>
-    </li>
-  );
+export default function AsideBarLink({ children, href }: LinkItemProps) {
+  return <LinkItem href={href}>{children}</LinkItem>;
 }
