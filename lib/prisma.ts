@@ -1,4 +1,4 @@
-import { PrismaClient } from "@/generated/prisma/client";
+import { PrismaClient } from "~/prisma/generated/prisma/client";
 import { withAccelerate } from "@prisma/extension-accelerate";
 
 // This line is a trick to add 'prisma' to the global scope in TypeScript

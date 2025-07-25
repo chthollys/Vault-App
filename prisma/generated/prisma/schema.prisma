@@ -1,0 +1,166 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // directUrl =  env("DIRECT_URL")
+}
+
+// -------------------
+// --- User Models ---
+// -------------------
+
+// Stores user account information
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  username  String   @unique
+  password  String // Store hashed password
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  profile   Profile?
+  orders    Order[]
+  reviews   Review[]
+  cart      Cart?
+}
+
+// Stores additional user profile information
+model Profile {
+  id          String    @id @default(cuid())
+  userId      String    @unique
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  firstName   String?
+  lastName    String?
+  bio         String?
+  avatarUrl   String?
+  country     String?
+  dateOfBirth DateTime?
+}
+
+// ------------------
+// --- Game Models ---
+// ------------------
+
+// Stores the main information for each game
+model Game {
+  id            String       @id @default(cuid())
+  title         String       @unique
+  description   String
+  price         Float
+  releaseDate   DateTime
+  developer     String
+  publisher     String
+  coverImageUrl String
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  genres        GameGenre[]
+  reviews       Review[]
+  screenshots   Screenshot[]
+  orderItems    OrderItem[]
+  cartItems     CartItem[]
+}
+
+// Stores game genres with a parent-child relationship
+model Genre {
+  id   String @id @default(cuid())
+  name String @unique
+
+  // This is the self-relation part
+  parentId  String? // Optional: A genre might not have a parent (i.e., it's a main genre)
+  parent    Genre?  @relation("ParentChild", fields: [parentId], references: [id], onDelete: Cascade)
+  subGenres Genre[] @relation("ParentChild")
+
+  // The rest of the model stays the same
+  games GameGenre[]
+}
+
+// Join table for the many-to-many relationship between Game and Genre
+model GameGenre {
+  gameId  String
+  genreId String
+  game    Game   @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  genre   Genre  @relation(fields: [genreId], references: [id], onDelete: Cascade)
+
+  @@id([gameId, genreId])
+}
+
+// Stores screenshots for each game
+model Screenshot {
+  id       String  @id @default(cuid())
+  gameId   String
+  game     Game    @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  imageUrl String
+  caption  String?
+}
+
+// Stores user reviews for games
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int // e.g., 1 to 5 stars
+  comment   String?
+  createdAt DateTime @default(now())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gameId    String
+  game      Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, gameId]) // A user can only review a game once
+}
+
+// -------------------------
+// --- E-commerce Models ---
+// -------------------------
+
+// Stores the user's shopping cart
+model Cart {
+  id        String     @id @default(cuid())
+  userId    String     @unique
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  items     CartItem[]
+}
+
+// Stores items within a user's shopping cart
+model CartItem {
+  id       String   @id @default(cuid())
+  cartId   String
+  cart     Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  gameId   String
+  game     Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  quantity Int      @default(1) // Usually 1 for digital games
+  addedAt  DateTime @default(now())
+
+  @@unique([cartId, gameId]) // A game can only appear once in a cart
+}
+
+// Stores completed user orders
+model Order {
+  id          String      @id @default(cuid())
+  userId      String
+  user        User        @relation(fields: [userId], references: [id], onDelete: NoAction)
+  totalAmount Float
+  status      String      @default("COMPLETED") // e.g., PENDING, COMPLETED, FAILED
+  createdAt   DateTime    @default(now())
+  items       OrderItem[]
+}
+
+// Stores individual items within an order
+model OrderItem {
+  id       String @id @default(cuid())
+  orderId  String
+  order    Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  gameId   String
+  game     Game   @relation(fields: [gameId], references: [id], onDelete: NoAction)
+  price    Float // Price at the time of purchase
+  quantity Int
+}
