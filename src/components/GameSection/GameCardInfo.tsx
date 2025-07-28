@@ -9,7 +9,7 @@ export default function GameCardInfo() {
   if (game && game.price) {
     price = formatToUSD(game?.price);
   }
-  const starRating = formatStarRating(game?.rating || 5);
+  const starRating = formatStarRating(game?.rating);
   return (
     <div className={classes["game-info"]}>
       <div className={classes["game-price"]}>
@@ -19,7 +19,9 @@ export default function GameCardInfo() {
       <p className={classes["game-developer"]}>{game?.developer}</p>
       <div className={classes["game-rating"]}>
         <span className={classes["stars"]}>{starRating}</span>
-        <span className={classes["rating-text"]}>{game?.rating || 5}</span>
+        <span className={classes["rating-text"]}>
+          {game?.rating === 0 ? "No rating" : game?.rating}
+        </span>
       </div>
       <button
         className={`${classes["add-to-cart-btn"]} ${isInCart ? "added" : ""}`}

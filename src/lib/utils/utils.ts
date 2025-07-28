@@ -1,4 +1,5 @@
 import { NonNullableObject } from "@/lib/definitions";
+import { string } from "zod";
 
 export const hasCompleteValue = <T extends object>(
   obj: T
@@ -27,9 +28,17 @@ export const formatToUSD = (value: number | string): string => {
   return formatter.format(numericValue);
 };
 
-export const formatStarRating = (rating: number | null | undefined): string => {
-  if (!rating) return "INVALID RATING VALUE";
-  const clampedRating = Math.max(0, Math.min(5, rating));
+export const formatStarRating = (
+  rating: string | number | undefined
+): string => {
+  if (rating === undefined || rating === null) return "INVALID RATING VALUE";
+  let ratingNum;
+  if (typeof rating === "string") {
+    ratingNum = parseInt(rating);
+  } else {
+    ratingNum = rating;
+  }
+  const clampedRating = Math.max(0, Math.min(5, ratingNum));
 
   const fullStar = "★";
   const halfStar = "⯪";
