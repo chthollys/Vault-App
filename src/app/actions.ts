@@ -11,5 +11,3 @@ export async function getGames() {
     throw error;
   }
 }
-
-export async function getRating() {}
