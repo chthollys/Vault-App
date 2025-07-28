@@ -1,11 +1,11 @@
-import { getGames } from "./actions";
 import PageContent from "./page-content";
 
-export default async function Home() {
-  const initialGames = await getGames();
+export default function Home() {
   return (
     <>
-      <PageContent initialGames={initialGames} />
+      <div className="min-w-0">
+        <PageContent />
+      </div>
     </>
   );
 }
