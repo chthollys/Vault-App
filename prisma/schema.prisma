@@ -42,6 +42,7 @@ model Game {
   releaseDate   DateTime
   developer     String
   publisher     String
+  rating        Float        @default(0)
   coverImageUrl String
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt

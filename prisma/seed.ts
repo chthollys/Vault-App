@@ -3,9 +3,22 @@ import { CreateGenreData, createGenreArraySchema } from "@/lib/definitions";
 import db from "./db";
 
 const seedData: CreateGenreData[] = [
-{
-  name: "FPS Shooters"
-},
+  {
+    name: "Indie Games",
+    parentId: "cmdilx4g500043e0v9rz3d75z",
+  },
+  {
+    name: "Puzzle Games",
+    parentId: "cmdilx4g500043e0v9rz3d75z",
+  },
+  {
+    name: "Casual Games",
+    parentId: "cmdilx4g500043e0v9rz3d75z",
+  },
+  {
+    name: "Horror Games",
+    parentId: "cmdilx4g500043e0v9rz3d75z",
+  },
 ];
 
 const seed = async () => {
@@ -14,9 +27,7 @@ const seed = async () => {
     console.log("Validation Error: ", z.flattenError(error));
   } else {
     try {
-      const payload = await db.genre.findUnique({where: {
-        name: 
-      }});
+      // const payload = await db.genre.cindUnique();
       const response = await db.genre.createManyAndReturn({
         data,
         skipDuplicates: true,
