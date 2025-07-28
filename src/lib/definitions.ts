@@ -66,6 +66,7 @@ export const createGameArraySchema = z.array(createGameSchema);
 
 export const gameSchema = createGameSchema.extend({
   id: z.cuid(),
+  rating: z.number(),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
