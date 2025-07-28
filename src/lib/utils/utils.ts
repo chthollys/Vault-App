@@ -1,4 +1,4 @@
-import { NonNullableObject } from "./definitions";
+import { NonNullableObject } from "@/lib/definitions";
 
 export const hasCompleteValue = <T extends object>(
   obj: T

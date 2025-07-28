@@ -3,10 +3,10 @@ import HeartButtonSVG from "@/UI/icons/HeartButtonSVG";
 import classes from "./GameSection.module.css";
 import { useContext } from "react";
 import { GameCardContext } from "./GameCard";
-import { hasCompleteValue } from "~/lib/utils";
+import { hasCompleteValue } from "@/lib/utils/utils";
 
 export default function GameCardCover() {
-  const { game,defaultImg , isInWishlist } = useContext(GameCardContext);
+  const { game, defaultImg, isInWishlist } = useContext(GameCardContext);
   if (!game || !hasCompleteValue(game)) {
     return <p>Game object data is incomplete</p>;
   }
@@ -14,8 +14,9 @@ export default function GameCardCover() {
     <div className={classes["game-cover-container"]}>
       <Image
         className={classes["game-cover"]}
-        src={game.image || defaultImg}
+        src={game.coverImageUrl || defaultImg}
         alt={"GAME ALT"}
+        fill
         loading="lazy"
       />
       <HeartButtonSVG

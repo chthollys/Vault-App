@@ -1,6 +1,6 @@
 import Link from "next/link";
 import classes from "./GameSection.module.css";
-import { GameItemProps, GameCardContextObj } from "~/lib/definitions";
+import { GameItemProps, GameCardContextObj } from "@/lib/definitions";
 import { createContext } from "react";
 import GameCardCover from "./GameCardCover";
 import defaultImage from "~/assets/images/gameDefault.png";

@@ -1,4 +1,4 @@
-import { ChildrenProp } from "~/lib/definitions";
+import { ChildrenProp } from "@/lib/definitions";
 
 import AsideBarSection from "./AsideBarSection";
 import AsideBarLinks from "./AsideBarLinks";

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LinkItemProps } from "~/lib/definitions";
+import { LinkItemProps } from "@/lib/definitions";
 
 export default function LinkItem({ href, children }: LinkItemProps) {
   return (

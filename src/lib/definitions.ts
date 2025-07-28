@@ -136,6 +136,11 @@ export interface ChildrenProp {
   children?: React.ReactNode;
 }
 
+export interface ErrorCaughtProps {
+  error: Error & { digest?: string };
+  reset: () => void;
+}
+
 export interface LinkSectionProps extends ChildrenProp {
   label: string | undefined;
   labelClass?: string | undefined;
@@ -154,6 +159,7 @@ export interface GameSectionProps extends ChildrenProp {
   title: string;
   label?: string | undefined;
   href: string;
+  games: Game[];
 }
 
 export interface GameItemProps {

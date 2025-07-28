@@ -1,5 +1,5 @@
 import LinkSection from "@/UI/LinkSection/LinkSection";
-import { LinkSectionProps } from "~/lib/definitions";
+import { LinkSectionProps } from "@/lib/definitions";
 
 import classes from "./AsideBar.module.css";
 

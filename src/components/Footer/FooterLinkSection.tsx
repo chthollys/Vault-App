@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ChildrenProp } from "~/lib/definitions";
+import { ChildrenProp } from "@/lib/definitions";
 
 export interface FooterLinkSectionProps extends ChildrenProp {
   label: string;

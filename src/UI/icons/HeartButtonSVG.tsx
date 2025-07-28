@@ -1,5 +1,5 @@
 import classes from "./HeartButtonSVG.module.css";
-import { HeartButtonSVGProps } from "~/lib/definitions";
+import { HeartButtonSVGProps } from "@/lib/definitions";
 
 export default function HeartButtonSVG({
   id,

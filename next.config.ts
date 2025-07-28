@@ -2,7 +2,6 @@ import type { NextConfig } from "next";
 import { tr } from "zod/locales";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   reactStrictMode: true,
   images: {
     remotePatterns: [

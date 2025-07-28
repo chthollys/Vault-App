@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import classes from "./GameSection.module.css";
 import { GameCardContext } from "./GameCard";
-import { formatToUSD, formatStarRating } from "~/lib/utils";
+import { formatToUSD, formatStarRating } from "@/lib/utils/utils";
 
 export default function GameCardInfo() {
   const { game, isInCart } = useContext(GameCardContext);
@@ -9,7 +9,7 @@ export default function GameCardInfo() {
   if (game && game.price) {
     price = formatToUSD(game?.price);
   }
-  const starRating = formatStarRating(game?.rating);
+  const starRating = formatStarRating(game?.rating || 5);
   return (
     <div className={classes["game-info"]}>
       <div className={classes["game-price"]}>
@@ -19,7 +19,7 @@ export default function GameCardInfo() {
       <p className={classes["game-developer"]}>{game?.developer}</p>
       <div className={classes["game-rating"]}>
         <span className={classes["stars"]}>{starRating}</span>
-        <span className={classes["rating-text"]}>{game?.rating}</span>
+        <span className={classes["rating-text"]}>{game?.rating || 5}</span>
       </div>
       <button
         className={`${classes["add-to-cart-btn"]} ${isInCart ? "added" : ""}`}

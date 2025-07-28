@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { CreateGenreData, createGenreArraySchema } from "~/lib/definitions";
+import { CreateGenreData, createGenreArraySchema } from "@/lib/definitions";
 import db from "./db";
 
 const seedData: CreateGenreData[] = [

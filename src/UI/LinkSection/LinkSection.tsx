@@ -1,4 +1,4 @@
-import { LinkSectionProps } from "~/lib/definitions";
+import { LinkSectionProps } from "@/lib/definitions";
 import LinkItem from "./LinkItem";
 import LinkList from "./LinkList";
 

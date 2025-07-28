@@ -1,15 +1,11 @@
-import FeaturedGame from "@/components/FeaturedGame.tsx/FeaturedGame";
-import GameSection from "@/components/GameSection/GameSection";
+import { getGames } from "./actions";
+import PageContent from "./page-content";
 
-export default function Home() {
+export default async function Home() {
+  const initialGames = await getGames();
   return (
     <>
-      <div className="min-w-0">
-        <FeaturedGame />
-        <GameSection title="Recommended Games" href="/games/recommended" />
-        <GameSection title="Discounted Games" href="/games/discounted" />
-        <GameSection title="Hot Games" href="/games/hot" />
-      </div>
+      <PageContent initialGames={initialGames} />
     </>
   );
 }
