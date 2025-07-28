@@ -28,7 +28,7 @@ export default function GameCardInfo() {
         data-product-id={game?.id}
         data-in-cart={isInCart ? "true" : "false"}
         onClick={() => console.log("ADD TO CART OR REDIRECT TO LOGIN")}
-      ></button>
+      >Add to Cart</button>
     </div>
   );
 }
