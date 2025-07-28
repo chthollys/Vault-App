@@ -15,7 +15,7 @@ export default function ImageCarouselItem({
   children,
 }: ImageCarouselItemProps) {
   const { length } = useCarouselContext();
-  let itemWidth = useMemo(() => Math.floor(100 / length), [length]); // in percentage
+  const itemWidth = useMemo(() => Math.floor(100 / length), [length]); // in percentage
 
   return (
     <div style={{ width: `${itemWidth}%` }} className={`relative h-full`}>
