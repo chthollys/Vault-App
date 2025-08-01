@@ -15,13 +15,6 @@
   box-shadow: var(--glass-shadow);
 }
 
-.section-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0;
-}
-
 .view-all-btn {
   color: var(--accent-light);
   text-decoration: none;
@@ -39,14 +32,6 @@
   color: white;
 }
 
-/* Game Container */
-.game-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--space-xl);
-}
-
-/* Game Cards */
 .game-card {
   background: var(--bg-glass);
   backdrop-filter: var(--glass-blur-strong);

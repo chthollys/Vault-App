@@ -1,19 +1,20 @@
+"use client";
+
 import Image from "next/image";
 import HeartButtonSVG from "@/UI/icons/HeartButtonSVG";
-import classes from "./GameSection.module.css";
-import { useContext } from "react";
-import { GameCardContext } from "./GameCard";
+import { useGameCardContext } from "./GameCard";
 import { hasCompleteValue } from "@/lib/utils/utils";
+import GameCoverWrapper from "../Wrapper/GameCoverWrapper";
 
 export default function GameCardCover() {
-  const { game, defaultImg, isInWishlist } = useContext(GameCardContext);
+  const { game, defaultImg, isInWishlist } = useGameCardContext();
   if (!game || !hasCompleteValue(game)) {
     return <p>Game object data is incomplete</p>;
   }
   return (
-    <div className={classes["game-cover-container"]}>
+    <GameCoverWrapper>
       <Image
-        className={classes["game-cover"]}
+        className="h-full w-full object-cover transition-(--transition-normal) group-hover/game-card:scale-105"
         src={game.coverImageUrl || defaultImg}
         alt={"GAME ALT"}
         fill
@@ -24,6 +25,6 @@ export default function GameCardCover() {
         active={isInWishlist || false}
         onClick={() => console.log("Item triggered wih an id of ", game.id!)}
       />
-    </div>
+    </GameCoverWrapper>
   );
 }

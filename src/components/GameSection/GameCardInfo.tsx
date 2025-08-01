@@ -1,34 +1,31 @@
-import { useContext } from "react";
-import classes from "./GameSection.module.css";
-import { GameCardContext } from "./GameCard";
-import { formatToUSD, formatStarRating } from "@/lib/utils/utils";
+import { useGameCardContext } from "./GameCard";
+import { formatToUSD } from "@/lib/utils/utils";
+import GameCardInfoWrapper from "../Wrapper/GameCardInfoWrapper";
+import { GamePrice, GameTitle } from "@/components/Typography";
+import GameDeveloper from "../Typography/GameDeveloper";
+import GameRating from "./GameRating";
+import PurpleButton from "@/UI/buttons/PurpleButton";
 
 export default function GameCardInfo() {
-  const { game, isInCart } = useContext(GameCardContext);
+  const { game, isInCart } = useGameCardContext();
   let price = "INVALID PRICE";
   if (game && game.price) {
     price = formatToUSD(game?.price);
   }
-  const starRating = formatStarRating(game?.rating);
   return (
-    <div className={classes["game-info"]}>
-      <div className={classes["game-price"]}>
-        <span className={classes["current-price"]}>{price}</span>
-      </div>
-      <h3 className={classes["game-title"]}>{game?.title}</h3>
-      <p className={classes["game-developer"]}>{game?.developer}</p>
-      <div className={classes["game-rating"]}>
-        <span className={classes["stars"]}>{starRating}</span>
-        <span className={classes["rating-text"]}>
-          {game?.rating === 0 ? "No rating" : game?.rating}
-        </span>
-      </div>
-      <button
-        className={`${classes["add-to-cart-btn"]} ${isInCart ? "added" : ""}`}
+    <GameCardInfoWrapper>
+      <GamePrice className="mb-3">{price}</GamePrice>
+      <GameTitle>{game?.title}</GameTitle>
+      <GameDeveloper>{game?.developer}</GameDeveloper>
+      <GameRating rating={game?.rating} />
+
+      {/** Clean separation for keeping the above server comp */}
+      <PurpleButton
         data-product-id={game?.id}
         data-in-cart={isInCart ? "true" : "false"}
-        onClick={() => console.log("ADD TO CART OR REDIRECT TO LOGIN")}
-      >Add to Cart</button>
-    </div>
+      >
+        Add to Cart
+      </PurpleButton>
+    </GameCardInfoWrapper>
   );
 }

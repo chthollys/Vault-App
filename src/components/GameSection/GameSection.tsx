@@ -1,10 +1,9 @@
 "use client";
 
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 import { GameSectionContextObj, GameSectionProps } from "@/lib/definitions";
 import GameSectionHeader from "./GameSectionHeader";
 import GamesGrid from "./GamesGrid";
-import classes from "./GameSection.module.css";
 
 export const GameSectionContext = createContext<GameSectionContextObj>({
   title: "",
@@ -12,6 +11,16 @@ export const GameSectionContext = createContext<GameSectionContextObj>({
   label: "",
   href: "",
 });
+
+export const useGameSectionContext = () => {
+  const ctxData = useContext(GameSectionContext);
+  if (!ctxData) {
+    console.error(
+      "Use this component children component inside its parent component (GameSection)"
+    );
+  }
+  return ctxData;
+};
 
 export default function GameSection({
   title,
@@ -27,10 +36,7 @@ export default function GameSection({
   };
   return (
     <GameSectionContext.Provider value={ctxValue}>
-      <section
-        className={classes["game-sections"]}
-        aria-labelledby={`${label}-section-title`}
-      >
+      <section className="mb-12" aria-labelledby={`${label}-section-title`}>
         <GameSectionHeader />
 
         <GamesGrid />

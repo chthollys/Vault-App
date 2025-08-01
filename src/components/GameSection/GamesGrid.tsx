@@ -1,13 +1,11 @@
-import { useContext } from "react";
 import GameCard from "./GameCard";
-import { GameSectionContext } from "./GameSection";
-import classes from "./GameSection.module.css";
+import { useGameSectionContext } from "./GameSection";
 
 export default function GamesGrid() {
-  const { title, games } = useContext(GameSectionContext);
+  const { title, games } = useGameSectionContext();
   return (
     <div
-      className={classes["game-container"]}
+      className="grid grid-cols-[repeat(auto-fill,_minmax(280px,_1fr))] gap-6"
       role="list"
       aria-label={`${title} list`}
     >

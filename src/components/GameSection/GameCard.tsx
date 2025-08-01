@@ -1,7 +1,7 @@
 import Link from "next/link";
-import classes from "./GameSection.module.css";
 import { GameItemProps, GameCardContextObj } from "@/lib/definitions";
-import { createContext } from "react";
+import { createContext, useContext } from "react";
+import GameCardWrapper from "../Wrapper/GameCardWrapper";
 import GameCardCover from "./GameCardCover";
 import defaultImage from "~/assets/images/gameDefault.png";
 import GameCardInfo from "./GameCardInfo";
@@ -13,6 +13,16 @@ export const GameCardContext = createContext<GameCardContextObj>({
   isInCart: false,
 });
 
+export const useGameCardContext = () => {
+  const ctxData = useContext(GameCardContext);
+  if (!ctxData) {
+    console.error(
+      "Use this component children component inside its parent component (GameCard)"
+    );
+  }
+  return ctxData;
+};
+
 export default function GameCard({ game }: GameItemProps) {
   const ctxValue: GameCardContextObj = {
     game,
@@ -23,11 +33,15 @@ export default function GameCard({ game }: GameItemProps) {
 
   return (
     <GameCardContext.Provider value={ctxValue}>
-      <Link href={"PRODUCT-DETAIL"}>
-        <article className={classes["game-card"]} role="listitem" tabIndex={0}>
+      <Link href={`/game/${game.id}`}>
+        <GameCardWrapper
+          role="listitem"
+          tabIndex={0}
+          className="group/game-card"
+        >
           <GameCardCover />
           <GameCardInfo />
-        </article>
+        </GameCardWrapper>
       </Link>
     </GameCardContext.Provider>
   );
