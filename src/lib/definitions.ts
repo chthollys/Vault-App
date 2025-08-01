@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { StaticImageData } from "next/image";
-import React, { ComponentPropsWithoutRef } from "react";
+import React from "react";
 
 /**
  * @description template types for handling action and result
@@ -155,6 +155,12 @@ export interface ChildrenProp {
   children?: React.ReactNode;
 }
 
+export type DivElementProps = React.ComponentPropsWithoutRef<"div">;
+export type ButtonElementProps = React.ComponentPropsWithoutRef<"button">;
+export type ParagraphElementProps = React.ComponentPropsWithoutRef<"p">;
+export type SpanElementProps = React.ComponentPropsWithoutRef<"span">;
+export type AnchorElementProps = React.ComponentPropsWithoutRef<"a">;
+
 export interface ErrorCaughtProps {
   error: Error & { digest?: string };
   reset: () => void;
@@ -163,14 +169,15 @@ export interface ErrorCaughtProps {
 export interface LinkSectionProps extends ChildrenProp {
   label: string | undefined;
   labelClass?: string | undefined;
-  sectionClass?: ComponentPropsWithoutRef<"div">["className"];
+  sectionClass?: React.ComponentPropsWithoutRef<"div">["className"];
 }
 
 export interface LinkListProps extends ChildrenProp {
-  className?: ComponentPropsWithoutRef<"ul">["className"];
+  className?: React.ComponentPropsWithoutRef<"ul">["className"];
 }
 
-export interface LinkItemProps extends ChildrenProp {
+export interface LinkItemProps extends AnchorElementProps {
+  listClass?: string | undefined;
   href: string;
 }
 
