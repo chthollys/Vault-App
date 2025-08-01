@@ -54,7 +54,3 @@
   color: var(--accent-light);
   transform: translateX(4px);
 }
-
-.main-section {
-  min-width: 0; /* Prevent grid overflow */
-}

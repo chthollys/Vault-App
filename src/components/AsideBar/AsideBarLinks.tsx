@@ -1,7 +1,6 @@
 import { LinkListProps } from "@/lib/definitions";
 import LinkList from "@/UI/LinkSection/LinkList";
-import classes from "./AsideBar.module.css";
 
 export default function AsideBarLinks({ children }: LinkListProps) {
-  return <LinkList className={classes["category-list"]}>{children}</LinkList>;
+  return <LinkList className="m-0 list-none p-0">{children}</LinkList>;
 }

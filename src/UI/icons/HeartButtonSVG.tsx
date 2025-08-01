@@ -1,21 +1,24 @@
-import classes from "./HeartButtonSVG.module.css";
 import { HeartButtonSVGProps } from "@/lib/definitions";
 
 export default function HeartButtonSVG({
   id,
-  active = false,
+  active,
   onClick,
 }: HeartButtonSVGProps) {
+  let classes =
+    "active:bg-danger absolute top-4 right-4 flex h-10 w-10 cursor-pointer items-center justify-center rounded-[50%] border-none bg-black/70 backdrop-blur-[10px] transition-(--transition-fast) hover:scale-110 hover:bg-black/90";
+  if (active) {
+    classes += " bg-danger";
+  }
   return (
     <button
       type="button"
-      className={`${classes["wishlist-btn"]} ${active ? "active" : ""}`}
+      className={classes}
       data-produk-id={id}
       onClick={onClick}
-      aria-label={active ? "Remove from wishlist" : "Add to wishlist"}
     >
       <svg
-        className={classes["heart-icon"]}
+        className="h-5 w-5 fill-none stroke-white stroke-2"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"

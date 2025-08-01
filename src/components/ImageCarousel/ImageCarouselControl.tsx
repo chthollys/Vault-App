@@ -1,19 +1,19 @@
-import classes from "./ImageCarouselControl.module.css";
 import { useCarouselContext } from "./ImageCarousel";
+import ArrowNavButton from "@/UI/buttons/ArrowNavButton";
 
 export default function ImageCarouselControl() {
   const { isNavVisible, previousSlide, nextSlide } = useCarouselContext();
   return (
     <div
       style={{ opacity: isNavVisible ? 1 : 0 }}
-      className={classes["carousel-controls"]}
+      className="absolute top-[50%] left-0 z-10 flex w-full -translate-y-1/2 justify-between px-4 py-0 opacity-0 transition-[opacity_0.3s_ease-in-out]"
     >
-      <button onClick={previousSlide} className={classes["carousel-button"]}>
+      <ArrowNavButton onClick={previousSlide}>
         &#10094; {/* Left Arrow */}
-      </button>
-      <button onClick={nextSlide} className={classes["carousel-button"]}>
+      </ArrowNavButton>
+      <ArrowNavButton onClick={nextSlide}>
         &#10095; {/* Right Arrow */}
-      </button>
+      </ArrowNavButton>
     </div>
   );
 }

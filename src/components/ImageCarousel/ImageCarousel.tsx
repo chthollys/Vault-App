@@ -11,7 +11,6 @@ import { motion } from "motion/react";
 import ImageCarouselItem from "./ImageCarouselItem";
 import ImageCarouselItemOverlay from "./ImageCarouselItemOverlay";
 import { ChildrenProp } from "@/lib/definitions";
-import classes from "./ImageCarousel.module.css";
 import ImageCarouselControl from "./ImageCarouselControl";
 
 export interface ImageCarouselProps extends ChildrenProp {
@@ -84,7 +83,7 @@ export default function ImageCarousel({
   return (
     <ImageCarouselContext.Provider value={ctxValue}>
       <div
-        className={classes["featured-game"]}
+        className="bg-glass backdrop-blur-glass-strong border-glass shadow-glass relative mb-12 h-[400px] overflow-hidden rounded-[1.5rem] border-[1px] border-solid"
         onMouseOver={() => toggleNav(true)}
         onMouseLeave={() => toggleNav(false)}
       >
