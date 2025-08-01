@@ -5,7 +5,7 @@ export default function MainHeader() {
     <nav className="navbar" role="navigation">
       <div className="upper-nav">
         <div className="logo">
-          <Link href={"HOMEPAGE"}>Vault</Link>
+          <Link href={"/"}>Vault</Link>
         </div>
 
         <button className="mobile-menu-toggle">
@@ -13,13 +13,13 @@ export default function MainHeader() {
         </button>
 
         <div id="mobile-menu" className="menu" role="menubar">
-          <Link className="menu-item" href={"ALL GAMES"}>
+          <Link className="menu-item" href={"/games/all"}>
             All Games
           </Link>
-          <Link className="menu-item" href={"NEW RELEASES"}>
+          <Link className="menu-item" href={"/games/new-release"}>
             New Releases
           </Link>
-          <Link className="menu-item" href={"SPECIAL OFFERS"}>
+          <Link className="menu-item" href={"/games/special-offers"}>
             Special Offers
           </Link>
         </div>

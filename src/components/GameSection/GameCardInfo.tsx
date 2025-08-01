@@ -2,7 +2,7 @@ import { useGameCardContext } from "./GameCard";
 import { formatToUSD } from "@/lib/utils/utils";
 import GameCardInfoWrapper from "../Wrapper/GameCardInfoWrapper";
 import { GamePrice, GameTitle } from "@/components/Typography";
-import GameDeveloper from "../Typography/GameDeveloper";
+import { GameDeveloper } from "@/components/Typography";
 import GameRating from "./GameRating";
 import PurpleButton from "@/UI/buttons/PurpleButton";
 

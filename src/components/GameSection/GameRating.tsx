@@ -1,4 +1,4 @@
-import { RatingStar } from "../Typography";
+import { RatingStar } from "@/components/Typography";
 
 export interface GameRatingProps {
   rating: number | undefined;

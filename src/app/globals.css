@@ -58,9 +58,44 @@
   --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+@theme {
+  --color-primary: #8b5cf6;
+  --color-primary-light: #a78bfa;
+  --color-primary-dark: #7c3aed;
+
+  --color-accent: #06d6a0;
+  --color-accent-light: #20e3b2;
+  --color-accent-dark: #059669;
+
+  --color-success: #06d6a0;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+
+  /* Background */
+  --color-bg-body: linear-gradient(
+    135deg,
+    #0f0f23 0%,
+    #1a1a2e 25%,
+    #16213e 50%,
+    #0f3460 100%
+  );
+  --color-glass: rgba(255, 255, 255, 0.05);
+  --color-glass-hover: rgba(255, 255, 255, 0.08);
+  --color-glass-active: rgba(255, 255, 255, 0.12);
+
+  /* Glass Effects */
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  --blur-glass: blur(20px);
+  --blur-glass-strong: blur(40px);
+}
+
+.game-card:hover {
+  transform: translateY(-8px);
+  background: var(--bg-glass-hover);
+  box-shadow: 0 20px 60px 0 rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.15);
+}
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
@@ -292,6 +327,7 @@ body::before {
 }
 
 /* Main Content */
+
 .main-content {
   max-width: 1600px;
   margin: 0 auto;

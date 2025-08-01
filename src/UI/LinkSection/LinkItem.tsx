@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { LinkItemProps } from "@/lib/definitions";
 
-export default function LinkItem({ href, children }: LinkItemProps) {
+export default function LinkItem({ href, className, children }: LinkItemProps) {
   return (
-    <li>
-      <Link href={href}>{children}</Link>
+    <li className="mb-2">
+      <Link href={href} className={className ?? ""}>
+        {children}
+      </Link>
     </li>
   );
 }
