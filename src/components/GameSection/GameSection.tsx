@@ -1,5 +1,3 @@
-"use client";
-
 import { createContext, useContext } from "react";
 import { GameSectionContextObj, GameSectionProps } from "@/lib/definitions";
 import GameSectionHeader from "./GameSectionHeader";
