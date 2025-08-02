@@ -2,23 +2,23 @@ import { z } from "zod";
 import { StaticImageData } from "next/image";
 import React from "react";
 
-/**
- * @description template types for handling action and result
- */
+// /**
+//  * @description template types for handling action and result
+//  */
 
-export type Result<T> = {
-  success: true;
-  data: T;
-};
+// export type Result<T> = {
+//   success: true;
+//   data: T;
+// };
 
-export type Error<E = string> = {
-  success: false;
-  error: E;
-};
+// export type Error<E = string> = {
+//   success: false;
+//   error: E;
+// };
 
-export type Action<T, E = string> = Promise<Result<T> | Error<E>>;
+// export type Action<T, E = string> = Promise<Result<T> | Error<E>>;
 
-export type Query<T, E = string> = Promise<Result<T> | Error<E>>;
+// export type Query<T, E = string> = Promise<Result<T> | Error<E>>;
 
 /**
  * @description image rule and format types supported
