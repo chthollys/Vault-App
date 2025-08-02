@@ -1,6 +1,6 @@
 "use client";
 
-import { ButtonElementProps } from "@/lib/definitions";
+import { ButtonElementProps } from "@/lib/types/props";
 
 export default function ArrowNavButton({
   children,

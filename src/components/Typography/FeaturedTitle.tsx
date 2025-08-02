@@ -1,4 +1,4 @@
-import { ParagraphElementProps } from "@/lib/definitions";
+import { ParagraphElementProps } from "@/lib/types/props";
 import { twMerge } from "tailwind-merge";
 
 export default function FeaturedTitle({

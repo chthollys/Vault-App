@@ -1,4 +1,4 @@
-import { DivElementProps } from "@/lib/definitions";
+import { DivElementProps } from "@/lib/types/props";
 import DivWrapper from "./base/Div";
 
 export default function GameCoverWrapper({

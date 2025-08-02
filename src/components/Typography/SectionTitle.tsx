@@ -1,4 +1,4 @@
-import { ChildrenProp } from "@/lib/definitions";
+import { ChildrenProp } from "@/lib/types/props";
 
 export default function SectionTitle({ children }: ChildrenProp) {
   return (

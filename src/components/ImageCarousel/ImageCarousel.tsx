@@ -10,7 +10,7 @@ import {
 import { motion } from "motion/react";
 import ImageCarouselItem from "./ImageCarouselItem";
 import ImageCarouselItemOverlay from "./ImageCarouselItemOverlay";
-import { ChildrenProp } from "@/lib/definitions";
+import { ChildrenProp } from "@/lib/types/props";
 import ImageCarouselControl from "./ImageCarouselControl";
 
 export interface ImageCarouselProps extends ChildrenProp {

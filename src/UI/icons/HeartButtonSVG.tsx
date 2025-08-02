@@ -1,4 +1,4 @@
-import { HeartButtonSVGProps } from "@/lib/definitions";
+import { HeartButtonSVGProps } from "@/lib/types/props";
 
 export default function HeartButtonSVG({
   id,

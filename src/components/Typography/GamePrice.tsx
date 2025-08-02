@@ -1,4 +1,4 @@
-import { SpanElementProps } from "@/lib/definitions";
+import { SpanElementProps } from "@/lib/types/props";
 import { twMerge } from "tailwind-merge";
 
 export default function GamePrice({

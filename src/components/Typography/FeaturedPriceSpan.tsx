@@ -1,4 +1,4 @@
-import { SpanElementProps } from "@/lib/definitions";
+import { SpanElementProps } from "@/lib/types/props";
 
 export default function FeaturedTitleSpan({
   children,

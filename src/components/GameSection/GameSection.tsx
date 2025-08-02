@@ -1,5 +1,6 @@
 import { createContext, useContext } from "react";
-import { GameSectionContextObj, GameSectionProps } from "@/lib/definitions";
+import { GameSectionContextObj } from "@/lib/types/context";
+import { GameSectionProps } from "@/lib/types/props";
 import GameSectionHeader from "./GameSectionHeader";
 import GamesGrid from "./GamesGrid";
 

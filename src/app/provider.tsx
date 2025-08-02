@@ -1,6 +1,6 @@
 "use client";
 
-import { ChildrenProp } from "@/lib/definitions";
+import { ChildrenProp } from "@/lib/types/props";
 import { getQueryClient } from "@/lib/utils/get-query-client";
 import { QueryClientProvider } from "@tanstack/react-query";
 

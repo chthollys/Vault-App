@@ -1,6 +1,6 @@
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
-import { ChildrenProp } from "@/lib/definitions";
+import { ChildrenProp } from "@/lib/types/props";
 import { useCarouselContext } from "./ImageCarousel";
 import { useMemo } from "react";
 

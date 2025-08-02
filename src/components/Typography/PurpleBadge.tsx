@@ -1,4 +1,4 @@
-import { ParagraphElementProps } from "@/lib/definitions";
+import { ParagraphElementProps } from "@/lib/types/props";
 
 export default function PurpleBadge({ children }: ParagraphElementProps) {
   return (

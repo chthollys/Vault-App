@@ -1,4 +1,4 @@
-import { DivElementProps } from "@/lib/definitions";
+import { DivElementProps } from "@/lib/types/props";
 import { twMerge } from "tailwind-merge";
 
 export interface DivWrapperProps extends DivElementProps {

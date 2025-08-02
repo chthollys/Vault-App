@@ -1,5 +1,5 @@
 import DivWrapper from "./base/Div";
-import { DivElementProps } from "@/lib/definitions";
+import { DivElementProps } from "@/lib/types/props";
 
 export default function SectionHeaderWrapper({
   className,
