@@ -1,5 +1,5 @@
 import { DivElementProps } from "@/lib/types/props";
-import DivWrapper from "./base/Div";
+import Wrapper from "./base/Wrapper";
 
 export default function GameCoverWrapper({
   children,
@@ -8,8 +8,8 @@ export default function GameCoverWrapper({
 }: DivElementProps) {
   const baseClass = "relative h-[200px] overflow-hidden";
   return (
-    <DivWrapper className={baseClass} nextClass={className} {...props}>
+    <Wrapper className={baseClass} nextClass={className} {...props}>
       {children}
-    </DivWrapper>
+    </Wrapper>
   );
 }
