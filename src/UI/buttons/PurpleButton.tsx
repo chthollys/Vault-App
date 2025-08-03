@@ -1,12 +1,19 @@
+import Wrapper from "@/components/Wrapper/base/Wrapper";
 import { ButtonElementProps } from "@/lib/types/props";
 
-export default function PurpleButton({ children }: ButtonElementProps) {
+export default function PurpleButton({
+  className,
+  children,
+  ...props
+}: ButtonElementProps) {
   return (
-    <button
-      // className={`${classes["add-to-cart-btn"]} ${isInCart ? "added" : ""}`}
-      className="bg-primary hover:bg-primary-dark mt-4 cursor-pointer rounded-md border-none px-6 py-4 text-[0.9rem] font-semibold text-white transition-(--transition-fast) hover:-translate-y-[1px]"
+    <Wrapper
+      as="button"
+      nextClass={className}
+      className="bg-primary hover:bg-primary-dark cursor-pointer rounded-md border-none px-6 py-4 text-[0.9rem] font-semibold text-white transition-(--transition-fast) hover:-translate-y-[1px]"
+      {...props}
     >
       {children}
-    </button>
+    </Wrapper>
   );
 }

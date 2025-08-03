@@ -1,18 +1,15 @@
 import { SpanElementProps } from "@/lib/types/props";
-import { twMerge } from "tailwind-merge";
+import Wrapper from "../Wrapper/base/Wrapper";
 
 export default function GamePrice({
   className,
   children,
   ...props
 }: SpanElementProps) {
-  let baseClasses = "text-accent-light text-[1.1rem] font-semibold";
-  if (className) {
-    baseClasses = twMerge([baseClasses, className]);
-  }
+  const baseClasses = "text-accent-light text-[1.1rem] font-semibold";
   return (
-    <span className={baseClasses} {...props}>
+    <Wrapper as="span" className={baseClasses} nextClass={className} {...props}>
       {children}
-    </span>
+    </Wrapper>
   );
 }

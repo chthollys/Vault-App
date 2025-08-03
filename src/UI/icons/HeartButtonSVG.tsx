@@ -1,19 +1,23 @@
 import { HeartButtonSVGProps } from "@/lib/types/props";
+import Wrapper from "@/components/Wrapper/base/Wrapper";
 
 export default function HeartButtonSVG({
   id,
-  active,
+  isActive,
+  className,
   onClick,
 }: HeartButtonSVGProps) {
-  let classes =
-    "active:bg-danger absolute top-4 right-4 flex h-10 w-10 cursor-pointer items-center justify-center rounded-[50%] border-none bg-black/70 backdrop-blur-[10px] transition-(--transition-fast) hover:scale-110 hover:bg-black/90";
-  if (active) {
-    classes += " bg-danger";
+  let baseClasses =
+    "active:bg-danger flex h-10 w-10 cursor-pointer items-center justify-center rounded-[50%] bg-black/70 backdrop-blur-[10px] transition-(--transition-fast)";
+  if (isActive) {
+    baseClasses += " bg-danger";
   }
   return (
-    <button
+    <Wrapper
+      as="button"
       type="button"
-      className={classes}
+      className={baseClasses}
+      nextClass={className}
       data-produk-id={id}
       onClick={onClick}
     >
@@ -25,6 +29,6 @@ export default function HeartButtonSVG({
       >
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
       </svg>
-    </button>
+    </Wrapper>
   );
 }
