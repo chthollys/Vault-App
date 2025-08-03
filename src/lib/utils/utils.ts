@@ -56,3 +56,21 @@ export const formatStarRating = (
 
   return result;
 };
+
+export const getRandomSubArray = <T>(arr: T[], n: number): T[] => {
+  if (n > arr.length) {
+    throw new RangeError("getRandom: more elements taken than available");
+  }
+
+  const result = new Array<T>(n);
+  let len = arr.length;
+  const taken: number[] = new Array(len);
+
+  while (n--) {
+    const x = Math.floor(Math.random() * len);
+    result[n] = arr[x in taken ? taken[x] : x];
+    taken[x] = --len in taken ? taken[len] : len;
+  }
+
+  return result;
+};

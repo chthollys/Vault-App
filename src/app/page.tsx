@@ -1,11 +1,12 @@
-import PageContent from "./page-content";
+import GameGridsSection from "./components/GameGridsSection";
+import FeaturedGames from "./components/FeaturedGames";
+import Hydration from "./hydration";
 
 export default function Home() {
   return (
-    <>
-      <div className="min-w-0">
-        <PageContent />
-      </div>
-    </>
+    <Hydration>
+      <FeaturedGames />
+      <GameGridsSection />
+    </Hydration>
   );
 }

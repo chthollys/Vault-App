@@ -18,7 +18,7 @@ export default function RootLayout({
           <main id="main-content" className="main-content">
             <div className="content-layout">
               <NavAsideBar />
-              {children}
+              <div className="min-w-0">{children}</div>
             </div>
           </main>
           <Footer />
