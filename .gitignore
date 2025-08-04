@@ -42,5 +42,6 @@ next-env.d.ts
 
 # folder files for dev only
 prisma/generated
+prisma/seed.ts
 .csv/
 .sql/

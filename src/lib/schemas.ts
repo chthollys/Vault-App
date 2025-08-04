@@ -1,3 +1,4 @@
+import { PassThrough } from "stream";
 import { z } from "zod";
 
 const MAX_FILE_SIZE = 5_000_000; // 5MB
@@ -18,8 +19,45 @@ export const staticImageDataSchema = z.object({
 });
 
 /**
+ * @description User and Profile Schemas
+ */
+
+export const createUserSchema = z.object({
+  email: z.email(),
+  username: z
+    .string()
+    .min(3, { error: "Username must include 3 or more character" }),
+  password: z.string(),
+});
+
+export const createUserArraySchema = z.array(createUserSchema);
+
+export const userSchema = createUserSchema.extend({
+  id: z.cuid(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
+export const createProfileSchema = z.object({
+  userId: z.cuid(),
+  firstName: z.string().optional(),
+  lastName: z.string().optional(),
+  bio: z.string().optional(),
+  avatarUrl: z.url().optional(),
+  country: z.string().optional(),
+  dateOfBirth: z.date().optional(),
+});
+
+export const createProfileArraySchema = z.array(createProfileSchema);
+
+export const profileSchema = createProfileSchema.extend({
+  id: z.cuid(),
+});
+
+/**
  * @description Game Schemas
  */
+
 const baseGameSchema = z.object({
   title: z
     .string({ error: "Title is required" })
@@ -63,20 +101,34 @@ export const gameSchema = createGameSchema.extend({
 /**
  * @description Genre Schemas
  */
+
 const baseGenreSchema = z.object({
   name: z.string().min(1, "Genre name is required"),
 });
 
 export const genreFormSchema = baseGenreSchema.extend({
-  parent: z.string().optional(),
+  parent: z.string().optional().nullable(),
 });
 
 export const createGenreSchema = baseGenreSchema.extend({
-  parentId: z.cuid().optional(),
+  parentId: z.cuid().optional().nullable(),
 });
 
 export const createGenreArraySchema = z.array(createGenreSchema);
 
 export const genreSchema = createGenreSchema.extend({
+  id: z.cuid(),
+});
+
+export const createReviewSchema = z.object({
+  rating: z.number().nonnegative({ error: "Invalid rating." }),
+  comment: z.string().min(1, "Comment is required."),
+  userId: z.cuid(),
+  gameId: z.cuid(),
+});
+
+export const createReviewArraySchema = z.array(createReviewSchema);
+
+export const reviewSchema = createReviewSchema.extend({
   id: z.cuid(),
 });
