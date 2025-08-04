@@ -23,7 +23,7 @@ export default function RecentReview() {
         </p>
         <button
           type="button"
-          className="text-primary hover:text-primary-light text-[0.8rem] font-semibold no-underline underline transition-(--transition-fast)"
+          className="text-primary hover:text-primary-light text-[0.8rem] font-semibold underline transition-(--transition-fast)"
         >
           View All Reviews
         </button>
