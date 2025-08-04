@@ -343,64 +343,7 @@
   margin-bottom: var(--space-md);
 }
 
-/* Right Section: Game Info + Description + Rating + Recent Reviews */
-.detail-right-section {
-  display: flex;
-  flex-direction: column;
-}
-
-.detail-right-section .detail-purchase-card {
-  padding: 2rem;
-  height: fit-content;
-}
-
-/* Game Info Section - Now in right side */
-.detail-game-info {
-  margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  order: 1;
-}
-
-.detail-title {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  margin: 0 0 0.75rem 0;
-  line-height: 1.2;
-}
-
-.detail-developer {
-  color: var(--text-muted);
-  font-size: 1.2rem;
-  margin: 0 0 0.5rem 0;
-  font-weight: 500;
-}
-
-.detail-category {
-  color: var(--primary);
-  font-size: 0.9rem;
-  margin: 0;
-  font-weight: 600;
-  background: rgba(139, 92, 246, 0.15);
-  border: 1px solid rgba(139, 92, 246, 0.3);
-  border-radius: 20px;
-  padding: 0.4rem 1rem;
-  display: inline-block;
-  width: fit-content;
-}
-
-.detail-purchase-card {
-  padding: 2rem;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Description Section - Second in right side */
+/* Right Section: Game Info + Description Section - Second in right side */
 .detail-description {
   padding: 0 0 1rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);

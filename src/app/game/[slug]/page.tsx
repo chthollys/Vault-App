@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import TitleSection from "./components/TitleSection";
-import GameInfoSection from "./components/GameDetailSection";
+import GameInfoSection from "./components/GameInfoSection";
 import GameReviewSection from "./components/GameReviewSection";
 import { GamePageProps } from "@/lib/types/props";
 import { getGame } from "@/app/actions";
@@ -17,7 +17,7 @@ export default async function GamePage({ params }: GamePageProps) {
     <>
       <div className="min-w-0">
         <TitleSection title={game.title} />
-        <GameInfoSection />
+        <GameInfoSection game={game} />
         <GameReviewSection />
       </div>
     </>
