@@ -15,3 +15,14 @@ export async function getGame(id: string) {
   });
   return response;
 }
+export async function getGenreByGameId(gameId: string) {
+  const response = await db.gameGenre.findMany({
+    where: {
+      gameId,
+    },
+    select: {
+      genre: true,
+    },
+  });
+  return response;
+}
