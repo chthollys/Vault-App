@@ -1,4 +1,9 @@
 @import "tailwindcss";
+@plugin './hero.ts';
+
+/* Note: You may need to change the path to fit your project structure */
+@source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
+@custom-variant dark (&:is(.dark *));
 
 :root {
   /* Core Colors */
@@ -82,6 +87,7 @@
   --color-glass: rgba(255, 255, 255, 0.05);
   --color-glass-hover: rgba(255, 255, 255, 0.08);
   --color-glass-active: rgba(255, 255, 255, 0.12);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
 
   /* Glass Effects */
   --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
