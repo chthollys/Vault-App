@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ImageOptimized";
 import HeartButtonSVG from "@/UI/icons/HeartButtonSVG";
 import GameCoverWrapper from "../Wrapper/GameCoverWrapper";
 import defaultImg from "~/assets/images/gameDefault.png";
@@ -11,10 +11,9 @@ export default function GameCardCover({
   return (
     <GameCoverWrapper>
       <Image
-        className="h-full w-full object-cover transition-(--transition-normal) group-hover/game-card:scale-105"
         src={game.coverImageUrl || defaultImg}
         alt={"GAME ALT"}
-        fill
+        className="h-full w-full object-cover transition-(--transition-normal) group-hover/game-card:scale-105"
         loading="lazy"
       />
       <HeartButtonSVG

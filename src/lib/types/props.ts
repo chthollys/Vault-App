@@ -32,6 +32,7 @@ export type ButtonElementProps = React.ComponentPropsWithoutRef<"button">;
 export type ParagraphElementProps = React.ComponentPropsWithoutRef<"p">;
 export type SpanElementProps = React.ComponentPropsWithoutRef<"span">;
 export type AnchorElementProps = React.ComponentPropsWithoutRef<"a">;
+export type ImageElementProps = React.ComponentPropsWithoutRef<"img">;
 
 export interface ErrorCaughtProps {
   error: Error & { digest?: string };
@@ -50,6 +51,11 @@ export interface LinkListProps extends ChildrenProp {
 
 export interface LinkItemProps extends AnchorElementProps {
   listClass?: string | undefined;
+  href: string;
+}
+
+export interface ImageCarouselItemProps extends ChildrenProp {
+  image: StaticImageData | string;
   href: string;
 }
 

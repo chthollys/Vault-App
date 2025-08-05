@@ -1,13 +1,8 @@
-import Image, { StaticImageData } from "next/image";
+import Image from "@/components/ImageOptimized";
 import Link from "next/link";
-import { ChildrenProp } from "@/lib/types/props";
+import { ImageCarouselItemProps } from "@/lib/types/props";
 import { useCarouselContext } from "./ImageCarousel";
 import { useMemo } from "react";
-
-export interface ImageCarouselItemProps extends ChildrenProp {
-  image: StaticImageData | string;
-  href: string;
-}
 
 export default function ImageCarouselItem({
   image,
@@ -27,10 +22,9 @@ export default function ImageCarouselItem({
           <Image
             src={image}
             alt={"Carousel Image"}
-            fill
             priority
             draggable={false}
-            className="object-cover"
+            className="h-full w-full object-cover"
           />
           {children}
         </div>
