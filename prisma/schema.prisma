@@ -81,7 +81,7 @@ model Screenshot {
 
 model Review {
   id        String   @id @default(cuid())
-  rating    Decimal
+  rating    Float
   comment   String?
   createdAt DateTime @default(now())
   userId    String
