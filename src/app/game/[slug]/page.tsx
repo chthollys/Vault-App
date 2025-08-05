@@ -3,11 +3,12 @@ import TitleSection from "./components/TitleSection";
 import GameInfoSection from "./components/GameInfoSection";
 import GameReviewSection from "./components/GameReviewSection";
 import { GamePageProps } from "@/lib/types/props";
-import { getGame } from "@/app/actions";
+import { getGame, getReviewByGameId } from "@/app/actions";
 
 export default async function GamePage({ params }: GamePageProps) {
   const { slug } = await params;
   const game = await getGame(slug);
+  const reviews = await getReviewByGameId(slug);
 
   if (!game) {
     notFound();
@@ -15,10 +16,10 @@ export default async function GamePage({ params }: GamePageProps) {
 
   return (
     <>
-      <div className="min-w-0">
+      <div className="min-w-[560px]">
         <TitleSection title={game.title} />
         <GameInfoSection game={game} />
-        <GameReviewSection />
+        <GameReviewSection reviews={reviews} />
       </div>
     </>
   );

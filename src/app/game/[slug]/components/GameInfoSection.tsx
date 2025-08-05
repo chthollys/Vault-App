@@ -8,7 +8,7 @@ export interface GameInfoSectionProps {
 
 export default function GameInfoSection({ game }: GameInfoSectionProps) {
   return (
-    <div className="mb-2xl mb-8 grid w-full grid-cols-[1fr_1.2fr] items-start gap-12">
+    <div className="mb-2xl mb-8 grid w-full items-start gap-12 lg:grid-cols-[1fr_1.2fr]">
       {/* LEFT SIDE: GAME COVER + PRICE + BUTTONS */}
       <GameInfoLeftSection game={game} />
 

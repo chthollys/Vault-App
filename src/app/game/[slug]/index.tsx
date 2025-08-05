@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ImageOptimized";
 import gameImg from "~/assets/images/eldenRing.png";
 import UserActions from "./components/UserActions";
 import classes from "./page.module.css";

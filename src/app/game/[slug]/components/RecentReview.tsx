@@ -1,6 +1,11 @@
 import { RatingStar } from "@/components/Typography";
+import { Review } from "@/lib/types/data";
 
-export default function RecentReview() {
+export interface RecentReviewProps {
+  review: Review | undefined;
+}
+
+export default async function RecentReview({ review }: RecentReviewProps) {
   return (
     <div className="px-0 pt-4 pb-0">
       <h4 className="mb-3 text-[1.2rem] font-semibold text-white/90">

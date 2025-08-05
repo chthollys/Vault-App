@@ -121,8 +121,8 @@ export const genreSchema = createGenreSchema.extend({
 });
 
 export const createReviewSchema = z.object({
-  rating: z.number().nonnegative({ error: "Invalid rating." }),
-  comment: z.string().min(1, "Comment is required."),
+  rating: z.number(),
+  comment: z.string().optional().nullable(),
   userId: z.cuid(),
   gameId: z.cuid(),
 });
@@ -131,4 +131,5 @@ export const createReviewArraySchema = z.array(createReviewSchema);
 
 export const reviewSchema = createReviewSchema.extend({
   id: z.cuid(),
+  createdAt: z.date(),
 });
