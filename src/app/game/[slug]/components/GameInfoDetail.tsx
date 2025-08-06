@@ -1,4 +1,4 @@
-import { Genre } from "@/lib/types/data";
+import type { Genre } from "@/lib/types/data";
 
 export interface GameInfoDetailProps {
   name: string;

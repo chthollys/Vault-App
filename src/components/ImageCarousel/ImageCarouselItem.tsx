@@ -1,6 +1,6 @@
 import Image from "@/components/ImageOptimized";
 import Link from "next/link";
-import { ImageCarouselItemProps } from "@/lib/types/props";
+import type { ImageCarouselItemProps } from "@/lib/types/props";
 import { useCarouselContext } from "./ImageCarousel";
 import { useMemo } from "react";
 

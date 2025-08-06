@@ -1,5 +1,5 @@
 import { twMerge } from "tailwind-merge";
-import { WrapperProps } from "@/lib/types/props";
+import type { WrapperProps } from "@/lib/types/props";
 import { ElementType } from "react";
 
 export default function Wrapper<T extends ElementType = "div">({

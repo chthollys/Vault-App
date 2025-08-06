@@ -3,7 +3,7 @@ import GameCardWrapper from "@/components/Wrapper/GameCardWrapper";
 import GameCoverWrapper from "@/components/Wrapper/GameCoverWrapper";
 import DetailPriceSection from "./DetailPriceSection";
 import UserActions from "./UserActions";
-import { Game } from "@/lib/types/data";
+import type { Game } from "@/lib/types/data";
 
 export interface GameInfoLeftSection {
   game: Game;

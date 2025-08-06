@@ -1,4 +1,4 @@
-import { GamesGridProps } from "@/lib/types/props";
+import type { GamesGridProps } from "@/lib/types/props";
 import GameCard from "./GameCard";
 
 export default function GamesGrid({ games, title }: GamesGridProps) {

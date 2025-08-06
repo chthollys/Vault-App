@@ -1,5 +1,5 @@
 import { SectionTitle } from "@/components/Typography";
-import { Review } from "@/lib/types/data";
+import type { Review } from "@/lib/types/data";
 import ReviewItem from "./ReviewItem";
 
 export interface GameReviewSectionProps {
@@ -9,7 +9,10 @@ export interface GameReviewSectionProps {
 export default function GameReviewSection({ reviews }: GameReviewSectionProps) {
   return (
     <>
-      <section className="flex flex-col gap-6 my-12" aria-labelledby="reviews-title" >
+      <section
+        className="my-12 flex flex-col gap-6"
+        aria-labelledby="reviews-title"
+      >
         <div className="bg-glass backdrop-blur-glass border-glass-border shadow-glass flex items-center justify-between rounded-md border-[1px] border-solid p-6">
           <SectionTitle>User Review</SectionTitle>
           <span className="text-base font-medium text-white/50">

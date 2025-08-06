@@ -1,4 +1,4 @@
-import { HeartButtonSVGProps } from "@/lib/types/props";
+import type { HeartButtonSVGProps } from "@/lib/types/props";
 import Wrapper from "@/components/Wrapper/base/Wrapper";
 
 export default function HeartButtonSVG({

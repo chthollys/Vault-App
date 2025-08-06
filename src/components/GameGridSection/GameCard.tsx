@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GameCardProps } from "@/lib/types/props";
+import type { GameCardProps } from "@/lib/types/props";
 import GameCardWrapper from "../Wrapper/GameCardWrapper";
 import GameCardCover from "./GameCardCover";
 import GameCardInfo from "./GameCardInfo";

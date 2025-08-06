@@ -1,4 +1,4 @@
-import { GameSectionProps } from "@/lib/types/props";
+import type { GameSectionProps } from "@/lib/types/props";
 import GameSectionHeader from "./GameSectionHeader";
 import GamesGrid from "./GamesGrid";
 

@@ -1,4 +1,4 @@
-import { LinkListProps } from "@/lib/types/props";
+import type { LinkListProps } from "@/lib/types/props";
 import LinkList from "@/UI/LinkSection/LinkList";
 
 export default function AsideBarLinks({ children }: LinkListProps) {

@@ -2,7 +2,7 @@ import Image from "@/components/ImageOptimized";
 import HeartButtonSVG from "@/UI/icons/HeartButtonSVG";
 import GameCoverWrapper from "../Wrapper/GameCoverWrapper";
 import defaultImg from "~/assets/images/gameDefault.png";
-import { GameCardCoverProps } from "@/lib/types/props";
+import type { GameCardCoverProps } from "@/lib/types/props";
 
 export default function GameCardCover({
   game,

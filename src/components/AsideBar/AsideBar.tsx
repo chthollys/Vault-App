@@ -1,4 +1,4 @@
-import { ChildrenProp } from "@/lib/types/props";
+import type { ChildrenProp } from "@/lib/types/props";
 
 import AsideBarSection from "./AsideBarSection";
 import AsideBarLinks from "./AsideBarLinks";

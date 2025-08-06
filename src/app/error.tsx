@@ -1,6 +1,6 @@
 "use client";
 
-import { ErrorCaughtProps } from "@/lib/types/props";
+import type { ErrorCaughtProps } from "@/lib/types/props";
 
 export default function ErrorCaught({ error, reset }: ErrorCaughtProps) {
   return (

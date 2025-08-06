@@ -1,4 +1,4 @@
-import { LinkSectionProps } from "@/lib/types/props";
+import type { LinkSectionProps } from "@/lib/types/props";
 import LinkItem from "./LinkItem";
 import LinkList from "./LinkList";
 

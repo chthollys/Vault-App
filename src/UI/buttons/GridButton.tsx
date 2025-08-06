@@ -1,4 +1,4 @@
-import { ButtonElementProps } from "@/lib/types/props";
+import type { ButtonElementProps } from "@/lib/types/props";
 
 export default function GridButton({ children, ...props }: ButtonElementProps) {
   return (

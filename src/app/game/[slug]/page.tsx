@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import TitleSection from "./components/TitleSection";
 import GameInfoSection from "./components/GameInfoSection";
 import GameReviewSection from "./components/GameReviewSection";
-import { GamePageProps } from "@/lib/types/props";
+import type { GamePageProps } from "@/lib/types/props";
 import { getGame, getReviewByGameId } from "@/app/actions";
 
 export default async function GamePage({ params }: GamePageProps) {

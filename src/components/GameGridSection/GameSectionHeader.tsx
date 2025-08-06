@@ -1,7 +1,7 @@
 import Link from "next/link";
 import SectionHeaderWrapper from "../Wrapper/SectionHeaderWrapper";
 import GridButton from "@/UI/buttons/GridButton";
-import { GameSectionHeaderProps } from "@/lib/types/props";
+import type { GameSectionHeaderProps } from "@/lib/types/props";
 
 export default function GameSectionHeader({
   title,
