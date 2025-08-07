@@ -2,14 +2,30 @@
 
 import db from "~/prisma/db";
 import bcrypt from "bcrypt";
-import { CreateReviewData, CreateUserData, User } from "@/lib/types/data";
+import { CreateReviewData, CreateUserData } from "@/lib/types/data";
 
 export async function getUsers() {
   return await db.user.findMany({});
 }
 
-export async function getGames() {
-  return await db.game.findMany({});
+export async function getGames(categoryIds?: string[] | null) {
+  console.log(categoryIds);
+  return await db.game.findMany({
+    where:
+      categoryIds && categoryIds.length > 0
+        ? {
+            genres: {
+              some: {
+                genre: {
+                  id: {
+                    in: categoryIds,
+                  },
+                },
+              },
+            },
+          }
+        : {},
+  });
 }
 
 export async function getGame(id: string) {

@@ -7,7 +7,7 @@ export default async function Hydration({ children }: ChildrenProp) {
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["games"],
-    queryFn: getGames,
+    queryFn: () => getGames(),
   });
 
   return (
