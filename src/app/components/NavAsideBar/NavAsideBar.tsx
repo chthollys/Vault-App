@@ -110,7 +110,7 @@ export const navLinks = [
   },
 ];
 
-export default function InnerNavAsideBar() {
+export default function NavAsideBar() {
   const path = usePathname();
 
   return (
