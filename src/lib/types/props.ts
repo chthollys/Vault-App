@@ -73,7 +73,7 @@ export interface GameSectionHeaderProps {
 }
 
 export interface GamesGridProps {
-  title: string;
+  title?: string;
   games: Game[];
 }
 
