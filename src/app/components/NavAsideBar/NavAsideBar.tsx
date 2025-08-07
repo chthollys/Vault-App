@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import QuickAction from "./QuickAction";
 import GenreNav from "./GenresNav";
 import GenresCheckbox from "./GenresCheckbox";
+import { Suspense } from "react";
+import LoadingSpinner from "@/UI/Spinner/LoadingSpinner";
 
 export const navLinks = [
   {
@@ -116,7 +118,11 @@ export default function InnerNavAsideBar() {
       {(path.startsWith("/game/") || path.startsWith("/games/all")) && (
         <QuickAction />
       )}
-      {path.startsWith("/games/all") && <GenresCheckbox />}
+      {path.startsWith("/games/all") && (
+        <Suspense fallback={<LoadingSpinner />}>
+          <GenresCheckbox />
+        </Suspense>
+      )}
       {(path === "/" || path.startsWith("/game/")) && <GenreNav />}
     </AsideBar>
   );
