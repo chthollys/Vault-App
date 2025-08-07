@@ -1,29 +1,36 @@
 import { SectionTitle } from "@/components/Typography";
-import type { Review } from "@/lib/types/data";
 import ReviewItem from "./ReviewItem";
+import { getReviewByGameId } from "@/app/actions";
+import { Suspense } from "react";
+import LoadingSpinner from "@/UI/Spinner/LoadingSpinner";
 
 export interface GameReviewSectionProps {
-  reviews: Review[];
+  gameId: string;
 }
 
-export default function GameReviewSection({ reviews }: GameReviewSectionProps) {
+export default async function GameReviewSection({
+  gameId,
+}: GameReviewSectionProps) {
+  const reviews = await getReviewByGameId(gameId);
   return (
     <>
       <section
         className="my-12 flex flex-col gap-6"
         aria-labelledby="reviews-title"
       >
-        <div className="bg-glass backdrop-blur-glass border-glass-border shadow-glass flex items-center justify-between rounded-md border-[1px] border-solid p-6">
-          <SectionTitle>User Review</SectionTitle>
-          <span className="text-base font-medium text-white/50">
-            {reviews.length} reviews
-          </span>
-        </div>
-        <div className="flex flex-col gap-6">
-          {reviews.map((review) => (
-            <ReviewItem key={review.id} review={review} />
-          ))}
-        </div>
+        <Suspense fallback={<LoadingSpinner />}>
+          <div className="bg-glass backdrop-blur-glass border-glass-border shadow-glass flex items-center justify-between rounded-md border-[1px] border-solid p-6">
+            <SectionTitle>User Review</SectionTitle>
+            <span className="text-base font-medium text-white/50">
+              {reviews.length} reviews
+            </span>
+          </div>
+          <div className="flex flex-col gap-6">
+            {reviews.map((review) => (
+              <ReviewItem key={review.id} review={review} />
+            ))}
+          </div>
+        </Suspense>
       </section>
 
       {/**
