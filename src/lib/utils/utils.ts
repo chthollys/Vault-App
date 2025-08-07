@@ -74,3 +74,11 @@ export const getRandomSubArray = <T>(arr: T[], n: number): T[] => {
 
   return result;
 };
+
+export const getValuesByParams = (
+  params: URLSearchParams,
+  keyname: string
+): string[] | null => {
+  const result = params.getAll(keyname);
+  return result.length > 0 ? result : null;
+};
