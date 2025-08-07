@@ -3,6 +3,7 @@ import type { ChildrenProp } from "@/lib/types/props";
 import AsideBarSection from "./AsideBarSection";
 import AsideBarLinks from "./AsideBarLinks";
 import AsideBarLink from "./AsideBarLink";
+import AsideBarCheckbox from "./AsideBarCheckbox";
 
 export default function AsideBar({ children }: ChildrenProp) {
   return (
@@ -15,3 +16,4 @@ export default function AsideBar({ children }: ChildrenProp) {
 AsideBar.Section = AsideBarSection;
 AsideBar.Links = AsideBarLinks;
 AsideBar.Link = AsideBarLink;
+AsideBar.Checkbox = AsideBarCheckbox;

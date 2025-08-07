@@ -3,7 +3,7 @@
 import AsideBar from "@/components/AsideBar/AsideBar";
 import { navLinks } from "./NavAsideBar";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export default function GenresCheckbox() {
   const router = useRouter();
@@ -17,31 +17,35 @@ export default function GenresCheckbox() {
   };
 
   useEffect(() => {
-    const categoriesFromUrl = searchParams.get("category");
+    const categoriesFromUrl = searchParams.getAll("category");
     if (categoriesFromUrl) {
-      setSelectedCategories(categoriesFromUrl.split(","));
+      setSelectedCategories(categoriesFromUrl);
     } else {
       setSelectedCategories([]);
     }
   }, [searchParams]);
 
-  const handleCheckboxChange = (categoryValue: string) => {
-    const newSelected = selectedCategories.includes(categoryValue)
-      ? selectedCategories.filter((c) => c !== categoryValue)
-      : [...selectedCategories, categoryValue];
+  const handleCheckboxChange = useCallback(
+    (categoryValue: string) => {
+      const newSelected = selectedCategories.includes(categoryValue)
+        ? selectedCategories.filter((c) => c !== categoryValue)
+        : [...selectedCategories, categoryValue];
 
-    console.log(newSelected);
-    setSelectedCategories(newSelected);
+      setSelectedCategories(newSelected);
 
-    const params = new URLSearchParams(searchParams);
-    if (newSelected.length > 0) {
-      params.set("category", newSelected.join(","));
-    } else {
+      const params = new URLSearchParams(searchParams);
       params.delete("category");
-    }
 
-    router.push(`${pathname}?${params.toString()}`);
-  };
+      if (newSelected.length > 0) {
+        newSelected.forEach((category) => {
+          params.append("category", category);
+        });
+      }
+
+      router.push(`${pathname}?${params.toString()}`);
+    },
+    [pathname, router, searchParams, selectedCategories]
+  );
 
   return (
     <AsideBar.Section label="Filter by Category">

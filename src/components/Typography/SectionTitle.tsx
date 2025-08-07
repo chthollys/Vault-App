@@ -1,9 +1,19 @@
-import type { ChildrenProp } from "@/lib/types/props";
+import type { WrapperProps } from "@/lib/types/props";
+import Wrapper from "../Wrapper/base/Wrapper";
 
-export default function SectionTitle({ children }: ChildrenProp) {
+export default function SectionTitle({
+  className,
+  children,
+  ...props
+}: WrapperProps<"h1">) {
   return (
-    <h1 className="m-0 text-[1.8rem] font-bold text-(--text-primary)">
+    <Wrapper
+      as="h1"
+      className="m-0 text-[1.8rem] font-bold text-(--text-primary)"
+      nextClass={className}
+      {...props}
+    >
       {children}
-    </h1>
+    </Wrapper>
   );
 }

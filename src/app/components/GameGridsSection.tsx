@@ -3,6 +3,7 @@
 import GameGridSection from "@/components/GameGridSection/GameGridSection";
 import { useGames } from "../hooks/useGames";
 import { getRandomSubArray } from "@/lib/utils/utils";
+import { useMemo } from "react";
 
 export default function GameGridsSection() {
   const { data, isError, error } = useGames();
@@ -11,8 +12,8 @@ export default function GameGridsSection() {
     throw error;
   }
 
-  const recommendedGames = getRandomSubArray(data, 5);
-  const hotGames = getRandomSubArray(data, 5);
+  const recommendedGames = useMemo(() => getRandomSubArray(data, 5), [data]);
+  const hotGames = useMemo(() => getRandomSubArray(data, 5), [data]);
 
   return (
     <div>

@@ -1,8 +1,13 @@
 import type { GamesGridProps } from "@/lib/types/props";
 import GameCard from "./GameCard";
 import Wrapper from "../Wrapper/base/Wrapper";
+import { memo } from "react";
 
-export default function GamesGrid({ games, title }: GamesGridProps) {
+const GamesGrid = memo(function GamesGrid({ games, title }: GamesGridProps) {
+  if (!games) {
+    return <p>Failed to fetch games</p>;
+  }
+
   return (
     <Wrapper
       as="div"
@@ -15,4 +20,6 @@ export default function GamesGrid({ games, title }: GamesGridProps) {
       ))}
     </Wrapper>
   );
-}
+});
+
+export default GamesGrid;
