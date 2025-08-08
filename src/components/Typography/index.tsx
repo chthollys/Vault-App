@@ -6,6 +6,8 @@ import FeaturedTitle from "./FeaturedTitle";
 import GameDeveloper from "./GameDeveloper";
 import PurpleBadge from "./PurpleBadge";
 import FeaturedPriceSpan from "./FeaturedPriceSpan";
+import DiscountBadge from "./DiscountBadge";
+import BeforePrice from "./BeforePrice";
 
 export {
   GamePrice,
@@ -16,4 +18,6 @@ export {
   GameDeveloper,
   PurpleBadge,
   FeaturedPriceSpan,
+  DiscountBadge,
+  BeforePrice,
 };
