@@ -99,6 +99,11 @@ export interface GameCardInfoProps {
   isInCart: boolean;
 }
 
+export interface PriceSectionProps {
+  price: number;
+  afterPrice?: number | null;
+}
+
 export interface HeartButtonSVGProps extends ButtonElementProps {
   isActive?: boolean;
   onClick: () => void;

@@ -82,3 +82,11 @@ export const getValuesByParams = (
   const result = params.getAll(keyname);
   return result.length > 0 ? result : null;
 };
+
+export const getPercentageRatio = (
+  from: number,
+  to: number,
+  roundedTo?: number
+) => {
+  return (((from - to) / from) * 100).toFixed(roundedTo ?? 0);
+};

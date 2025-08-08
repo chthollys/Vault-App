@@ -65,6 +65,7 @@ const baseGameSchema = z.object({
     .string({ error: "Description is required" })
     .min(10, "Description must be at least 10 character long"),
   price: z.number({ error: "Invalid price" }),
+  discountedPrice: z.number().nullable(),
   releaseDate: z.coerce.date({ error: "Valid release date is required" }),
   developer: z.string().min(1, "Developer name is required"),
   publisher: z.string().min(1, "Publisher name is required"),
