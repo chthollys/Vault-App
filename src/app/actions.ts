@@ -9,7 +9,6 @@ export async function getUsers() {
 }
 
 export async function getGames(categoryIds?: string[] | null) {
-  console.log(categoryIds);
   return await db.game.findMany({
     where:
       categoryIds && categoryIds.length > 0
