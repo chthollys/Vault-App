@@ -1,18 +1,14 @@
 import GameCardInfoWrapper from "@/components/Wrapper/GameCardInfoWrapper";
-import { GamePrice, GameTitle, GameDeveloper } from "@/components/Typography";
+import { GameTitle, GameDeveloper } from "@/components/Typography";
 import GameCardRating from "./GameCardRating";
 import { PurpleButton } from "@/UI/buttons";
 import type { GameCardInfoProps } from "@/lib/types/props";
-import { formatToUSD } from "@/lib/utils/utils";
+import PriceSection from "./PriceSection";
 
 export default function GameCardInfo({ game, isInCart }: GameCardInfoProps) {
-  let price = "INVALID PRICE";
-  if (game && game.price) {
-    price = formatToUSD(game?.price);
-  }
   return (
     <GameCardInfoWrapper>
-      <GamePrice className="mb-3">{price}</GamePrice>
+      <PriceSection price={game.price} afterPrice={game.discountedPrice} />
       <GameTitle>{game?.title}</GameTitle>
       <GameDeveloper>{game?.developer}</GameDeveloper>
       <GameCardRating rating={game?.rating} />
