@@ -1,6 +1,6 @@
 "use client";
 
-import GameGridSection from "@/components/GameGridSection/GameGridSection";
+import { GameSection } from "@/components/GameSection";
 import { useGames } from "../hooks/useGames";
 import { getRandomSubArray } from "@/lib/utils/utils";
 import { useMemo } from "react";
@@ -17,8 +17,8 @@ export default function GameGridsSection() {
 
   return (
     <div>
-      <GameGridSection games={hotGames} title="Hot Games" href="/games/hot" />
-      <GameGridSection
+      <GameSection games={hotGames} title="Hot Games" href="/games/hot" />
+      <GameSection
         games={recommendedGames}
         title="Recommended Games"
         href="/games/recommended"

@@ -1,4 +1,4 @@
-import Wrapper from "./base/Wrapper";
+import { Wrapper } from "@/components/Wrapper/base";
 import type { DivElementProps } from "@/lib/types/props";
 
 export default function SectionHeaderWrapper({

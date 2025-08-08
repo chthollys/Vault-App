@@ -1,5 +1,5 @@
 import type { DivElementProps } from "@/lib/types/props";
-import Wrapper from "./base/Wrapper";
+import { Wrapper } from "./base";
 
 export default function GameCardInfoWrapper({
   className,

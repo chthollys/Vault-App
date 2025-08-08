@@ -1,4 +1,4 @@
-import AsideBar from "@/components/AsideBar/AsideBar";
+import { AsideBar } from "@/components/AsideBar";
 
 export default function QuickAction() {
   return (

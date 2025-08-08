@@ -1,6 +1,6 @@
 import type { GamesGridProps } from "@/lib/types/props";
 import GameCard from "./GameCard";
-import Wrapper from "../Wrapper/base/Wrapper";
+import { Wrapper } from "@/components/Wrapper/base";
 import { memo } from "react";
 
 const GamesGrid = memo(function GamesGrid({ games, title }: GamesGridProps) {

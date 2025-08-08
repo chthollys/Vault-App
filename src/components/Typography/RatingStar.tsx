@@ -2,7 +2,7 @@
 
 import { formatStarRating } from "@/lib/utils/utils";
 import { useMemo } from "react";
-import Wrapper from "@/components/Wrapper/base/Wrapper";
+import { Wrapper } from "@/components/Wrapper/base";
 import type { SpanElementProps } from "@/lib/types/props";
 
 export interface RatingStarProps extends SpanElementProps {

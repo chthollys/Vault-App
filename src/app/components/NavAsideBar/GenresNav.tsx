@@ -1,4 +1,4 @@
-import AsideBar from "@/components/AsideBar/AsideBar";
+import { AsideBar } from "@/components/AsideBar";
 import { navLinks } from "./NavAsideBar";
 
 export default function GenreNav() {

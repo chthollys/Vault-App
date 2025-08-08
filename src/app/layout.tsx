@@ -1,6 +1,6 @@
 import Provider from "./provider";
-import MainHeader from "@/components/MainHeader/MainHeader";
-import Footer from "@/components/Footer/Footer";
+import { MainHeader } from "@/components/MainHeader";
+import { Footer } from "@/components/Footer";
 import "./globals.css";
 import NavAsideBar from "./components/NavAsideBar/NavAsideBar";
 import ScrollToTop from "@/lib/utils/scroll-to-top";

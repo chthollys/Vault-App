@@ -1,6 +1,6 @@
 "use client";
 
-import ImageCarousel from "@/components/ImageCarousel/ImageCarousel";
+import { ImageCarousel } from "@/components/ImageCarousel";
 import { useGames } from "../hooks/useGames";
 import { formatToUSD } from "@/lib/utils/utils";
 

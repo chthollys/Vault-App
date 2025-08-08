@@ -1,5 +1,5 @@
 import type { SpanElementProps } from "@/lib/types/props";
-import Wrapper from "../Wrapper/base/Wrapper";
+import { Wrapper } from "@/components/Wrapper/base";
 
 export default function GamePrice({
   className,

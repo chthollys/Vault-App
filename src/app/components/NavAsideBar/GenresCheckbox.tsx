@@ -1,6 +1,6 @@
 "use client";
 
-import AsideBar from "@/components/AsideBar/AsideBar";
+import { AsideBar } from "@/components/AsideBar";
 import { navLinks } from "./NavAsideBar";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";

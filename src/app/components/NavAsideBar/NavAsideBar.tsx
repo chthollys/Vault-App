@@ -1,6 +1,6 @@
 "use client";
 
-import AsideBar from "@/components/AsideBar/AsideBar";
+import { AsideBar } from "@/components/AsideBar";
 import { usePathname } from "next/navigation";
 import QuickAction from "./QuickAction";
 import GenreNav from "./GenresNav";

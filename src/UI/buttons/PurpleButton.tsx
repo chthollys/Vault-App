@@ -1,4 +1,4 @@
-import Wrapper from "@/components/Wrapper/base/Wrapper";
+import { Wrapper } from "@/components/Wrapper/base";
 import type { ButtonElementProps } from "@/lib/types/props";
 
 export default function PurpleButton({
