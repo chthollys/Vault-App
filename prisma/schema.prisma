@@ -28,29 +28,30 @@ model Profile {
   firstName   String?
   lastName    String?
   bio         String?
-  avatarUrl   String?   @default("https://vault-app-bucket.s3.ap-southeast-2.amazonaws.com/default-cover/USER_DEFAULT_AVATAR.webp")
+  avatarUrl   String?   @default("https://vault-app-bucket.s3.ap-southeast-2.amazonaws.com/default-cover/user-default.jpg")
   country     String?
   dateOfBirth DateTime?
   user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Game {
-  id            String       @id @default(cuid())
-  title         String       @unique
-  description   String
-  price         Float
-  releaseDate   DateTime
-  developer     String
-  publisher     String
-  coverImageUrl String
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  rating        Float        @default(0)
-  cartItems     CartItem[]
-  genres        GameGenre[]
-  orderItems    OrderItem[]
-  reviews       Review[]
-  screenshots   Screenshot[]
+  id                String       @id @default(cuid())
+  title             String       @unique
+  description       String
+  price             Float
+  discountedPrice   Float?
+  releaseDate       DateTime
+  developer         String
+  publisher         String
+  coverImageUrl     String
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  rating            Float        @default(0)
+  cartItems         CartItem[]
+  genres            GameGenre[]
+  orderItems        OrderItem[]
+  reviews           Review[]
+  screenshots       Screenshot[]
 }
 
 model Genre {
@@ -117,7 +118,7 @@ model Order {
   id          String      @id @default(cuid())
   userId      String
   totalAmount Float
-  status      String      @default("COMPLETED")
+  status      String      @default("PENDING")
   createdAt   DateTime    @default(now())
   user        User        @relation(fields: [userId], references: [id], onDelete: NoAction)
   items       OrderItem[]
