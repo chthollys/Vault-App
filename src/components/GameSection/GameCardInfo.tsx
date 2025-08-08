@@ -1,7 +1,7 @@
 import GameCardInfoWrapper from "@/components/Wrapper/GameCardInfoWrapper";
 import { GamePrice, GameTitle, GameDeveloper } from "@/components/Typography";
 import GameCardRating from "./GameCardRating";
-import PurpleButton from "@/UI/buttons/PurpleButton";
+import { PurpleButton } from "@/UI/buttons";
 import type { GameCardInfoProps } from "@/lib/types/props";
 import { formatToUSD } from "@/lib/utils/utils";
 

@@ -1,4 +1,4 @@
-import LinkSection from "@/UI/LinkSection/LinkSection";
+import { LinkSection } from "@/UI/link";
 import type { LinkSectionProps } from "@/lib/types/props";
 
 export default function AsideBarSection({ children, label }: LinkSectionProps) {

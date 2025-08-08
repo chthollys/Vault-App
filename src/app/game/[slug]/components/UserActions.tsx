@@ -1,7 +1,7 @@
 "use client";
 
-import PurpleButton from "@/UI/buttons/PurpleButton";
-import HeartButtonSVG from "@/UI/icons/HeartButtonSVG";
+import { PurpleButton } from "@/UI/buttons";
+import { HeartButtonSVG } from "@/UI/icons";
 
 export default function UserActions() {
   return (

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { SectionTitle } from "@/components/Typography";
-import PurpleButton from "@/UI/buttons/PurpleButton";
+import { PurpleButton } from "@/UI/buttons";
 
 export default function NotFound() {
   return (

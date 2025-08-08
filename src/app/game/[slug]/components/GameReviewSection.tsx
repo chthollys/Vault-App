@@ -2,7 +2,7 @@ import { SectionTitle } from "@/components/Typography";
 import ReviewItem from "./ReviewItem";
 import { getReviewByGameId } from "@/app/actions";
 import { Suspense } from "react";
-import LoadingSpinner from "@/UI/Spinner/LoadingSpinner";
+import { LoadingSpinner } from "@/UI/Spinner";
 
 export interface GameReviewSectionProps {
   gameId: string;

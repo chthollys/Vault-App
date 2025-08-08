@@ -1,5 +1,5 @@
 import { useCarouselContext } from "./ImageCarousel";
-import ArrowNavButton from "@/UI/buttons/ArrowNavButton";
+import { ArrowNavButton } from "@/UI/buttons";
 
 export default function ImageCarouselControl() {
   const { isNavVisible, previousSlide, nextSlide } = useCarouselContext();

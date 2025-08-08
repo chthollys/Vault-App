@@ -1,4 +1,4 @@
-import LinkItem from "@/UI/LinkSection/LinkItem";
+import { LinkItem } from "@/UI/link";
 import type { LinkItemProps } from "@/lib/types/props";
 
 export default function AsideBarLink({ children, href }: LinkItemProps) {

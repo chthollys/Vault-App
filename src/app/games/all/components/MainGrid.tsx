@@ -3,7 +3,7 @@
 import { useGames } from "@/app/hooks/useGames";
 import GamesGrid from "@/components/GameSection/GamesGrid";
 import { getValuesByParams } from "@/lib/utils/utils";
-import LoadingSpinner from "@/UI/Spinner/LoadingSpinner";
+import { LoadingSpinner } from "@/UI/Spinner";
 import { useSearchParams } from "next/navigation";
 
 export default function MainGrid() {

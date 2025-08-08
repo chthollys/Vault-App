@@ -6,7 +6,7 @@ import QuickAction from "./QuickAction";
 import GenreNav from "./GenresNav";
 import GenresCheckbox from "./GenresCheckbox";
 import { Suspense } from "react";
-import LoadingSpinner from "@/UI/Spinner/LoadingSpinner";
+import { LoadingSpinner } from "@/UI/Spinner";
 
 export const navLinks = [
   {

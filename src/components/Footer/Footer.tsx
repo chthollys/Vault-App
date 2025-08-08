@@ -1,8 +1,8 @@
 import Link from "next/link";
-import LinkItem from "@/UI/LinkSection/LinkItem";
+import { LinkItem } from "@/UI/link";
 import FooterBrand from "./FooterBrand";
 import FooterLinks from "./FooterLinks";
-import LinkSection from "@/UI/LinkSection/LinkSection";
+import { LinkSection } from "@/UI/link";
 
 export default function Footer() {
   return (
