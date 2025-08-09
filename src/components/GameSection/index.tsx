@@ -5,6 +5,7 @@ import GameCardRating from "./GameCardRating";
 import GamesGrid from "./GamesGrid";
 import GameSection from "./GameSection";
 import GameSectionHeader from "./GameSectionHeader";
+import PriceSection from "./PriceSection";
 
 export {
   GameCard,
@@ -14,4 +15,5 @@ export {
   GameSection,
   GameSectionHeader,
   GamesGrid,
+  PriceSection,
 };

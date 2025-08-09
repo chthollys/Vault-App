@@ -14,7 +14,9 @@ export default function PriceSection({ price, afterPrice }: PriceSectionProps) {
     const formattedAfterPrice = formatToUSD(afterPrice);
     content = (
       <>
-        <DiscountBadge>-{percentage}%</DiscountBadge>
+        <DiscountBadge className="bg-[linear-gradient(135deg,_var(--primary),_var(--primary-light))]">
+          -{percentage}%
+        </DiscountBadge>
         <BeforePrice>{formattedPrice}</BeforePrice>
         <GamePrice>{formattedAfterPrice}</GamePrice>
       </>
