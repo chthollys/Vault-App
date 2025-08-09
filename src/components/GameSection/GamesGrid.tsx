@@ -1,11 +1,27 @@
 import type { GamesGridProps } from "@/lib/types/props";
+import Link from "next/link";
 import GameCard from "./GameCard";
 import { Wrapper } from "@/components/Wrapper/base";
+import { SectionTitle } from "../Typography";
+import { PurpleButton } from "@/UI/buttons";
+import { AmoungUsRed } from "@/UI/icons";
 import { memo } from "react";
 
 const GamesGrid = memo(function GamesGrid({ games, title }: GamesGridProps) {
   if (!games) {
     return <p>Failed to fetch games</p>;
+  }
+
+  if (games.length < 1) {
+    return (
+      <div className="mx-auto flex w-fit flex-col items-center gap-4">
+        <AmoungUsRed />
+        <SectionTitle>Games not found</SectionTitle>
+        <Link href={"/games/all"} className="underline">
+          <PurpleButton className="text-xl">Back to all games</PurpleButton>
+        </Link>
+      </div>
+    );
   }
 
   return (

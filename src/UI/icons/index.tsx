@@ -1,3 +1,4 @@
 import HeartButtonSVG from "./HeartButtonSVG";
+import AmoungUsRed from "./AmongUsRed";
 
-export { HeartButtonSVG };
+export { HeartButtonSVG, AmoungUsRed };
