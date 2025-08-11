@@ -35,6 +35,16 @@ export async function getGame(id: string) {
   });
   return response;
 }
+
+export async function getGenres() {
+  return await db.genre.findMany({
+    where: { parentId: null },
+    include: {
+      subGenres: true,
+    },
+  });
+}
+
 export async function getGenreByGameId(gameId: string) {
   const response = await db.gameGenre.findMany({
     where: {
