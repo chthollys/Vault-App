@@ -2,7 +2,7 @@ import Provider from "./provider";
 import { MainHeader } from "@/components/MainHeader";
 import { Footer } from "@/components/Footer";
 import "./globals.css";
-import NavAsideBar from "./components/NavAsideBar/NavAsideBar";
+import { NavAsideBar } from "./components/NavAsideBar";
 import ScrollToTop from "@/lib/utils/scroll-to-top";
 
 export default function RootLayout({
