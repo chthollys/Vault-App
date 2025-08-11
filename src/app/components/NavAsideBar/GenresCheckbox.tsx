@@ -1,20 +1,15 @@
 "use client";
 
 import { AsideBar } from "@/components/AsideBar";
-import { navLinks } from "./NavAsideBar";
+import { GenresCheckboxProps } from "@/lib/types/props";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
 
-export default function GenresCheckbox() {
+export default function GenresCheckbox({ genres }: GenresCheckboxProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-
-  const getCategoryValue = (href: string) => {
-    return new URLSearchParams(href.split("?")[1]).get("category") || "";
-  };
 
   useEffect(() => {
     const categoriesFromUrl = searchParams.getAll("category");
@@ -50,16 +45,15 @@ export default function GenresCheckbox() {
   return (
     <AsideBar.Section label="Filter by Category">
       <AsideBar.Links>
-        {navLinks.map(({ links }) =>
-          links.map(({ text, href }) => {
-            const categoryValue = getCategoryValue(href);
+        {genres.map(({ subGenres }) =>
+          subGenres.map(({ id, name }) => {
             return (
               <AsideBar.Checkbox
-                key={text}
-                name={text}
-                label={text}
-                checked={selectedCategories.includes(categoryValue)}
-                onChange={() => handleCheckboxChange(categoryValue)}
+                key={id}
+                name={name}
+                label={name}
+                checked={selectedCategories.includes(id)}
+                onChange={() => handleCheckboxChange(id)}
               />
             );
           })

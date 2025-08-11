@@ -1,15 +1,15 @@
 import { AsideBar } from "@/components/AsideBar";
-import { navLinks } from "./NavAsideBar";
+import { GenreNavProps } from "@/lib/types/props";
 
-export default function GenreNav() {
+export default function GenreNav({ genres }: GenreNavProps) {
   return (
     <>
-      {navLinks.map(({ label, links }) => (
-        <AsideBar.Section key={label} label={label}>
+      {genres.map(({ id, name, subGenres }) => (
+        <AsideBar.Section key={id} label={name}>
           <AsideBar.Links>
-            {links.map(({ href, text }) => (
-              <AsideBar.Link key={href} href={href}>
-                {text}
+            {subGenres.map(({ id, name }) => (
+              <AsideBar.Link key={id} href={`/games/all?category=${id}`}>
+                {name}
               </AsideBar.Link>
             ))}
           </AsideBar.Links>
