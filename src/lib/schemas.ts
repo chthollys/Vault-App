@@ -107,11 +107,11 @@ const baseGenreSchema = z.object({
 });
 
 export const genreFormSchema = baseGenreSchema.extend({
-  parent: z.string().optional().nullable(),
+  parent: z.string().nullable(),
 });
 
 export const createGenreSchema = baseGenreSchema.extend({
-  parentId: z.cuid().optional().nullable(),
+  parentId: z.cuid().nullable(),
 });
 
 export const createGenreArraySchema = z.array(createGenreSchema);

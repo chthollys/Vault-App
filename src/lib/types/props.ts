@@ -1,5 +1,5 @@
 import React from "react";
-import { Game } from "./data";
+import { Game, ParentChildrenGenre } from "./data";
 import type { ComponentPropsWithoutRef, ElementType } from "react";
 import { StaticImageData } from "next/image";
 
@@ -60,6 +60,14 @@ export interface AsideCheckboxProps {
   label?: string;
   checked?: boolean;
   onChange?: () => void;
+}
+
+export interface GenreNavProps {
+  genres: ParentChildrenGenre[];
+}
+
+export interface GenresCheckboxProps {
+  genres: ParentChildrenGenre[];
 }
 
 export interface ImageCarouselItemProps extends ChildrenProp {
