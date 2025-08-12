@@ -11,8 +11,8 @@ datasource db {
 
 model User {
   id        String   @id @default(cuid())
-  email     String   @unique
-  username  String   @unique
+  email     String   @unique @db.VarChar(255)
+  username  String   @unique @db.VarChar(100)
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -20,47 +20,55 @@ model User {
   orders    Order[]
   profile   Profile?
   reviews   Review[]
+
+  @@index([createdAt], map: "idx_user_created_at")
 }
 
 model Profile {
   id          String    @id @default(cuid())
   userId      String    @unique
-  firstName   String?
-  lastName    String?
+  firstName   String?   @db.VarChar(100)
+  lastName    String?   @db.VarChar(100)
   bio         String?
   avatarUrl   String?   @default("https://vault-app-bucket.s3.ap-southeast-2.amazonaws.com/default-cover/user-default.jpg")
-  country     String?
+  country     String?   @db.VarChar(100)
   dateOfBirth DateTime?
   user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId], map: "idx_profile_userid")
 }
 
 model Game {
-  id                String       @id @default(cuid())
-  title             String       @unique
-  description       String
-  price             Float
-  discountedPrice   Float?
-  releaseDate       DateTime
-  developer         String
-  publisher         String
-  coverImageUrl     String
-  createdAt         DateTime     @default(now())
-  updatedAt         DateTime     @updatedAt
-  rating            Float        @default(0)
-  cartItems         CartItem[]
-  genres            GameGenre[]
-  orderItems        OrderItem[]
-  reviews           Review[]
-  screenshots       Screenshot[]
+  id              String       @id @default(cuid())
+  title           String       @unique @db.VarChar(255)
+  description     String
+  price           Float
+  releaseDate     DateTime
+  developer       String
+  publisher       String
+  coverImageUrl   String
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  rating          Float        @default(0)
+  discountedPrice Float?
+  cartItems       CartItem[]
+  genres          GameGenre[]
+  orderItems      OrderItem[]
+  reviews         Review[]
+  screenshots     Screenshot[]
+
+  @@index([releaseDate], map: "idx_game_releasedate")
 }
 
 model Genre {
   id        String      @id @default(cuid())
-  name      String      @unique
+  name      String      @unique @db.VarChar(100)
   parentId  String?
   games     GameGenre[]
   parent    Genre?      @relation("ParentChild", fields: [parentId], references: [id], onDelete: Cascade)
   subGenres Genre[]     @relation("ParentChild")
+
+  @@index([parentId], map: "idx_genre_parentid")
 }
 
 model GameGenre {
@@ -70,6 +78,7 @@ model GameGenre {
   genre   Genre  @relation(fields: [genreId], references: [id], onDelete: Cascade)
 
   @@id([gameId, genreId])
+  @@index([genreId], map: "idx_gamegenre_genreid")
 }
 
 model Screenshot {
@@ -78,6 +87,8 @@ model Screenshot {
   imageUrl String
   caption  String?
   game     Game    @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@index([gameId], map: "idx_screenshot_gameid")
 }
 
 model Review {
@@ -91,6 +102,7 @@ model Review {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, gameId])
+  @@index([gameId], map: "idx_review_gameid")
 }
 
 model Cart {
@@ -100,6 +112,8 @@ model Cart {
   updatedAt DateTime   @updatedAt
   user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   items     CartItem[]
+
+  @@index([userId], map: "idx_cart_userid")
 }
 
 model CartItem {
@@ -112,16 +126,19 @@ model CartItem {
   game     Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
 
   @@unique([cartId, gameId])
+  @@index([gameId], map: "idx_cartitem_gameid")
 }
 
 model Order {
   id          String      @id @default(cuid())
   userId      String
   totalAmount Float
-  status      String      @default("PENDING")
+  status      String      @default("PENDING") @db.VarChar(50)
   createdAt   DateTime    @default(now())
   user        User        @relation(fields: [userId], references: [id], onDelete: NoAction)
   items       OrderItem[]
+
+  @@index([userId], map: "idx_order_userid")
 }
 
 model OrderItem {
@@ -132,4 +149,7 @@ model OrderItem {
   quantity Int
   game     Game   @relation(fields: [gameId], references: [id], onDelete: NoAction)
   order    Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([gameId], map: "idx_orderitem_gameid")
+  @@index([orderId], map: "idx_orderitem_orderid")
 }
