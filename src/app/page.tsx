@@ -1,12 +1,10 @@
-import GameGridsSection from "./components/GameGridsSection";
-import FeaturedGames from "./components/FeaturedGames";
 import Hydration from "./hydration";
+import HomePage from "./components/HomePage";
 
-export default function Page() {
+export default function Home() {
   return (
     <Hydration>
-      <FeaturedGames />
-      <GameGridsSection />
+      <HomePage />
     </Hydration>
   );
 }

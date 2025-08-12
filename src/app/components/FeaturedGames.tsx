@@ -1,22 +1,11 @@
-"use client";
-
 import { ImageCarousel } from "@/components/ImageCarousel";
-import { useGames } from "../hooks/useGames";
 import { PurpleBadge, FeaturedTitle } from "@/components/Typography";
 import { PriceSection } from "@/components/ImageCarousel";
-import { getRandomSubArray } from "@/lib/utils/utils";
+import type { FeaturedGamesProps } from "@/lib/types/props";
 
-export default function FeaturedGames() {
-  const { data, isError, error } = useGames();
-
-  if (isError || !data) {
-    throw error;
-  }
-
-  const games = getRandomSubArray(data, 5);
-
+export default function FeaturedGames({ games }: FeaturedGamesProps) {
   return (
-    <ImageCarousel length={5}>
+    <ImageCarousel length={games.length}>
       {games.map((game) => (
         <ImageCarousel.Item
           key={game.id}

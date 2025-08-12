@@ -18,7 +18,7 @@ export default function NavAsideBar() {
   }
 
   if (!genres || isError) {
-    throw error;
+    throw error || Error("Error occurred in NavAsideBar.");
   }
 
   return (
