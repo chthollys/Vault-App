@@ -3,30 +3,55 @@
 import db from "~/prisma/db";
 import bcrypt from "bcrypt";
 import { CreateReviewData, CreateUserData } from "@/lib/types/data";
+import type { SortingRules } from "@/lib/types/utils";
 
 export async function getUsers() {
   return await db.user.findMany({});
 }
 
-export async function getGames(categoryIds?: string[] | null) {
-  return await db.game.findMany({
-    where:
-      categoryIds && categoryIds.length > 0
-        ? {
-            genres: {
-              some: {
-                genre: {
-                  id: {
-                    in: categoryIds,
-                  },
+export async function getGames(sortRule?: SortingRules | null) {
+  const where =
+    sortRule?.categories && sortRule.categories.length > 0
+      ? {
+          genres: {
+            some: {
+              genre: {
+                id: {
+                  in: sortRule.categories,
                 },
               },
             },
-          }
-        : {},
+          },
+        }
+      : {};
+
+  let orderBy: Record<string, "asc" | "desc"> | undefined;
+
+  if (sortRule?.sortBy?.length) {
+    const sortOption = sortRule.sortBy[0];
+    switch (sortOption) {
+      case "newest":
+        orderBy = { releaseDate: "desc" };
+        break;
+      case "popular":
+        orderBy = { popularity: "desc" };
+        break;
+      case "lowest-price":
+        orderBy = { price: "asc" };
+        break;
+      case "highest-price":
+        orderBy = { price: "desc" };
+        break;
+      default:
+        orderBy = undefined;
+    }
+  }
+
+  return await db.game.findMany({
+    where,
+    ...(orderBy && { orderBy }),
   });
 }
-
 export async function getGame(id: string) {
   const response = await db.game.findUnique({
     where: {
