@@ -1,4 +1,5 @@
 import { NonNullableObject } from "@/lib/types/utils";
+import type { SortingRules } from "@/lib/types/utils";
 
 export const hasCompleteValue = <T extends object>(
   obj: T
@@ -76,10 +77,10 @@ export const getRandomSubArray = <T>(arr: T[], n: number): T[] => {
 };
 
 export const getValuesByParams = (
-  params: URLSearchParams,
+  params: URLSearchParams | undefined | null,
   keyname: string
 ): string[] | null => {
-  const result = params.getAll(keyname);
+  const result = params && params.getAll(keyname) || [];
   return result.length > 0 ? result : null;
 };
 
@@ -90,3 +91,15 @@ export const getPercentageRatio = (
 ) => {
   return (((from - to) / from) * 100).toFixed(roundedTo ?? 0);
 };
+
+export function getSortingRulesFromParams(
+  searchParams: URLSearchParams
+): SortingRules {
+  const categories = getValuesByParams(searchParams, "category") || [];
+  const sortBy = getValuesByParams(searchParams, "sortBy") || [];
+
+  return {
+    categories: categories.length > 0 ? categories.sort() : null,
+    sortBy: sortBy.length > 0 ? sortBy : ["newest"],
+  };
+}
