@@ -1,7 +1,7 @@
 "use client";
 
 import { AsideBar } from "@/components/AsideBar";
-import { GenresCheckboxProps } from "@/lib/types/props";
+import type { GenresCheckboxProps } from "@/lib/types/props";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
 

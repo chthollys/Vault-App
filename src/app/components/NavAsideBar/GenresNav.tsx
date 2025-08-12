@@ -1,5 +1,5 @@
 import { AsideBar } from "@/components/AsideBar";
-import { GenreNavProps } from "@/lib/types/props";
+import type { GenreNavProps } from "@/lib/types/props";
 
 export default function GenreNav({ genres }: GenreNavProps) {
   return (
