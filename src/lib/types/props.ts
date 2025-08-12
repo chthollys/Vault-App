@@ -15,17 +15,7 @@ export type WrapperProps<T extends ElementType> = React.PropsWithChildren<{
   as?: T;
   nextClass?: string | undefined;
 }> &
-  // No longer need to omit custom props, just 'as'.
-  // `className` will be inherited directly from the underlying element's props.
   Omit<ComponentPropsWithoutRef<T>, "as">;
-
-// export interface DivWrapperProps extends DivElementProps {
-//   nextClass?: string | undefined;
-// }
-
-// export interface ButtonWrapperProps extends ButtonElementProps {
-//   nextClass?: string | undefined;
-// }
 
 export type DivElementProps = React.ComponentPropsWithoutRef<"div">;
 export type ButtonElementProps = React.ComponentPropsWithoutRef<"button">;
@@ -34,6 +24,9 @@ export type SpanElementProps = React.ComponentPropsWithoutRef<"span">;
 export type AnchorElementProps = React.ComponentPropsWithoutRef<"a">;
 export type ImageElementProps = React.ComponentPropsWithoutRef<"img">;
 
+export interface HydrationProps extends ChildrenProp {
+  searchParams?: URLSearchParams;
+}
 export interface ErrorCaughtProps {
   error: Error & { digest?: string };
   reset: () => void;
@@ -73,6 +66,15 @@ export interface GenresCheckboxProps {
 export interface ImageCarouselItemProps extends ChildrenProp {
   image: StaticImageData | string;
   href: string;
+}
+
+export interface FeaturedGamesProps {
+  games: Game[];
+}
+
+export interface GameGridsSectionProps {
+  hotGames: Game[];
+  recommendedGames: Game[];
 }
 
 export interface GameSectionProps extends ChildrenProp {
