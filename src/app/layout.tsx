@@ -2,7 +2,7 @@ import Provider from "./provider";
 import { MainHeader } from "@/components/MainHeader";
 import { Footer } from "@/components/Footer";
 import "./globals.css";
-import { NavAsideBar } from "./components/NavAsideBar";
+import { HydratedNavBar } from "./components/NavAsideBar";
 import ScrollToTop from "@/lib/utils/scroll-to-top";
 
 export default function RootLayout({
@@ -19,7 +19,7 @@ export default function RootLayout({
           <ScrollToTop />
           <main id="main-content" className="main-content">
             <div className="content-layout">
-              <NavAsideBar />
+              <HydratedNavBar />
               <div className="min-w-0">{children}</div>
             </div>
           </main>
