@@ -2,14 +2,18 @@
 
 import { useGames } from "@/app/hooks/useGames";
 import GamesGrid from "@/components/GameSection/GamesGrid";
+import type { SortingRules } from "@/lib/types/utils";
 import { getValuesByParams } from "@/lib/utils/utils";
 import { LoadingSpinner } from "@/UI/Spinner";
 import { useSearchParams } from "next/navigation";
 
 export default function MainGrid() {
   const searchParams = useSearchParams();
-  const categories = getValuesByParams(searchParams, "category");
-  const { data, isPending, isError, error } = useGames(categories);
+  const sortRules: SortingRules = {
+    categories: getValuesByParams(searchParams, "category"),
+    sortBy: getValuesByParams(searchParams, "sortBy"),
+  };
+  const { data, isPending, isError, error } = useGames(sortRules);
 
   if (isPending) {
     return <LoadingSpinner />;
