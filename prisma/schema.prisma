@@ -9,6 +9,20 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+enum GameStatus {
+  NORMAL
+  FEATURED
+  RECOMMENDED
+  TRENDING
+}
+
+enum RecommendationType {
+  SIMILAR
+  NEW_RELEASE
+  POPULAR
+  CUSTOM
+}
+
 model User {
   id        String   @id @default(cuid())
   email     String   @unique @db.VarChar(255)
@@ -51,13 +65,19 @@ model Game {
   updatedAt       DateTime     @updatedAt
   rating          Float        @default(0)
   discountedPrice Float?
+  status          GameStatus   @default(NORMAL)
+
+  // Relations
   cartItems       CartItem[]
   genres          GameGenre[]
   orderItems      OrderItem[]
   reviews         Review[]
   screenshots     Screenshot[]
+  featuredGames   FeaturedGame[]
+  recommendedMain RecommendedGame[] @relation("RecommendedMainGame")
+  recommendedRel  RecommendedGame[] @relation("RecommendedRelatedGame")
 
-  @@index([releaseDate], map: "idx_game_releasedate")
+  @@index([status], map: "idx_game_status")
 }
 
 model Genre {
@@ -152,4 +172,37 @@ model OrderItem {
 
   @@index([gameId], map: "idx_orderitem_gameid")
   @@index([orderId], map: "idx_orderitem_orderid")
+}
+
+model FeaturedGame {
+  id         String   @id @default(cuid())
+  gameId     String
+  startDate  DateTime
+  endDate    DateTime
+  priority   Int      @default(0)
+  createdAt  DateTime @default(now())
+
+  game       Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@index([gameId], map: "idx_featuredgame_gameid")
+  @@index([startDate], map: "idx_featuredgame_startdate")
+  @@index([endDate], map: "idx_featuredgame_enddate")
+}
+
+model RecommendedGame {
+  id                  String              @id @default(cuid())
+  gameId              String
+  recommendationType  RecommendationType
+  relatedGameId       String?
+  startDate           DateTime
+  endDate             DateTime?
+  priority            Int                 @default(0)
+  createdAt           DateTime            @default(now())
+
+  game                Game                @relation("RecommendedMainGame", fields: [gameId], references: [id], onDelete: Cascade)
+  relatedGame         Game?               @relation("RecommendedRelatedGame", fields: [relatedGameId], references: [id], onDelete: Cascade)
+
+  @@index([gameId], map: "idx_recommendedgame_gameid")
+  @@index([recommendationType], map: "idx_recommendedgame_type")
+  @@index([startDate], map: "idx_recommendedgame_startdate")
 }
