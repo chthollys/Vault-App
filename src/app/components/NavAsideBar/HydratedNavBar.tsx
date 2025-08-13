@@ -1,12 +1,12 @@
 import Hydration from "@/app/hydration";
 import NavAsideBar from "./NavAsideBar";
 import { Suspense } from "react";
-import { LoadingSpinner } from "@/UI/Spinner";
+import Loading from "@/app/loading";
 
 export default function HydratedNavBar() {
   return (
     <Hydration>
-      <Suspense fallback={<LoadingSpinner />}>
+      <Suspense fallback={<Loading />}>
         <NavAsideBar />
       </Suspense>
     </Hydration>

@@ -1,13 +1,13 @@
 import { Suspense } from "react";
 import MainGrid from "./components/MainGrid";
 import { TitleSection } from "./components/Title";
-import { LoadingSpinner } from "@/UI/Spinner";
+import Loading from "@/app/loading";
 
 export default async function AllGamesPage() {
   return (
     <>
       <TitleSection />
-      <Suspense fallback={<LoadingSpinner />}>
+      <Suspense fallback={<Loading />}>
         <MainGrid />
       </Suspense>
     </>
