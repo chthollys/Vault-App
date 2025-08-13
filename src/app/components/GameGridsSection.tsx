@@ -1,23 +1,21 @@
 import { GameSection } from "@/components/GameSection";
-import { getRandomSubArray } from "@/lib/utils/utils";
 import type { GameGridsSectionProps } from "@/lib/types/props";
+import { memo } from "react";
 
-export default function GameGridsSection({
+const GameGridsSection = memo(function GameGridsSection({
   hotGames,
   recommendedGames,
 }: GameGridsSectionProps) {
   return (
     <div>
+      <GameSection games={hotGames} title="Hot Games" href="/games/hot" />
       <GameSection
-        games={getRandomSubArray(hotGames, 5)}
-        title="Hot Games"
-        href="/games/hot"
-      />
-      <GameSection
-        games={getRandomSubArray(recommendedGames, 5)}
+        games={recommendedGames}
         title="Recommended Games"
         href="/games/recommended"
       />
     </div>
   );
-}
+});
+
+export default GameGridsSection;
