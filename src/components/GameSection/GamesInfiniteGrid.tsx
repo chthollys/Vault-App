@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react";
 import { useGamesInfinite } from "@/app/hooks/useGamesInfinite";
 import GamesGrid from "./GamesGrid";
 import Loading from "@/app/loading";
+import { GridButton } from "@/UI/buttons";
 import type { GamesGridContainerProps } from "@/lib/types/props";
 
 export default function GamesInfiniteGrid({
@@ -45,9 +46,9 @@ export default function GamesInfiniteGrid({
         {isFetchingNextPage ? (
           <Loading />
         ) : hasNextPage ? (
-          "Scroll to load more"
+          <GridButton>Scroll to load more</GridButton>
         ) : (
-          "No more games"
+          <></>
         )}
       </div>
     </>
