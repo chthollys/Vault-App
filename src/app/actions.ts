@@ -10,6 +10,14 @@ export async function getUsers() {
   return await db.user.findMany({});
 }
 
+export async function getGame(id: string) {
+  return await db.game.findUnique({
+    where: {
+      id,
+    },
+  });
+}
+
 export async function getGames(sortRule?: SortingRules | null) {
   const { where, orderBy } = buildGameQuery(sortRule);
   return db.game.findMany({
