@@ -42,12 +42,12 @@ export default function Selections() {
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex min-w-52 items-center gap-2 md:min-w-80">
       {isPending && <Loading />}
       <Select
         label="Sort by"
         labelPlacement="outside-left"
-        className="max-w-xs"
+        className="w-44 min-w-36 flex-col items-start gap-2 md:w-full md:max-w-72 md:flex-row md:items-center"
         classNames={{
           label: "text-white text-sm font-medium",
         }}

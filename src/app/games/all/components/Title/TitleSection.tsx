@@ -3,7 +3,7 @@ import Title from "./Title";
 
 export default function TitleSection() {
   return (
-    <div className="flex w-full justify-between">
+    <div className="mb-5 flex w-full items-center justify-between gap-5">
       <Title />
       <SortBySelect />
     </div>
