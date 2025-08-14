@@ -13,7 +13,7 @@ export const useGamesInfinite = (
   const sortBy = sortRule?.sortBy ? [...sortRule.sortBy] : null;
 
   return useSuspenseInfiniteQuery<GamesInfinite>({
-    queryKey: ["games", sortedCategory, sortBy],
+    queryKey: ["games", "infinite", sortedCategory, sortBy],
     queryFn: ({ pageParam = 0 }) =>
       getGamesPaginated(sortRule, pageParam as number, perPage),
     getNextPageParam: (lastPage, pages) =>
