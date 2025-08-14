@@ -5,6 +5,7 @@ export default function AsideBarCheckbox({
   id = name,
   label,
   checked = false,
+  disabled = false,
   onChange,
 }: AsideCheckboxProps) {
   return (
@@ -17,6 +18,7 @@ export default function AsideBarCheckbox({
           onChange={onChange}
           className="accent-primary h-4 w-4"
           checked={checked}
+          disabled={disabled}
         />
         <span className="group-hover:text-primary text-[0.9rem]">{label}</span>
       </li>
