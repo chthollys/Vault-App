@@ -52,6 +52,59 @@ export async function getGames(sortRule?: SortingRules | null) {
     ...(orderBy && { orderBy }),
   });
 }
+
+export async function getGamesPaginated(
+  sortRule: SortingRules | null | undefined,
+  page: number,
+  perPage: number
+) {
+  const where =
+    sortRule?.categories && sortRule.categories.length > 0
+      ? {
+          genres: {
+            some: {
+              genre: {
+                id: {
+                  in: sortRule.categories,
+                },
+              },
+            },
+          },
+        }
+      : {};
+
+  let orderBy: Record<string, "asc" | "desc"> | undefined;
+
+  if (sortRule?.sortBy?.length) {
+    const sortOption = sortRule.sortBy[0];
+    switch (sortOption) {
+      case "newest":
+        orderBy = { releaseDate: "desc" };
+        break;
+      case "popular":
+        orderBy = { popularity: "desc" };
+        break;
+      case "lowest-price":
+        orderBy = { price: "asc" };
+        break;
+      case "highest-price":
+        orderBy = { price: "desc" };
+        break;
+    }
+  }
+
+  const games = await db.game.findMany({
+    where,
+    ...(orderBy && { orderBy }),
+    skip: page * perPage,
+    take: perPage,
+  });
+
+  return {
+    games,
+    hasMore: games.length === perPage,
+  };
+}
 export async function getGame(id: string) {
   const response = await db.game.findUnique({
     where: {

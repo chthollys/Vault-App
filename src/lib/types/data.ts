@@ -22,6 +22,10 @@ export type Profile = z.infer<typeof createProfileSchema>;
 export type GameFormData = z.infer<typeof gameFormSchema>;
 export type CreateGameData = z.infer<typeof createGameSchema>;
 export type Game = z.infer<typeof gameSchema>;
+export type GamesInfinite = {
+  games: Game[];
+  hasMore: boolean;
+};
 
 export type GenreFormData = z.infer<typeof genreFormSchema>;
 export type CreateGenreData = z.infer<typeof createGenreSchema>;

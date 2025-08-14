@@ -1,7 +1,7 @@
 "use client";
 
 import { useGames } from "@/app/hooks/useGames";
-import GamesGrid from "@/components/GameSection/GamesGrid";
+import GamesInfiniteGrid from "@/components/GameSection/GamesInfiniteGrid";
 import type { SortingRules } from "@/lib/types/utils";
 import { getValuesByParams } from "@/lib/utils/utils";
 import { useSearchParams } from "next/navigation";
@@ -17,7 +17,7 @@ export default function MainGrid() {
 
   return (
     <>
-      <GamesGrid title="All games" games={data} />
+      <GamesInfiniteGrid />
     </>
   );
 }

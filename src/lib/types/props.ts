@@ -2,6 +2,7 @@ import React from "react";
 import { Game, ParentChildrenGenre } from "./data";
 import type { ComponentPropsWithoutRef, ElementType } from "react";
 import { StaticImageData } from "next/image";
+import type { SortingRules } from "./utils";
 
 export interface ChildrenProp {
   children?: React.ReactNode;
@@ -70,6 +71,11 @@ export interface ImageCarouselItemProps extends ChildrenProp {
 
 export interface FeaturedGamesProps {
   games: Game[];
+}
+
+export interface GamesGridContainerProps {
+  sortRule?: SortingRules;
+  title?: string;
 }
 
 export interface GameGridsSectionProps {
