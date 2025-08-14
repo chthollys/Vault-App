@@ -8,9 +8,9 @@ export const useGames = (sortRule?: SortingRules | null) => {
     ? [...sortRule.categories].sort()
     : null;
   const sortBy = sortRule?.sortBy ? [...sortRule.sortBy] : null;
-  const result = useSuspenseQuery<Game[]>({
+  return useSuspenseQuery<Game[]>({
     queryKey: ["games", sortedCategory, sortBy],
     queryFn: () => getGames(sortRule),
+    staleTime: 1000 * 120,
   });
-  return result;
 };
