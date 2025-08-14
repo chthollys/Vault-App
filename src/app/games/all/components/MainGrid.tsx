@@ -1,10 +1,11 @@
 "use client";
 
-import { useGames } from "@/app/hooks/useGames";
+import Loading from "@/app/loading";
 import GamesInfiniteGrid from "@/components/GameSection/GamesInfiniteGrid";
-import type { SortingRules } from "@/lib/types/utils";
 import { getValuesByParams } from "@/lib/utils/utils";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
+import type { SortingRules } from "@/lib/types/utils";
 
 export default function MainGrid() {
   const searchParams = useSearchParams();
@@ -13,11 +14,11 @@ export default function MainGrid() {
     sortBy: getValuesByParams(searchParams, "sortBy"),
   };
 
-  const { data } = useGames(sortRules);
-
   return (
     <>
-      <GamesInfiniteGrid />
+      <Suspense fallback={<Loading />}>
+        <GamesInfiniteGrid sortRule={sortRules} />
+      </Suspense>
     </>
   );
 }
