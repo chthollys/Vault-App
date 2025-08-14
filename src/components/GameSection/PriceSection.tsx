@@ -3,10 +3,10 @@ import { GamePrice, BeforePrice, DiscountBadge } from "../Typography";
 import { getPercentageRatio, formatToUSD } from "@/lib/utils/utils";
 
 export default function PriceSection({ price, afterPrice }: PriceSectionProps) {
-  if (!price) {
+  if (price === null || price === undefined) {
     return <GamePrice>Invalid Price</GamePrice>;
   }
-  const formattedPrice = formatToUSD(price);
+  const formattedPrice = price === 0 ? "Free" : formatToUSD(price);
   let content = <GamePrice>{formattedPrice}</GamePrice>;
 
   if (afterPrice) {
