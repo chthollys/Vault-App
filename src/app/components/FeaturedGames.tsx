@@ -13,7 +13,7 @@ const FeaturedGames = memo(function FeaturedGames({
         <ImageCarousel.Item
           key={game.id}
           image={game.coverImageUrl}
-          href={`/games/${game.id}`}
+          href={`/game/${game.id}`}
         >
           <ImageCarousel.Overlay>
             <div className="max-w-[600px] text-white">
