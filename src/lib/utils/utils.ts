@@ -80,7 +80,7 @@ export const getValuesByParams = (
   params: URLSearchParams | undefined | null,
   keyname: string
 ): string[] | null => {
-  const result = params && params.getAll(keyname) || [];
+  const result = (params && params.getAll(keyname)) || [];
   return result.length > 0 ? result : null;
 };
 
@@ -92,9 +92,9 @@ export const getPercentageRatio = (
   return (((from - to) / from) * 100).toFixed(roundedTo ?? 0);
 };
 
-export function getSortingRulesFromParams(
+export const getSortingRulesFromParams = (
   searchParams: URLSearchParams
-): SortingRules {
+): SortingRules => {
   const categories = getValuesByParams(searchParams, "category") || [];
   const sortBy = getValuesByParams(searchParams, "sortBy") || [];
 
@@ -102,4 +102,41 @@ export function getSortingRulesFromParams(
     categories: categories.length > 0 ? categories.sort() : null,
     sortBy: sortBy.length > 0 ? sortBy : ["newest"],
   };
-}
+};
+
+export const buildGameQuery = (sortRule?: SortingRules | null) => {
+  const where = sortRule?.categories?.length
+    ? {
+        genres: {
+          some: {
+            genre: {
+              id: {
+                in: sortRule.categories,
+              },
+            },
+          },
+        },
+      }
+    : {};
+
+  let orderBy: Record<string, "asc" | "desc"> | undefined;
+
+  if (sortRule?.sortBy?.length) {
+    switch (sortRule.sortBy[0]) {
+      case "newest":
+        orderBy = { releaseDate: "desc" };
+        break;
+      case "popular":
+        orderBy = { popularity: "desc" };
+        break;
+      case "lowest-price":
+        orderBy = { price: "asc" };
+        break;
+      case "highest-price":
+        orderBy = { price: "desc" };
+        break;
+    }
+  }
+
+  return { where, orderBy };
+};

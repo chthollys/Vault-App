@@ -2,7 +2,8 @@
 
 import db from "~/prisma/db";
 import bcrypt from "bcrypt";
-import { CreateReviewData, CreateUserData } from "@/lib/types/data";
+import { buildGameQuery } from "@/lib/utils/utils";
+import type { CreateReviewData, CreateUserData } from "@/lib/types/data";
 import type { SortingRules } from "@/lib/types/utils";
 
 export async function getUsers() {
@@ -10,44 +11,8 @@ export async function getUsers() {
 }
 
 export async function getGames(sortRule?: SortingRules | null) {
-  const where =
-    sortRule?.categories && sortRule.categories.length > 0
-      ? {
-          genres: {
-            some: {
-              genre: {
-                id: {
-                  in: sortRule.categories,
-                },
-              },
-            },
-          },
-        }
-      : {};
-
-  let orderBy: Record<string, "asc" | "desc"> | undefined;
-
-  if (sortRule?.sortBy?.length) {
-    const sortOption = sortRule.sortBy[0];
-    switch (sortOption) {
-      case "newest":
-        orderBy = { releaseDate: "desc" };
-        break;
-      case "popular":
-        orderBy = { popularity: "desc" };
-        break;
-      case "lowest-price":
-        orderBy = { price: "asc" };
-        break;
-      case "highest-price":
-        orderBy = { price: "desc" };
-        break;
-      default:
-        orderBy = undefined;
-    }
-  }
-
-  return await db.game.findMany({
+  const { where, orderBy } = buildGameQuery(sortRule);
+  return db.game.findMany({
     where,
     ...(orderBy && { orderBy }),
   });
@@ -58,60 +23,19 @@ export async function getGamesPaginated(
   page: number,
   perPage: number
 ) {
-  const where =
-    sortRule?.categories && sortRule.categories.length > 0
-      ? {
-          genres: {
-            some: {
-              genre: {
-                id: {
-                  in: sortRule.categories,
-                },
-              },
-            },
-          },
-        }
-      : {};
-
-  let orderBy: Record<string, "asc" | "desc"> | undefined;
-
-  if (sortRule?.sortBy?.length) {
-    const sortOption = sortRule.sortBy[0];
-    switch (sortOption) {
-      case "newest":
-        orderBy = { releaseDate: "desc" };
-        break;
-      case "popular":
-        orderBy = { popularity: "desc" };
-        break;
-      case "lowest-price":
-        orderBy = { price: "asc" };
-        break;
-      case "highest-price":
-        orderBy = { price: "desc" };
-        break;
-    }
-  }
+  const { where, orderBy } = buildGameQuery(sortRule);
 
   const games = await db.game.findMany({
     where,
     ...(orderBy && { orderBy }),
     skip: page * perPage,
-    take: perPage,
+    take: perPage + 1,
   });
 
   return {
-    games,
-    hasMore: games.length === perPage,
+    games: games.slice(0, perPage),
+    hasMore: games.length > perPage,
   };
-}
-export async function getGame(id: string) {
-  const response = await db.game.findUnique({
-    where: {
-      id,
-    },
-  });
-  return response;
 }
 
 export async function getGenres() {
