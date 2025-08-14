@@ -1,15 +1,17 @@
 "use client";
 
+import Loading from "@/app/loading";
 import { AsideBar } from "@/components/AsideBar";
 import type { GenresCheckboxProps } from "@/lib/types/props";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useTransition } from "react";
 
 export default function GenresCheckbox({ genres }: GenresCheckboxProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
     const categoriesFromUrl = searchParams.getAll("category");
@@ -37,13 +39,16 @@ export default function GenresCheckbox({ genres }: GenresCheckboxProps) {
         });
       }
 
-      router.push(`${pathname}?${params.toString()}`);
+      startTransition(() => {
+        router.push(`${pathname}?${params.toString()}`);
+      });
     },
     [pathname, router, searchParams, selectedCategories]
   );
 
   return (
     <AsideBar.Section label="Filter by Category">
+      {isPending && <Loading />}
       <AsideBar.Links>
         {genres.map(({ subGenres }) =>
           subGenres.map(({ id, name }) => {
@@ -54,6 +59,7 @@ export default function GenresCheckbox({ genres }: GenresCheckboxProps) {
                 label={name}
                 checked={selectedCategories.includes(id)}
                 onChange={() => handleCheckboxChange(id)}
+                disabled={isPending}
               />
             );
           })

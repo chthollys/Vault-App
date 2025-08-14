@@ -1,8 +1,9 @@
 "use client";
 
+import Loading from "@/app/loading";
 import { Select, SelectItem, type SharedSelection } from "@heroui/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 const items = [
   { key: "newest", label: "Newest" },
@@ -14,6 +15,7 @@ const items = [
 export default function Selections() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
 
   const [selectedKey, setSelectedKey] = useState<string>(
     searchParams.get("sortBy") || "newest"
@@ -34,23 +36,29 @@ export default function Selections() {
 
     const params = new URLSearchParams(searchParams.toString());
     params.set("sortBy", selectedKeyString);
-    router.replace(`?${params.toString()}`);
+    startTransition(() => {
+      router.replace(`?${params.toString()}`);
+    });
   };
 
   return (
-    <Select
-      label="Sort by"
-      labelPlacement="outside-left"
-      className="max-w-xs"
-      classNames={{
-        label: "text-white text-sm font-medium",
-      }}
-      selectedKeys={[selectedKey]} // controlled
-      onSelectionChange={handleChange}
-    >
-      {items.map((item) => (
-        <SelectItem key={item.key}>{item.label}</SelectItem>
-      ))}
-    </Select>
+    <div className="flex items-center gap-2">
+      {isPending && <Loading />}
+      <Select
+        label="Sort by"
+        labelPlacement="outside-left"
+        className="max-w-xs"
+        classNames={{
+          label: "text-white text-sm font-medium",
+        }}
+        selectedKeys={[selectedKey]}
+        onSelectionChange={handleChange}
+        disabled={isPending}
+      >
+        {items.map((item) => (
+          <SelectItem key={item.key}>{item.label}</SelectItem>
+        ))}
+      </Select>
+    </div>
   );
 }
