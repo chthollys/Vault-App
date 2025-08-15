@@ -3,7 +3,7 @@
 import { useRef, useEffect } from "react";
 import { useGamesInfinite } from "@/app/hooks/useGamesInfinite";
 import GamesGrid from "./GamesGrid";
-import Loading from "@/app/loading";
+import Loading from "@/app/(main)/loading";
 import { GridButton } from "@/UI/buttons";
 import type { GamesGridContainerProps } from "@/lib/types/props";
 
