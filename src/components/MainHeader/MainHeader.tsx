@@ -1,28 +1,19 @@
 import Link from "next/link";
+import { Logo } from "../Typography";
+import Menu from "./Menu";
 
 export default function MainHeader() {
   return (
-    <nav className="navbar" role="navigation">
-      <div className="upper-nav">
-        <div className="logo">
-          <Link href={"/"}>Vault</Link>
-        </div>
+    <nav
+      className="backdrop-blur-[20px] border-glass-border shadow-glass sticky top-0 z-50 border-b-[1px] border-solid bg-[rgba(13,_17,_23,_0.85)]"
+      role="navigation"
+    >
+      <div className="flex w-auto items-center justify-between gap-2 px-8 py-[0.375rem]">
+        <Link href={"/"} className="block mr-2">
+          <Logo>Vault</Logo>
+        </Link>
 
-        <button className="mobile-menu-toggle">
-          <span className="hamburger-icon">☰</span>
-        </button>
-
-        <div id="mobile-menu" className="menu" role="menubar">
-          <Link className="menu-item" href={"/games/all"}>
-            All Games
-          </Link>
-          <Link className="menu-item" href={"/games/new-release"}>
-            New Releases
-          </Link>
-          <Link className="menu-item" href={"/games/special-offers"}>
-            Special Offers
-          </Link>
-        </div>
+        <Menu />
 
         <div className="search-bar" role="search">
           {"SEARCH BAR IMPLEMENTATION"}

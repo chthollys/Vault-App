@@ -9,6 +9,7 @@ import FeaturedPriceSpan from "./FeaturedPriceSpan";
 import DiscountBadge from "./DiscountBadge";
 import BeforePrice from "./BeforePrice";
 import Logo from "./Logo";
+import HeaderNav from "./HeaderNav";
 
 export {
   GamePrice,
@@ -22,4 +23,5 @@ export {
   DiscountBadge,
   BeforePrice,
   Logo,
+  HeaderNav,
 };

@@ -1,3 +1,4 @@
 import MainHeader from "./MainHeader";
+import Menu from "./Menu";
 
-export { MainHeader };
+export { MainHeader, Menu };
