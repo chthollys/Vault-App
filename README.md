@@ -2,9 +2,9 @@
 
 ## Vault App
 
-    E-commerce web app, developed with next.js, Supabase, and Prisma as ORM database.
+    E-commerce web app, developed with Next.js, Tanstack, Supabase, and Prisma as an ORM database.
 
-## Sneak Peak Progress
+## Sneak Peek Progress
 
 ![Vault App progress snapshot](https://github.com/chthollys/blobImage/blob/main/vaultOnProgress.jpeg)
 
