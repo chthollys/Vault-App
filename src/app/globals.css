@@ -83,6 +83,9 @@
     #16213e 50%,
     #0f3460 100%
   );
+  --background-image-logo: linear-gradient(135deg, #a78bfa, #20e3b2);
+
+  /* Colors */
   --color-glass: rgba(255, 255, 255, 0.05);
   --color-glass-hover: rgba(255, 255, 255, 0.08);
   --color-glass-active: rgba(255, 255, 255, 0.12);
