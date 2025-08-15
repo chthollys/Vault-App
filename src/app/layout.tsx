@@ -17,8 +17,11 @@ export default function RootLayout({
           <div id="modal"></div>
           <MainHeader />
           <ScrollToTop />
-          <main id="main-content" className="main-content">
-            <div className="content-layout">
+          <main
+            id="main-content"
+            className="main-content mx-auto my-0 max-w-[1600px] p-8 pt-6"
+          >
+            <div className="grid grid-cols-[250px_1fr] items-start gap-12">
               <HydratedNavBar />
               <div className="min-w-0">{children}</div>
             </div>
