@@ -1,12 +1,9 @@
 import type { FeaturedGamesProps } from "@/lib/types/props";
-import { memo } from "react";
 import { ImageCarousel } from "@/components/ImageCarousel";
 import { PurpleBadge, FeaturedTitle } from "@/components/Typography";
 import { PriceSection } from "@/components/ImageCarousel";
 
-const FeaturedGames = memo(function FeaturedGames({
-  games,
-}: FeaturedGamesProps) {
+export default function FeaturedGames({ games }: FeaturedGamesProps) {
   return (
     <ImageCarousel length={games.length}>
       {games.map((game) => (
@@ -34,6 +31,4 @@ const FeaturedGames = memo(function FeaturedGames({
       ))}
     </ImageCarousel>
   );
-});
-
-export default FeaturedGames;
+}

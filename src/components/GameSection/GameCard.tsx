@@ -3,9 +3,8 @@ import type { GameCardProps } from "@/lib/types/props";
 import GameCardWrapper from "../Wrapper/GameCardWrapper";
 import GameCardCover from "./GameCardCover";
 import GameCardInfo from "./GameCardInfo";
-import { memo } from "react";
 
-const GameCard = memo(function GameCard({ game }: GameCardProps) {
+export default function GameCard({ game }: GameCardProps) {
   return (
     <Link href={`/game/${game.id}`}>
       <GameCardWrapper
@@ -18,6 +17,4 @@ const GameCard = memo(function GameCard({ game }: GameCardProps) {
       </GameCardWrapper>
     </Link>
   );
-});
-
-export default GameCard;
+}

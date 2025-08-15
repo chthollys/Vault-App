@@ -5,9 +5,8 @@ import { Wrapper } from "@/components/Wrapper/base";
 import { SectionTitle } from "../Typography";
 import { PurpleButton } from "@/UI/buttons";
 import { AmoungUsRed } from "@/UI/icons";
-import { memo } from "react";
 
-const GamesGrid = memo(function GamesGrid({ games, title }: GamesGridProps) {
+export default function GamesGrid({ games, title }: GamesGridProps) {
   if (!games) {
     return <p>Failed to fetch games</p>;
   }
@@ -36,6 +35,4 @@ const GamesGrid = memo(function GamesGrid({ games, title }: GamesGridProps) {
       ))}
     </Wrapper>
   );
-});
-
-export default GamesGrid;
+}

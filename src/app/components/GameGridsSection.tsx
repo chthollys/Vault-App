@@ -1,8 +1,7 @@
 import { GameSection } from "@/components/GameSection";
 import type { GameGridsSectionProps } from "@/lib/types/props";
-import { memo } from "react";
 
-const GameGridsSection = memo(function GameGridsSection({
+export default function GameGridsSection({
   hotGames,
   recommendedGames,
 }: GameGridsSectionProps) {
@@ -16,6 +15,4 @@ const GameGridsSection = memo(function GameGridsSection({
       />
     </div>
   );
-});
-
-export default GameGridsSection;
+}
