@@ -1,5 +1,5 @@
 import Image from "@/components/ImageOptimized";
-import GameCardWrapper from "@/components/Wrapper/GameCardWrapper";
+import { GameCardWrapper } from "@/components/Wrapper";
 import GameCoverWrapper from "@/components/Wrapper/GameCoverWrapper";
 import DetailPriceSection from "./DetailPriceSection";
 import UserActions from "./UserActions";

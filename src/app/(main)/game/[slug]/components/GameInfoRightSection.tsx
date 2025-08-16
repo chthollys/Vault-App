@@ -1,4 +1,4 @@
-import GameCardWrapper from "@/components/Wrapper/GameCardWrapper";
+import { GameCardWrapper } from "@/components/Wrapper";
 import GameInfoDetail from "./GameInfoDetail";
 import DescriptionSection from "./Description";
 import RatingSection from "./RatingSection";
