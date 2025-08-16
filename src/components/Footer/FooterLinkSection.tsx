@@ -1,27 +1,18 @@
-import Link from "next/link";
-import type { ChildrenProp } from "@/lib/types/props";
+import type { FooterLinkSectionProps } from "@/lib/types/props";
 
-export interface FooterLinkSectionProps extends ChildrenProp {
-  label: string;
-}
-
-export default function FooterLinkSection({}) {
+export default function FooterLinkSection({
+  label,
+  children,
+  ...props
+}: FooterLinkSectionProps) {
   return (
-    <>
-      <h4>Legal</h4>
-      <ul>
-        <li>
-          <Link href={"#"} className="privacy-policy">
-            Privacy Policy
-          </Link>
-        </li>
-        <li>
-          <Link href={"#"}>Terms of Service</Link>
-        </li>
-        <li>
-          <Link href={"#"}>Refund Policy</Link>
-        </li>
-      </ul>
-    </>
+    <div className="flex flex-col gap-4" {...props}>
+      {label && (
+        <h4 className="text-base font-semibold tracking-wider text-white/90 uppercase">
+          {label}
+        </h4>
+      )}
+      <ul className="m-0 list-none p-0 space-y-3">{children}</ul>
+    </div>
   );
 }

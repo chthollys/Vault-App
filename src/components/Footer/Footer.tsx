@@ -1,60 +1,42 @@
 import Link from "next/link";
-import { LinkItem } from "@/UI/link";
 import FooterBrand from "./FooterBrand";
-import FooterLinks from "./FooterLinks";
-import { LinkSection } from "@/UI/link";
+import FooterLink from "./FooterLink";
+import FooterLinkSection from "./FooterLinkSection";
 
 export default function Footer() {
   return (
-    <footer role="content-info">
-      <div className="footer-content">
-        <div className="footer-brand">
-          <h3>Vault</h3>
-          <p>Your ultimate destination for digital games</p>
+    <footer
+      role="content-info"
+      className="bg-glass backdrop-blur-glass-strong shadow-glass shadow-glass shadow-glass shadow-glass shadow-glass shadow-glass shadow-glass shadow-glass shadow-glass"
+    >
+      <div className="mx-auto my-0 grid max-w-[1400px] grid-cols-[1fr_2fr] items-start gap-12 px-8 py-12">
+        <FooterBrand />
+        <div className="grid grid-cols-2">
+          <FooterLinkSection label="Support">
+            <FooterLink href={"#"}>Help Center</FooterLink>
+            <FooterLink href={"#"}>Contact Us</FooterLink>
+            <FooterLink href={"#"}>Community</FooterLink>
+          </FooterLinkSection>
+          <FooterLinkSection label="Legal">
+            <FooterLink href={"#"}>Privacy Policy</FooterLink>
+            <FooterLink href={"#"}>Terms of Service</FooterLink>
+            <FooterLink href={"#"}>Refund Policy</FooterLink>
+          </FooterLinkSection>
         </div>
-        <div className="footer-links">
-          <div className="footer-section">
-            <h4>Support</h4>
-            <ul>
-              <li>
-                <Link href={"#"}>Help Center</Link>
-              </li>
-              <li>
-                <Link href={"#"}>Contact Us</Link>
-              </li>
-              <li>
-                <Link href={"#"}>Community</Link>
-              </li>
-            </ul>
-          </div>
-          <div className="footer-section">
-            <h4>Legal</h4>
-            <ul>
-              <li>
-                <Link href={"#"} className="privacy-policy">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href={"#"}>Terms of Service</Link>
-              </li>
-              <li>
-                <Link href={"#"}>Refund Policy</Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <p>
-            &copy; 2025 Vault | Upgraded by <a href={"GITHUB"}>chthollys</a>
+
+        <div className="border-glass-border col-span-full m-0 border-t-[1px] border-solid text-center text-[0.9rem] text-white/50">
+          <p className="mt-7">
+            &copy; 2025 Vault | Upgraded by{" "}
+            <Link
+              href={"https://github.com/chthollys"}
+              target="_blank"
+              className="hover:text-white"
+            >
+              chthollys
+            </Link>
           </p>
         </div>
       </div>
     </footer>
   );
 }
-
-Footer.Brand = FooterBrand;
-Footer.Links = FooterLinks;
-Footer.LinkSection = LinkSection;
-Footer.Link = LinkItem;

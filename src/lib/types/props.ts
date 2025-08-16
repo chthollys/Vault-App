@@ -48,6 +48,14 @@ export interface LinkItemProps extends AnchorElementProps {
   href: string;
 }
 
+export interface FooterLinkSectionProps extends DivElementProps {
+  label?: string;
+}
+
+export interface FooterLinkProps extends ChildrenProp {
+  href: string;
+}
+
 export interface AsideCheckboxProps {
   id?: string;
   name: string;

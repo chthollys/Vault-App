@@ -1,6 +1,6 @@
 import Footer from "./Footer";
 import FooterBrand from "./FooterBrand";
 import FooterLinkSection from "./FooterLinkSection";
-import FooterLinks from "./FooterLinks";
+import FooterLink from "./FooterLink";
 
-export { Footer, FooterBrand, FooterLinkSection, FooterLinks };
+export { Footer, FooterBrand, FooterLinkSection, FooterLink };
