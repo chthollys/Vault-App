@@ -12,7 +12,9 @@ export default function Provider({ children }: ChildrenProp) {
   return (
     <QueryClientProvider client={queryClient}>
       <HeroUIProvider>
-        <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+          {children}
+        </AppRouterCacheProvider>
       </HeroUIProvider>
     </QueryClientProvider>
   );
