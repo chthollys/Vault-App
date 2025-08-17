@@ -1,4 +1,3 @@
-import Provider from "@/app/provider";
 import { MainHeader } from "@/components/MainHeader";
 import { Footer } from "@/components/Footer";
 import "@/app/globals.css";
@@ -11,7 +10,7 @@ export default function MainLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Provider>
+    <>
       <div id="modal"></div>
       <MainHeader />
       <ScrollToTop />
@@ -25,6 +24,6 @@ export default function MainLayout({
         </div>
       </main>
       <Footer />
-    </Provider>
+    </>
   );
 }
