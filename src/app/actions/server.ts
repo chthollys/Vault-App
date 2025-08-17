@@ -87,20 +87,16 @@ export const getUserByReviewId = async (reviewId: string) => {
     select: {
       user: {
         select: {
-          username: true,
-          profile: {
-            select: {
-              avatarUrl: true,
-            },
-          },
+          name: true,
+          image: true,
         },
       },
     },
   });
 
   return {
-    avatarUrl: response?.user.profile?.avatarUrl ?? null,
-    reviewer: response?.user.username ?? null,
+    avatarUrl: response?.user.image ?? null,
+    reviewer: response?.user.name ?? null,
   };
 };
 
@@ -135,9 +131,6 @@ export const createUser = async (user: CreateUserData) => {
     data: {
       ...user,
       password: hashedPassword,
-      profile: {
-        create: {},
-      },
     },
   });
   return response;

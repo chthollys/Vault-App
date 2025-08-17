@@ -23,7 +23,7 @@ export const staticImageDataSchema = z.object({
 
 export const createUserSchema = z.object({
   email: z.email(),
-  username: z
+  name: z
     .string()
     .min(3, { error: "Username must include 3 or more character" }),
   password: z.string(),
