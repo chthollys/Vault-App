@@ -9,7 +9,6 @@ export default function AuthLayout({
 }>) {
   return (
     <>
-      <div id="modal"></div>
       <Header />
       <main className="flex min-h-screen min-w-full items-center justify-center p-8">
         {children}

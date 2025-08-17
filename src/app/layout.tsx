@@ -8,7 +8,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" data-scroll-behavior="smooth">
       <body>
-        <Provider>{children}</Provider>
+        <Provider>
+          <div id="modal" className="z-999"></div>
+          {children}
+        </Provider>
       </body>
     </html>
   );
