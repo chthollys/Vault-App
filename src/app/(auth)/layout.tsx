@@ -10,7 +10,7 @@ export default function AuthLayout({
   return (
     <>
       <Header />
-      <main className="flex min-h-screen min-w-full items-center justify-center p-8">
+      <main className="relative flex min-h-screen min-w-full items-center justify-center p-8">
         {children}
       </main>
       <Footer />
