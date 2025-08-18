@@ -10,7 +10,7 @@ export default function GameCardInfo({ game, isInCart }: GameCardInfoProps) {
     <GameCardInfoWrapper>
       <PriceSection price={game.price} afterPrice={game.discountedPrice} />
       <GameTitle>{game?.title}</GameTitle>
-      <GameDeveloper>{game?.developer}</GameDeveloper>
+      <GameDeveloper className="mb-3">{game?.developer}</GameDeveloper>
       <GameCardRating rating={game?.rating} />
 
       {/** Clean separation for keeping the above server comp */}
