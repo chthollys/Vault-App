@@ -17,11 +17,36 @@ export const staticImageDataSchema = z.object({
   blurheight: z.number().optional(),
 });
 
+export const EmailSchema = z.object({
+  email: z.email({ error: "Enter a valid email" }),
+});
+
+export const PasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .min(8, "At least 8 characters")
+      .max(72, "Too long")
+      .regex(/[A-Z]/, "Add an uppercase letter")
+      .regex(/[a-z]/, "Add a lowercase letter")
+      .regex(/[0-9]/, "Add a number"),
+    confirm: z.string(),
+  })
+  .refine((d) => d.password === d.confirm, {
+    message: "Passwords do not match",
+    path: ["confirm"],
+  });
+
+export const OTPSchema = z.object({
+  email: z.email({ error: "Email is required" }),
+  code: z.string().min(6, "OTP have invalid length"),
+});
+
 /**
  * @description User and Profile Schemas
  */
 
-export const createUserSchema = z.object({
+export const CreateUserSchema = z.object({
   email: z.email(),
   name: z
     .string()
@@ -29,15 +54,15 @@ export const createUserSchema = z.object({
   password: z.string(),
 });
 
-export const createUserArraySchema = z.array(createUserSchema);
+export const CreateUserArraySchema = z.array(CreateUserSchema);
 
-export const userSchema = createUserSchema.extend({
+export const UserSchema = CreateUserSchema.extend({
   id: z.cuid(),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
 
-export const createProfileSchema = z.object({
+export const CreateProfileSchema = z.object({
   userId: z.cuid(),
   firstName: z.string().optional(),
   lastName: z.string().optional(),
@@ -47,9 +72,9 @@ export const createProfileSchema = z.object({
   dateOfBirth: z.date().optional(),
 });
 
-export const createProfileArraySchema = z.array(createProfileSchema);
+export const CreateProfileArraySchema = z.array(CreateProfileSchema);
 
-export const profileSchema = createProfileSchema.extend({
+export const ProfileSchema = CreateProfileSchema.extend({
   id: z.cuid(),
 });
 
@@ -57,7 +82,7 @@ export const profileSchema = createProfileSchema.extend({
  * @description Game Schemas
  */
 
-const baseGameSchema = z.object({
+const BaseGameSchema = z.object({
   title: z
     .string({ error: "Title is required" })
     .min(1, { error: "Title can't be empty" }),
@@ -71,7 +96,7 @@ const baseGameSchema = z.object({
   publisher: z.string().min(1, "Publisher name is required"),
 });
 
-export const gameFormSchema = baseGameSchema.extend({
+export const GameFormSchema = BaseGameSchema.extend({
   coverImage: z.union([
     z.url({ error: "Please provide a valid url" }),
     z
@@ -85,13 +110,13 @@ export const gameFormSchema = baseGameSchema.extend({
   ]),
 });
 
-export const createGameSchema = baseGameSchema.extend({
+export const CreateGameSchema = BaseGameSchema.extend({
   coverImageUrl: z.url(),
 });
 
-export const createGameArraySchema = z.array(createGameSchema);
+export const CreateGameArraySchema = z.array(CreateGameSchema);
 
-export const gameSchema = createGameSchema.extend({
+export const GameSchema = CreateGameSchema.extend({
   id: z.cuid(),
   rating: z.number(),
   createdAt: z.date(),
@@ -106,30 +131,30 @@ const baseGenreSchema = z.object({
   name: z.string().min(1, "Genre name is required"),
 });
 
-export const genreFormSchema = baseGenreSchema.extend({
+export const GenreFormSchema = baseGenreSchema.extend({
   parent: z.string().nullable(),
 });
 
-export const createGenreSchema = baseGenreSchema.extend({
+export const CreateGenreSchema = baseGenreSchema.extend({
   parentId: z.cuid().nullable(),
 });
 
-export const createGenreArraySchema = z.array(createGenreSchema);
+export const CreateGenreArraySchema = z.array(CreateGenreSchema);
 
-export const genreSchema = createGenreSchema.extend({
+export const GenreSchema = CreateGenreSchema.extend({
   id: z.cuid(),
 });
 
-export const createReviewSchema = z.object({
+export const CreateReviewSchema = z.object({
   rating: z.number(),
   comment: z.string().optional().nullable(),
   userId: z.cuid(),
   gameId: z.cuid(),
 });
 
-export const createReviewArraySchema = z.array(createReviewSchema);
+export const CreateReviewArraySchema = z.array(CreateReviewSchema);
 
-export const reviewSchema = createReviewSchema.extend({
+export const ReviewSchema = CreateReviewSchema.extend({
   id: z.cuid(),
   createdAt: z.date(),
 });
