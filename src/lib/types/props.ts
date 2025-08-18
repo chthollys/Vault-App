@@ -24,7 +24,14 @@ export type ParagraphElementProps = React.ComponentPropsWithoutRef<"p">;
 export type SpanElementProps = React.ComponentPropsWithoutRef<"span">;
 export type AnchorElementProps = React.ComponentPropsWithoutRef<"a">;
 export type ImageElementProps = React.ComponentPropsWithoutRef<"img">;
+export type InputElementProps = React.ComponentPropsWithoutRef<"input">;
+export type CSSClassName = Pick<DivElementProps, "className">;
 
+export interface AuthFormInputProps extends InputElementProps {
+  name: string;
+  label?: string;
+  id?: string;
+}
 export interface HydrationProps extends ChildrenProp {
   searchParams?: URLSearchParams;
 }
