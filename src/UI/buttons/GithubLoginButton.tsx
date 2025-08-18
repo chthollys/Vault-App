@@ -14,6 +14,7 @@ export default function GithubAuthButton({ children }: ChildrenProp) {
       sx={{
         textTransform: "none",
         borderRadius: "8px",
+        width: "100%",
         px: 3,
         py: 1.2,
         fontSize: "0.95rem",

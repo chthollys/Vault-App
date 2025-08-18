@@ -14,6 +14,7 @@ export default function GoogleLoginButton({ children }: ChildrenProp) {
       sx={{
         textTransform: "none",
         borderRadius: "12px",
+        width: "100%",
         px: 3,
         py: 1.5,
         fontSize: "0.95rem",
