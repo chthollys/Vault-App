@@ -3,6 +3,7 @@ import AmoungUsRed from "./AmongUsRed";
 import EyeFilledIcon from "./EyeFilledIcon";
 import EyeSlashFilledIcon from "./EyeSlashFilledIcon";
 import SignInIcon from "./SignInIcon";
+import UserAvatarIcon from "./UserAvatarIcon";
 
 export {
   HeartButtonSVG,
@@ -10,4 +11,5 @@ export {
   EyeFilledIcon,
   EyeSlashFilledIcon,
   SignInIcon,
+  UserAvatarIcon,
 };
