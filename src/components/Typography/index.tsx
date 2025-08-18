@@ -11,6 +11,7 @@ import BeforePrice from "./BeforePrice";
 import Logo from "./Logo";
 import HeaderNav from "./HeaderNav";
 import GlassLine from "./GlassLine";
+import FormTitle from "./FormTitle";
 
 export {
   GamePrice,
@@ -26,4 +27,5 @@ export {
   Logo,
   HeaderNav,
   GlassLine,
+  FormTitle,
 };
