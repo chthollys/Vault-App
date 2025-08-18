@@ -4,6 +4,8 @@ import { GameCardWrapper } from "@/components/Wrapper";
 import { FormInput, FormPasswordInput } from "@/UI/input";
 import { SignInIcon } from "@/UI/icons";
 import { LoadingSpinner } from "@/UI/Spinner";
+import { GithubLoginButton, GoogleLoginButton } from "@/UI/buttons";
+import LoginError from "./LoginError";
 
 export default function AuthForm() {
   return (
@@ -36,7 +38,10 @@ export default function AuthForm() {
         >
           Sign In
         </Button>
+        <GithubLoginButton>Continue with GitHub</GithubLoginButton>
+        <GoogleLoginButton>Continue with Google</GoogleLoginButton>
       </form>
+      <LoginError />
     </GameCardWrapper>
   );
 }
