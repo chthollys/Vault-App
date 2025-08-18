@@ -3,6 +3,7 @@
 import db from "~/prisma/db";
 import bcrypt from "bcrypt";
 import { buildGameQuery } from "@/lib/utils/utils";
+import { SALT_ROUNDS } from "@/lib/utils/constants";
 import type { CreateReviewData, CreateUserData } from "@/lib/types/data";
 import type { SortingRules } from "@/lib/types/utils";
 
@@ -104,8 +105,7 @@ export const saveUserPassword = async (
   userId: string,
   plainPassword: string
 ) => {
-  const saltRounds = 13;
-  const hashedPassword = await bcrypt.hash(plainPassword, saltRounds);
+  const hashedPassword = await bcrypt.hash(plainPassword, SALT_ROUNDS);
   const response = await db.user.update({
     where: { id: userId },
     data: { password: hashedPassword },
