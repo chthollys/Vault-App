@@ -1,4 +1,5 @@
 import { Logo } from "@/components/Typography";
+import Link from "next/link";
 
 export default function Header() {
   return (
@@ -7,9 +8,11 @@ export default function Header() {
       role="navigation"
       aria-label="auth-navigation"
     >
-      <div className="flex h-full w-auto items-center justify-between gap-2 px-8 py-[0.375rem]">
-        <Logo className="hover:cursor-default">Vault</Logo>
-      </div>
+      <Link href={"/"}>
+        <div className="flex h-full w-auto items-center justify-between gap-2 px-8 py-[0.375rem]">
+          <Logo className="hover:cursor-pointer">Vault</Logo>
+        </div>
+      </Link>
     </nav>
   );
 }
