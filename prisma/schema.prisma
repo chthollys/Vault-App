@@ -29,7 +29,7 @@ model User {
   email         String?  @unique
   emailVerified DateTime?
   image         String?  @default("https://vault-app-bucket.s3.ap-southeast-2.amazonaws.com/default-cover/user-default.jpg")
-  password      String   @db.VarChar(255)
+  password      String?  @db.VarChar(255)
 
   address       String?
   phone         String?
