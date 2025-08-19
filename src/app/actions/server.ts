@@ -101,6 +101,14 @@ export const getUserByReviewId = async (reviewId: string) => {
   };
 };
 
+export const getUserByEmail = async (email: string) => {
+  return await db.user.findUnique({
+    where: {
+      email,
+    },
+  });
+};
+
 export const saveUserPassword = async (
   userId: string,
   plainPassword: string
@@ -122,7 +130,7 @@ export const verifyPassword = async (
     select: { password: true },
   });
   if (!user) return false;
-  return bcrypt.compare(inputPassword, user.password);
+  return bcrypt.compare(inputPassword, user.password || "");
 };
 
 export const createUser = async (user: CreateUserData) => {
