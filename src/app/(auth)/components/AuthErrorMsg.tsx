@@ -53,9 +53,11 @@ export default function FormErrorMsg() {
       }
       case "otp-verified": {
         errorMsg = "Please continue to set your password for account creation.";
+        break;
       }
       case "otp-invalid": {
         errorMsg = "Invalid or expired OTP.";
+        break;
       }
       default: {
         errorMsg = error;
