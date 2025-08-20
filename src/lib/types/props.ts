@@ -150,3 +150,11 @@ export interface GamePageProps {
     slug: string;
   }>;
 }
+
+export interface VerifyEmailFormProps {
+  email: string;
+}
+
+export interface SetPasswordFormProps {
+  email: string;
+}
