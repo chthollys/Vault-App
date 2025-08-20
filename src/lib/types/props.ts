@@ -1,8 +1,9 @@
 import React from "react";
-import { Game, ParentChildrenGenre } from "./data";
+import type { Game, ParentChildrenGenre } from "./data";
 import type { ComponentPropsWithoutRef, ElementType, Ref } from "react";
-import { StaticImageData } from "next/image";
+import type { StaticImageData } from "next/image";
 import type { SortingRules } from "./utils";
+import type { InputProps } from "@heroui/react";
 
 export interface ChildrenProp {
   children?: React.ReactNode;
@@ -27,7 +28,7 @@ export type ImageElementProps = React.ComponentPropsWithoutRef<"img">;
 export type InputElementProps = React.ComponentPropsWithoutRef<"input">;
 export type CSSClassName = Pick<DivElementProps, "className">;
 
-export interface AuthFormInputProps extends InputElementProps {
+export interface AuthFormInputProps extends InputProps {
   name: string;
   label?: string;
   id?: string;
