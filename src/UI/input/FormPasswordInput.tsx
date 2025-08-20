@@ -10,6 +10,7 @@ export default function FormPasswordInput({
   id = name,
   label = "",
   placeholder = "",
+  ...props
 }: AuthFormInputProps) {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -24,6 +25,7 @@ export default function FormPasswordInput({
       size="lg"
       labelPlacement="outside-top"
       placeholder={placeholder}
+      {...props}
       classNames={{
         label: "text-[0.9rem] font-medium tracking-wide text-white/70",
         input: ["bg-glass", "text-black/90 dark:text-white/90", "pl-4"],
