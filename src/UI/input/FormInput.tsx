@@ -45,6 +45,7 @@ export default function FormInput({
           "text-white/90",
           "transition",
         ],
+        errorMessage: ["mt-1"]
       }}
     />
   );
