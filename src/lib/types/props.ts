@@ -32,8 +32,7 @@ export interface AuthFormInputProps extends InputProps {
   name: string;
   label?: string;
   id?: string;
-  isInvalid?: boolean;
-  errorMessage?: string;
+  errorMessages?: string[];
   ref?: Ref<HTMLInputElement>;
 }
 export interface HydrationProps extends ChildrenProp {
