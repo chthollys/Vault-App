@@ -1,5 +1,5 @@
-import { auth } from "@/app/actions/auth";
-import AuthForm from "../components/AuthForm";
+import { auth } from "@/auth";
+import { LoginForm } from "../components/LoginForm";
 import { redirect } from "next/navigation";
 
 export default async function LoginPage() {
@@ -10,8 +10,8 @@ export default async function LoginPage() {
   }
 
   return (
-    <div className="w-full max-w-lg">
-      <AuthForm />
+    <div className="m-auto w-full max-w-lg">
+      <LoginForm />
     </div>
   );
 }
