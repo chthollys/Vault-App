@@ -17,7 +17,7 @@ export default function FormErrorMsg() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const errorType = searchParams.get("error");
+  const error = searchParams.get("error");
   const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
 
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
@@ -27,10 +27,14 @@ export default function FormErrorMsg() {
   }, []);
 
   useEffect(() => {
-    if (errorType) {
+    onClose();
+  }, [pathname, onClose]);
+
+  useEffect(() => {
+    if (error) {
       onOpen();
     }
-  }, [errorType, onOpen, router]);
+  }, [error, onOpen, router]);
 
   const handleClose = useCallback(() => {
     onClose();
@@ -41,14 +45,20 @@ export default function FormErrorMsg() {
 
   let errorMsg = "Something went wrong.";
 
-  if (errorType) {
-    switch (errorType) {
+  if (error) {
+    switch (error) {
       case "signup-first": {
         errorMsg = "Please sign up to register your email for OTP code.";
         break;
       }
+      case "otp-verified": {
+        errorMsg = "Please continue to set your password for account creation.";
+      }
+      case "otp-invalid": {
+        errorMsg = "Invalid or expired OTP.";
+      }
       default: {
-        break;
+        errorMsg = error;
       }
     }
   }
