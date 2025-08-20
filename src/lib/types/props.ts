@@ -1,6 +1,6 @@
 import React from "react";
 import { Game, ParentChildrenGenre } from "./data";
-import type { ComponentPropsWithoutRef, ElementType } from "react";
+import type { ComponentPropsWithoutRef, ElementType, Ref } from "react";
 import { StaticImageData } from "next/image";
 import type { SortingRules } from "./utils";
 
@@ -31,6 +31,9 @@ export interface AuthFormInputProps extends InputElementProps {
   name: string;
   label?: string;
   id?: string;
+  isInvalid?: boolean;
+  errorMessage?: string;
+  ref?: Ref<HTMLInputElement>;
 }
 export interface HydrationProps extends ChildrenProp {
   searchParams?: URLSearchParams;
