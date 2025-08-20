@@ -8,7 +8,7 @@ import { SignInButton } from "@/UI/buttons";
 import LoginAccountNow from "./LoginAccountNow";
 import { sendOtpFn } from "@/app/actions/otp";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { EmailSchema } from "@/lib/schemas";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,12 +26,13 @@ export default function SignupForm() {
     resolver: zodResolver(EmailSchema),
   });
   const router = useRouter();
+  const pathName = usePathname();
 
   const { mutate, isPending } = useMutation({
     mutationFn: sendOtpFn,
     onSuccess: () => router.push("/verify-email"),
     onError: (err) => {
-      console.error("Failed to request OTP: ", err);
+      router.push(`${pathName}?error=${err.message}`);
     },
   });
 
