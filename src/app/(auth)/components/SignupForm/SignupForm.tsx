@@ -22,7 +22,7 @@ export default function SignupForm() {
     formState: { errors },
   } = useForm<Inputs>({
     defaultValues: { email: "" },
-    mode: "onChange",
+    mode: "onSubmit",
     resolver: zodResolver(EmailSchema),
   });
   const router = useRouter();
@@ -36,8 +36,7 @@ export default function SignupForm() {
   });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log("Email: ", data.email);
-    // mutate(data.email);
+    mutate(data.email);
   };
 
   return (
