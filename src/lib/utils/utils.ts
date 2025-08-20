@@ -1,6 +1,10 @@
 import { NonNullableObject } from "@/lib/types/utils";
 import type { SortingRules } from "@/lib/types/utils";
 
+export const generateAuthToken = async () => {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+};
+
 export const hasCompleteValue = <T extends object>(
   obj: T
 ): obj is NonNullableObject<T> => {
