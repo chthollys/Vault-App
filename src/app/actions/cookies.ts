@@ -7,9 +7,13 @@ export const getCookieValue = async (name: string) => {
   return (await cookies()).get(name)?.value;
 };
 
-export const setCookie = async (config: ResponseCookie) => {
+export const setCookie = async ({
+  secure = process.env.NODE_ENV === "production",
+  ...config
+}: ResponseCookie) => {
   (await cookies()).set({
     ...config,
+    secure,
   });
 };
 
