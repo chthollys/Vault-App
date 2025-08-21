@@ -1,3 +1,8 @@
+type VerifyOtpInput = {
+  email: string;
+  otp: string;
+};
+
 export const sendOtpFn = async (email: string) => {
   const res = await fetch("/api/auth/signup/send-otp", {
     method: "POST",
@@ -16,13 +21,7 @@ export const sendOtpFn = async (email: string) => {
   return data;
 };
 
-export const verifyOtp = async ({
-  email,
-  otp,
-}: {
-  email: string;
-  otp: string;
-}) => {
+export const verifyOtp = async ({ email, otp }: VerifyOtpInput) => {
   const res = await fetch("/api/auth/signup/verify", {
     method: "POST",
     body: JSON.stringify({ email, otp }),
