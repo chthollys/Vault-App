@@ -1,4 +1,4 @@
-export async function sendOtpFn(email: string) {
+export const sendOtpFn = async (email: string) => {
   const res = await fetch("/api/auth/signup/send-otp", {
     method: "POST",
     body: JSON.stringify({
@@ -14,15 +14,15 @@ export async function sendOtpFn(email: string) {
   }
 
   return data;
-}
+};
 
-export async function verifyOtp({
+export const verifyOtp = async ({
   email,
   otp,
 }: {
   email: string;
   otp: string;
-}) {
+}) => {
   const res = await fetch("/api/auth/signup/verify", {
     method: "POST",
     body: JSON.stringify({ email, otp }),
@@ -32,5 +32,5 @@ export async function verifyOtp({
   const data = await res.json();
 
   if (!res.ok) throw new Error(data.error || "Invalid OTP");
-  return res.json();
-}
+  return data;
+};
