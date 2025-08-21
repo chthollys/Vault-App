@@ -30,6 +30,6 @@ export const verifyOtp = async ({ email, otp }: VerifyOtpInput) => {
 
   const data = await res.json();
 
-  if (!res.ok) throw new Error(data.error || "Invalid OTP");
+  if (!res.ok) throw new Error(data.error || "Verify OTP failed.");
   return data;
 };
