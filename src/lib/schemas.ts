@@ -18,7 +18,9 @@ export const staticImageDataSchema = z.object({
 });
 
 export const EmailSchema = z.object({
-  email: z.email({ error: "Enter a valid email" }),
+  email: z.email({
+    error: "Enter a valid email",
+  }),
 });
 
 export const PasswordSchema = z
@@ -38,7 +40,7 @@ export const PasswordSchema = z
   });
 
 export const OTPSchema = z.object({
-  email: z.email({ error: "Email is required" }),
+  email: z.email({ error: "Email data is invalid." }),
   code: z.string().min(6, "OTP have invalid length"),
 });
 
@@ -50,7 +52,8 @@ export const CreateUserSchema = z.object({
   email: z.email(),
   name: z
     .string()
-    .min(3, { error: "Username must include 3 or more character" }),
+    .min(3, { error: "Username must include 3 or more character" })
+    .optional(),
   password: z.string(),
 });
 
