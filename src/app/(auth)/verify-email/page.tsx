@@ -5,7 +5,7 @@ import { getCookieValue } from "@/app/actions/cookies";
 
 export default async function VerifyEmailPage() {
   const session = await auth();
-  if (session) redirect("/?info=is-logged-in");
+  if (session) redirect("/");
 
   const emailVerified = await getCookieValue("otp-verified");
   const emailRequestOTP = await getCookieValue("otp-sent");
