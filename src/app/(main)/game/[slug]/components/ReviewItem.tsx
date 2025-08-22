@@ -1,5 +1,5 @@
 import Image from "@/components/ImageOptimized";
-import { getUserByReviewId } from "@/app/actions/server";
+import { getUserByReviewId } from "@/app/actions/db";
 import type { Review } from "@/lib/types/data";
 import { RatingStar } from "@/components/Typography";
 

@@ -1,6 +1,6 @@
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getQueryClient } from "@/lib/utils/get-query-client";
-import { getGames, getGamesPaginated, getGenres } from "./actions/server";
+import { getGames, getGamesPaginated, getGenres } from "./actions/db";
 import type { HydrationProps } from "@/lib/types/props";
 import { GAME_INFINITE_PERPAGE } from "@/lib/utils/constants";
 

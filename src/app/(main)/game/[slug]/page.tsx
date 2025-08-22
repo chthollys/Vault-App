@@ -3,7 +3,7 @@ import TitleSection from "./components/TitleSection";
 import GameInfoSection from "./components/GameInfoSection";
 import GameReviewSection from "./components/GameReviewSection";
 import type { GamePageProps } from "@/lib/types/props";
-import { getGame } from "@/app/actions/server";
+import { getGame } from "@/app/actions/db";
 
 export default async function GamePage({ params }: GamePageProps) {
   const { slug } = await params;
