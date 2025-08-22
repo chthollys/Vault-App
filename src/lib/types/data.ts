@@ -1,36 +1,36 @@
 import { z } from "zod";
 import {
-  gameFormSchema,
-  createGameSchema,
-  gameSchema,
-  genreFormSchema,
-  createGenreSchema,
-  genreSchema,
-  createReviewSchema,
-  reviewSchema,
-  createUserSchema,
-  createProfileSchema,
-  userSchema,
+  GameFormSchema,
+  CreateGameSchema,
+  GameSchema,
+  GenreFormSchema,
+  CreateGenreSchema,
+  GenreSchema,
+  CreateReviewSchema,
+  ReviewSchema,
+  CreateUserSchema,
+  CreateProfileSchema,
+  UserSchema,
 } from "../schemas";
 
-export type CreateUserData = z.infer<typeof createUserSchema>;
-export type User = z.infer<typeof userSchema>;
+export type CreateUserData = z.infer<typeof CreateUserSchema>;
+export type User = z.infer<typeof UserSchema>;
 
-export type CreateProfileData = z.infer<typeof createProfileSchema>;
-export type Profile = z.infer<typeof createProfileSchema>;
+export type CreateProfileData = z.infer<typeof CreateProfileSchema>;
+export type Profile = z.infer<typeof CreateProfileSchema>;
 
-export type GameFormData = z.infer<typeof gameFormSchema>;
-export type CreateGameData = z.infer<typeof createGameSchema>;
-export type Game = z.infer<typeof gameSchema>;
+export type GameFormData = z.infer<typeof GameFormSchema>;
+export type CreateGameData = z.infer<typeof CreateGameSchema>;
+export type Game = z.infer<typeof GameSchema>;
 export type GamesInfinite = {
   games: Game[];
   hasMore: boolean;
 };
 
-export type GenreFormData = z.infer<typeof genreFormSchema>;
-export type CreateGenreData = z.infer<typeof createGenreSchema>;
-export type Genre = z.infer<typeof genreSchema>;
+export type GenreFormData = z.infer<typeof GenreFormSchema>;
+export type CreateGenreData = z.infer<typeof CreateGenreSchema>;
+export type Genre = z.infer<typeof GenreSchema>;
 export type ParentChildrenGenre = Genre & { subGenres: Genre[] };
 
-export type CreateReviewData = z.infer<typeof createReviewSchema>;
-export type Review = z.infer<typeof reviewSchema>;
+export type CreateReviewData = z.infer<typeof CreateReviewSchema>;
+export type Review = z.infer<typeof ReviewSchema>;
