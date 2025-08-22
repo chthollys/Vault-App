@@ -51,18 +51,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         });
 
         if (!user) {
-          throw new Error("No user found with this email");
+          return null;
         }
 
+        // Check if user hasn't finished their account creation
         const hasOAuthAccount = user.accounts.some(
           (account) =>
             account.provider !== "credentials" && account.provider !== "email"
         );
-
         if (!hasOAuthAccount && !user.password) {
           throw new Error("Please complete your account setup");
         }
 
+        // Catch user with OAuth account trying to login with non-existent credential.
         if (hasOAuthAccount && !user.password) {
           throw new Error("Please use your social login instead");
         }
@@ -98,7 +99,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.id as string;
+        session.user.id = token.id;
       }
       return session;
     },

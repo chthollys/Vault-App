@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Logo } from "../Typography";
 import Menu from "./Menu";
 import { UserAvatarIcon } from "@/UI/icons";
-import { auth } from "@/app/actions/auth";
+import { auth } from "@/auth";
 import { LoginButton } from "@/UI/buttons";
 
 export default async function MainHeader() {
