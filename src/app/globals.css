@@ -91,6 +91,7 @@
   --color-glass-hover: rgba(255, 255, 255, 0.08);
   --color-glass-active: rgba(255, 255, 255, 0.12);
   --color-glass-border: rgba(255, 255, 255, 0.1);
+  --color-nav-bar: rgba(13, 17, 23, 0.85);
 
   /* Glass Effects */
   --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
