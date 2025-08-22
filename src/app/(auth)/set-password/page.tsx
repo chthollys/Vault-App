@@ -13,7 +13,7 @@ export default async function SetPasswordPage() {
   const emailVerified = await getCookieValue("otp-verified");
 
   if (!emailVerified || emailRequestOTP !== emailVerified) {
-    redirect("/signup?error=signup-first");
+    redirect("/signup");
   }
 
   return (

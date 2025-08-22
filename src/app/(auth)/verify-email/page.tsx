@@ -12,12 +12,12 @@ export default async function VerifyEmailPage() {
 
   // OTP verified, redirect user for account creation
   if (emailVerified) {
-    redirect("/set-password?error=otp-verified");
+    redirect("/set-password");
   }
 
   // Failed to get email
   if (!emailRequestOTP) {
-    redirect("/signup?error=signup-first");
+    redirect("/signup");
   }
 
   return (
