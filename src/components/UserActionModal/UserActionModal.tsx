@@ -13,6 +13,7 @@ import type { UserActionModalProps } from "@/lib/types/props";
 import UserModalAccordion from "./UserModalAccordion";
 import UserActionModalWrapper from "./UserActionModalWrapper";
 import Link from "next/link";
+import LogoutButton from "./LogoutButton";
 
 export default function UserActionModal({
   name,
@@ -46,9 +47,12 @@ export default function UserActionModal({
               />
               Hello, {name?.split(" ")[0]}.
             </ModalHeader>
-            <ModalBody className="w-full">
+
+            <ModalBody className="flex w-full flex-col items-center">
               <UserModalAccordion />
+              <LogoutButton />
             </ModalBody>
+
             <ModalFooter className="w-full items-center justify-center text-xs">
               <Link href={"#"} className="hover:underline">
                 Privacy & Policy
