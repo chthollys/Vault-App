@@ -6,13 +6,8 @@
 
 ## Sneak Peek Progress
 
-### Home
-![Vault App Home Page](https://github.com/chthollys/blobImage/blob/main/vault-app/home.png)
+![icon](https://github.com/chthollys/blobImage/blob/main/vault-app/icon.png)
 
-### All Games
-![Vault App All Game Page](https://github.com/chthollys/blobImage/blob/main/vault-app/all-games.png)
-
-### Game
-![Vault App Game Page](https://github.com/chthollys/blobImage/blob/main/vault-app/game.png)
+[vault-app-pink.vercel.app](https://vault-app-pink.vercel.app/)
 
 by: [chthollys](https://github.com/chthollys)
