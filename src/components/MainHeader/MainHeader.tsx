@@ -24,16 +24,19 @@ export default async function MainHeader() {
         </div>
 
         <div className="flex items-center gap-6">
-          <div className="relative">{"cart" /* {"VIEW SHOPPING CART"} */}</div>
-          <div className="">
+          <>
             {session ? (
-              <UserActionModal iconUrl={session.user.image} />
+              <UserActionModal
+                iconUrl={session.user.image}
+                name={session.user.name}
+                email={session.user.email}
+              />
             ) : (
               <Link href={"/login"}>
                 <LoginButton>Sign in</LoginButton>
               </Link>
             )}
-          </div>
+          </>
         </div>
       </div>
     </nav>
