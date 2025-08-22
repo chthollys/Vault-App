@@ -1,6 +1,6 @@
 "use client";
 
-import Loading from "@/app/(main)/loading";
+import Loading from "@/app/loading";
 import { AsideBar } from "@/components/AsideBar";
 import type { GenresCheckboxProps } from "@/lib/types/props";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";

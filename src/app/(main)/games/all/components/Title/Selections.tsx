@@ -1,6 +1,6 @@
 "use client";
 
-import Loading from "@/app/(main)/loading";
+import Loading from "@/app/loading";
 import { Select, SelectItem, type SharedSelection } from "@heroui/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";

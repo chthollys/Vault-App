@@ -1,7 +1,7 @@
 import Hydration from "@/app/hydration";
 import NavAsideBar from "./NavAsideBar";
 import { Suspense } from "react";
-import Loading from "@/app/(main)/loading";
+import Loading from "@/app/loading";
 
 export default function HydratedNavBar() {
   return (

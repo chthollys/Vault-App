@@ -1,6 +1,6 @@
 "use client";
 
-import Loading from "@/app/(main)/loading";
+import Loading from "@/app/loading";
 import GamesInfiniteGrid from "@/components/GameSection/GamesInfiniteGrid";
 import { getValuesByParams } from "@/lib/utils/utils";
 import { useSearchParams } from "next/navigation";
