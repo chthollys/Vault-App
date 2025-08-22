@@ -1,6 +1,11 @@
 import React from "react";
 import type { Game, ParentChildrenGenre } from "./data";
-import type { ComponentPropsWithoutRef, ElementType, Ref } from "react";
+import type {
+  ComponentPropsWithoutRef,
+  ElementType,
+  ReactNode,
+  Ref,
+} from "react";
 import type { StaticImageData } from "next/image";
 import type { SortingRules } from "./utils";
 import type { InputProps } from "@heroui/react";
@@ -144,6 +149,23 @@ export interface HeartButtonSVGProps extends ButtonElementProps {
   onClick: () => void;
 }
 
+export interface UserAvatarIconProps {
+  imageUrl?: string | null;
+  onClick?: () => void;
+}
+
+export interface UserActionModalProps {
+  name?: string | null;
+  email?: string | null;
+  iconUrl?: string | null;
+}
+
+export interface UserActionModalWrapperProps extends ChildrenProp {
+  isOpen: boolean;
+  onClose: () => void;
+  onOpenChange: () => void;
+}
+
 export interface GamePageProps {
   params: Promise<{
     slug: string;
@@ -156,4 +178,9 @@ export interface VerifyEmailFormProps {
 
 export interface SetPasswordFormProps {
   email: string;
+}
+
+export interface BadgedIconProps {
+  icon: ReactNode;
+  isInvisible?: boolean;
 }
