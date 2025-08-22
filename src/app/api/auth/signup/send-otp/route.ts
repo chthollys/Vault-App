@@ -2,25 +2,35 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "~/prisma/db";
 import nodemailer from "nodemailer";
 import crypto from "crypto";
-import { cookies } from "next/headers";
-import { getUserByEmail } from "@/app/actions/server";
+import { getUserByEmail } from "@/app/actions/db";
+import { getCookieValue } from "@/app/actions/cookies";
 
 export async function POST(req: NextRequest) {
   const { email } = await req.json();
+
   if (!email)
     return NextResponse.json({ error: "Email is required" }, { status: 400 });
 
-  const cookieStore = await cookies();
   const existingUser = await getUserByEmail(email);
-
   if (existingUser)
     return NextResponse.json(
       { error: "User already exist, please proceed to login" },
       { status: 400 }
     );
 
-  const otp = crypto.randomInt(100000, 999999).toString();
+  const validatedEmail = await getCookieValue("otp-verified");
+  if (validatedEmail && validatedEmail === email) {
+    return NextResponse.json(
+      {
+        message:
+          "Email already verified, please proceed to set your new account password",
+        redirect: "/set-password",
+      },
+      { status: 200 }
+    );
+  }
 
+  const otp = crypto.randomInt(100000, 999999).toString();
   const expires = new Date(Date.now() + 5 * 60 * 1000);
 
   const existingToken = await prisma.verificationToken.findFirst({
@@ -54,14 +64,13 @@ export async function POST(req: NextRequest) {
     html: `<p>Your OTP code is:</p><h2>${otp}</h2>`,
   });
 
-  cookieStore.set({
-    name: "otp-sent",
-    value: email,
+  const res = NextResponse.json({ success: true });
+  res.cookies.set("otp-sent", email, {
     httpOnly: true,
     maxAge: 5 * 60,
     path: "/",
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
   });
 
-  return NextResponse.json({ success: true });
+  return res;
 }
