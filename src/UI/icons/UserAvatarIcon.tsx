@@ -1,11 +1,11 @@
+"use client";
+
 import ImageOptimized from "@/components/ImageOptimized";
+import type { UserAvatarIconProps } from "@/lib/types/props";
 
-interface UserAvatarIconProps {
-  imageUrl?: string | null;
-}
-
-export default async function UserAvatarIcon({
+export default function UserAvatarIcon({
   imageUrl,
+  onClick,
 }: UserAvatarIconProps) {
   return (
     <ImageOptimized
@@ -14,7 +14,8 @@ export default async function UserAvatarIcon({
         imageUrl ??
         "https://vault-app-bucket.s3.ap-southeast-2.amazonaws.com/default-cover/user-default.jpg"
       }
-      className="w-8 rounded-md"
+      className="w-8 rounded-md hover:cursor-pointer"
+      onClick={onClick}
     />
   );
 }
