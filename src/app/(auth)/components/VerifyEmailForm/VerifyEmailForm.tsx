@@ -11,13 +11,13 @@ import { FormTitle, GameDeveloper } from "@/components/Typography";
 import { OTPSchema } from "@/lib/schemas";
 import { GameCardWrapper } from "@/components/Wrapper";
 import type { VerifyEmailFormProps } from "@/lib/types/props";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 type Input = z.infer<typeof OTPSchema>;
 
 export default function VerifyEmailForm({ email }: VerifyEmailFormProps) {
   const router = useRouter();
-  const pathName = usePathname();
   const {
     register,
     handleSubmit,
@@ -34,7 +34,7 @@ export default function VerifyEmailForm({ email }: VerifyEmailFormProps) {
       router.push("/set-password");
     },
     onError: (err) => {
-      router.push(`${pathName}?error=${err.message}`);
+      toast.error(err.message ?? "Something went wrong.");
     },
   });
 
