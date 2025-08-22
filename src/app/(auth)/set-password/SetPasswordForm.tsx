@@ -2,7 +2,7 @@
 
 import { useMutation } from "@tanstack/react-query";
 import z from "zod";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignInButton } from "@/UI/buttons";
 import { FormTitle } from "@/components/Typography";
@@ -23,7 +23,7 @@ export default function SetPasswordForm({ email }: VerifyEmailFormProps) {
   const router = useRouter();
   const {
     register,
-    watch,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<Input>({
@@ -45,8 +45,9 @@ export default function SetPasswordForm({ email }: VerifyEmailFormProps) {
     },
   });
 
-  const watched = watch(["password", "confirm"]);
+  const watched = useWatch({ name: ["password", "confirm"], control });
   const debouncedWatched = useDebounce<string[]>(watched, 300);
+  console.log(debouncedWatched[0]);
 
   useEffect(() => {
     const errorParsing = () => {
