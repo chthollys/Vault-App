@@ -8,10 +8,11 @@ import { SignInButton } from "@/UI/buttons";
 import LoginAccountNow from "./LoginAccountNow";
 import { sendOtpFn } from "@/app/actions/otp";
 import { useMutation } from "@tanstack/react-query";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { EmailSchema } from "@/lib/schemas";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "react-toastify";
 
 type Inputs = z.infer<typeof EmailSchema>;
 
@@ -26,18 +27,17 @@ export default function SignupForm() {
     resolver: zodResolver(EmailSchema),
   });
   const router = useRouter();
-  const pathName = usePathname();
 
   const { mutate, isPending } = useMutation({
     mutationFn: sendOtpFn,
     onSuccess: (data) => {
-      if (data.redirect) {
+      if (data.redirect && data.message) {
         router.push(data.redirect);
       } else {
         router.push("/verify-email");
       }
     },
-    onError: (err) => router.push(`${pathName}?error=${err.message}`),
+    onError: (err) => toast.error(err.message ?? "Something went wrong."),
   });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
