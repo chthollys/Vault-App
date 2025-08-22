@@ -134,11 +134,12 @@ export const verifyPassword = async (
 };
 
 export const createUser = async (user: CreateUserData) => {
-  const hashedPassword = await bcrypt.hash(user.password, 13);
+  const hashedPassword = await bcrypt.hash(user.password, SALT_ROUNDS);
   const response = await db.user.create({
     data: {
       ...user,
       password: hashedPassword,
+      emailVerified: new Date(),
     },
   });
   return response;
