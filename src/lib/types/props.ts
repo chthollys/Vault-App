@@ -168,7 +168,7 @@ export interface UserActionModalWrapperProps extends ChildrenProp {
 
 export interface GamePageProps {
   params: Promise<{
-    slug: string;
+    id: string;
   }>;
 }
 

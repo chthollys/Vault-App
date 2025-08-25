@@ -6,8 +6,8 @@ import type { GamePageProps } from "@/lib/types/props";
 import { getGame } from "@/app/actions/db";
 
 export default async function GamePage({ params }: GamePageProps) {
-  const { slug } = await params;
-  const game = await getGame(slug);
+  const { id } = await params;
+  const game = await getGame(id);
 
   if (!game) {
     notFound();
@@ -18,7 +18,7 @@ export default async function GamePage({ params }: GamePageProps) {
       <div className="min-w-[560px]">
         <TitleSection title={game.title} />
         <GameInfoSection game={game} />
-        <GameReviewSection gameId={slug} />
+        <GameReviewSection gameId={id} />
       </div>
     </>
   );
