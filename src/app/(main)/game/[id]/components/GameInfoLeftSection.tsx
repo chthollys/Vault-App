@@ -16,8 +16,9 @@ export default function GameInfoLeftSection({ game }: GameInfoLeftSection) {
         <GameCoverWrapper className="relative mx-0 mt-0 mb-6 h-[300px] w-[500px] overflow-hidden rounded-bl-sm lg:w-[400px]">
           <Image
             src={game?.coverImageUrl}
-            alt={"GAME IMAGE ALT"}
+            alt={`${game.title ?? "game"}-image`}
             className="h-full w-full rounded-xl rounded-br-sm object-cover !transition-none"
+            priority
           />
         </GameCoverWrapper>
 
