@@ -4,6 +4,7 @@ import Menu from "./Menu";
 import { auth } from "@/auth";
 import { LoginButton } from "@/UI/buttons";
 import { UserActionModal } from "../UserActionModal";
+import SearchBar from "@/components/MainHeader/SearchBar";
 
 export default async function MainHeader() {
   const session = await auth();
@@ -19,8 +20,8 @@ export default async function MainHeader() {
 
         <Menu />
 
-        <div className="search-bar" role="search">
-          {"SEARCH BAR IMPLEMENTATION"}
+        <div className="my-0 max-w-md min-w-56 flex-1" role="search">
+          <SearchBar />
         </div>
 
         <div className="flex items-center gap-6">
