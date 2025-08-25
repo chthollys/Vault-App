@@ -14,6 +14,7 @@ import UserModalAccordion from "./UserModalAccordion";
 import UserActionModalWrapper from "./UserActionModalWrapper";
 import Link from "next/link";
 import LogoutButton from "./LogoutButton";
+import { DEFAULT_AVATAR_IMG } from "@/lib/utils/constants";
 
 export default function UserActionModal({
   name,
@@ -27,7 +28,7 @@ export default function UserActionModal({
       <User
         name={name}
         description={email}
-        avatarProps={{ src: `${iconUrl}` }}
+        avatarProps={{ src: `${iconUrl ?? DEFAULT_AVATAR_IMG}` }}
         onClick={onOpen}
         className="hover:cursor-pointer"
       />
@@ -40,12 +41,12 @@ export default function UserActionModal({
           <>
             <ModalHeader className="flex flex-col items-center gap-3">
               <Avatar
-                src={iconUrl ?? ""}
+                src={iconUrl ?? DEFAULT_AVATAR_IMG}
                 isBordered
                 color="default"
                 className="opa h-20 w-20"
               />
-              Hello, {name?.split(" ")[0]}.
+              Hello, {name ? name?.split(" ")[0] : "Player"}.
             </ModalHeader>
 
             <ModalBody className="flex w-full flex-col items-center">
