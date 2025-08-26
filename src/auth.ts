@@ -93,6 +93,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        token.name = user.name;
+        token.email = user.email;
+
+        if (user.image) {
+          token.picture = user.image;
+        }
       }
       return token;
     },
@@ -100,7 +106,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id;
+        session.user.name = token.name;
+
+        if (!token.email) {
+          throw new Error(
+            "Email is missing from token. Che.ck provider config"
+          );
+        }
+        session.user.email = token.email;
+        session.user.image = token.picture;
       }
+
       return session;
     },
 
@@ -114,6 +130,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       });
 
       if (existingUser) {
+        if (existingUser.image !== user.image) {
+          await prisma.user.update({
+            where: { id: existingUser.id },
+            data: { image: user.image ?? existingUser.image },
+          });
+        }
+
         const linkedAccount = await prisma.account.findUnique({
           where: {
             provider_providerAccountId: {
