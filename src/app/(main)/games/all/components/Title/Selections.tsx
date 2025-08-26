@@ -1,6 +1,5 @@
 "use client";
 
-import Loading from "@/app/loading";
 import { Select, SelectItem, type SharedSelection } from "@heroui/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
@@ -43,7 +42,6 @@ export default function Selections() {
 
   return (
     <div className="flex min-w-52 items-center gap-2 md:min-w-80">
-      {isPending && <Loading />}
       <Select
         label="Sort by"
         labelPlacement="outside-left"

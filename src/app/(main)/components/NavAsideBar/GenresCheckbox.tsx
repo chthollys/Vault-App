@@ -1,6 +1,5 @@
 "use client";
 
-import Loading from "@/app/loading";
 import { AsideBar } from "@/components/AsideBar";
 import type { GenresCheckboxProps } from "@/lib/types/props";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -48,7 +47,6 @@ export default function GenresCheckbox({ genres }: GenresCheckboxProps) {
 
   return (
     <AsideBar.Section label="Filter by Category">
-      {isPending && <Loading />}
       <AsideBar.Links>
         {genres.map(({ subGenres }) =>
           subGenres.map(({ id, name }) => {
