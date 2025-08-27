@@ -1,6 +1,6 @@
 import Image from "@/components/ImageOptimized";
 import { HeartButtonSVG } from "@/UI/icons";
-import { GameCardWrapperWithHover as GameCoverWrapper } from "../Wrapper";
+import { GameCoverWrapper } from "../Wrapper";
 import defaultImg from "~/assets/images/gameDefault.png";
 import type { GameCardCoverProps } from "@/lib/types/props";
 
