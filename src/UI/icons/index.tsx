@@ -5,6 +5,7 @@ import EyeSlashFilledIcon from "./EyeSlashFilledIcon";
 import SignInIcon from "./SignInIcon";
 import UserAvatarIcon from "./UserAvatarIcon";
 import BadgedIcon from "./BadgedIcon";
+import GameBadge from "./GameBadge";
 
 export {
   HeartButtonSVG,
@@ -14,4 +15,5 @@ export {
   SignInIcon,
   UserAvatarIcon,
   BadgedIcon,
+  GameBadge,
 };
