@@ -13,17 +13,20 @@ export default function NavAsideBar() {
   const path = usePathname();
   const { data: genres } = useGenres();
 
+  const noAsideBarRoute = ["/cart"];
+  if (noAsideBarRoute.includes(path)) return null;
+
+  const isGamePage = path.startsWith("/game/");
+  const isGamesAll = path === "/games/all";
+  const isHome = path === "/";
+
   return (
-    <Suspense fallback={<LoadingSpinner />}>
-      <AsideBar>
-        {(path.startsWith("/game/") || path.startsWith("/games/all")) && (
-          <QuickAction />
-        )}
-        {path.startsWith("/games/all") && <GenresCheckbox genres={genres} />}
-        {(path === "/" || path.startsWith("/game/")) && (
-          <GenreNav genres={genres} />
-        )}
-      </AsideBar>
-    </Suspense>
+    <AsideBar>
+      {(isGamePage || isGamesAll) && <QuickAction />}
+      <Suspense fallback={<LoadingSpinner />}>
+        {isGamesAll && genres && <GenresCheckbox genres={genres} />}
+        {(isHome || isGamePage) && genres && <GenreNav genres={genres} />}
+      </Suspense>
+    </AsideBar>
   );
 }
