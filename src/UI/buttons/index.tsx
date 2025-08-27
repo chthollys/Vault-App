@@ -5,6 +5,7 @@ import GithubLoginButton from "./GithubLoginButton";
 import GoogleLoginButton from "./GoogleLoginButton";
 import LoginButton from "./LoginButton";
 import SignInButton from "./SignInButton";
+import DeleteCartItemButton from "./DeleteCartItemButton";
 
 export {
   ArrowNavButton,
@@ -14,4 +15,5 @@ export {
   GoogleLoginButton,
   LoginButton,
   SignInButton,
+  DeleteCartItemButton,
 };
