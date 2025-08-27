@@ -23,12 +23,12 @@ export default function HomePage() {
   }, [games]);
 
   return (
-    <>
+    <div>
       <FeaturedGames games={featuredGames} />
       <GameGridsSection
         hotGames={hotGames}
         recommendedGames={recommendedGames}
       />
-    </>
+    </div>
   );
 }

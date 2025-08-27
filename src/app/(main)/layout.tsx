@@ -22,7 +22,7 @@ export default function MainLayout({
         >
           <div className="grid grid-cols-[250px_1fr] items-start gap-12">
             <NavAsideBar />
-            <div className="min-w-0">{children}</div>
+            {children}
           </div>
         </main>
         <Footer />
