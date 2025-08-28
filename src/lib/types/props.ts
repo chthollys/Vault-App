@@ -184,3 +184,11 @@ export interface BadgedIconProps {
   icon: ReactNode;
   isInvisible?: boolean;
 }
+
+export interface BreadcrumbsNavProps {
+  currentLabel?: string;
+}
+
+export interface DeleteCartItemButtonProps extends ChildrenProp {
+  onClick?: () => void;
+}
