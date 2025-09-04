@@ -1,0 +1,3 @@
+id,userId,firstName,lastName,bio,avatarUrl,country,dateOfBirth
+cmdya3rcy0001t21h7ql4stse,cmdya3rcy0000t21h1vhpg4bd,,,,https://vault-app-bucket.s3.ap-southeast-2.amazonaws.com/default-cover/USER_DEFAULT_AVATAR.webp,,
+cmdyaabsq0001t29u1vctfq8x,cmdyaabsq0000t29ujg4vmczc,,,,https://vault-app-bucket.s3.ap-southeast-2.amazonaws.com/default-cover/USER_DEFAULT_AVATAR.webp,,
