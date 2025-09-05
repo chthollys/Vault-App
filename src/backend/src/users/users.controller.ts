@@ -4,7 +4,7 @@ import { Serialize } from "../interceptors/serialize.interceptor";
 import { UserDto } from "./dtos/user.dto";
 
 @Controller("users")
-// @Serialize(UserDto)
+@Serialize(UserDto)
 export class UsersController {
   constructor(private userService: UsersService) {}
   @Get()
