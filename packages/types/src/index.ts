@@ -36,9 +36,12 @@ export type CreateReviewData = z.infer<typeof CreateReviewSchema>;
 export type Review = z.infer<typeof ReviewSchema>;
 
 export type SortBy = "newest" | "popular" | "highest-price" | "lowest-price";
-export type SortingRules = {
+export type OrderBy = "asc" | "desc";
+export type GamesQuery = {
   categories?: string[] | null;
   sortBy?: SortBy[] | null;
+  limit?: number | null;
+  page?: number | null;
 };
 
 export type NonNullableObject<T> = { [P in keyof T]: NonNullable<T[P]> };
