@@ -1,5 +1,5 @@
 import { NonNullableObject } from "@repo/types/src";
-import type { SortingRules } from "@repo/types/src";
+import type { GamesQuery, SortBy } from "@repo/types/src";
 
 export const generateAuthToken = async () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
@@ -80,11 +80,11 @@ export const getRandomSubArray = <T>(arr: T[], n: number): T[] => {
   return result;
 };
 
-export const getValuesByParams = (
+export const getValuesByParams = <T extends string>(
   params: URLSearchParams | undefined | null,
   keyname: string
-): string[] | null => {
-  const result = (params && params.getAll(keyname)) || [];
+): T[] | null => {
+  const result = ((params && params.getAll(keyname)) as T[]) || [];
   return result.length > 0 ? result : null;
 };
 
@@ -98,13 +98,12 @@ export const getPercentageRatio = (
 
 export const getSortingRulesFromParams = (
   searchParams: URLSearchParams
-): SortingRules => {
+): GamesQuery => {
   const categories = getValuesByParams(searchParams, "category") || [];
-  const sortBy = getValuesByParams(searchParams, "sortBy") || [];
+  const sortBy = getValuesByParams<SortBy>(searchParams, "sortBy") || [];
 
   return {
     categories: categories.length > 0 ? categories.sort() : null,
     sortBy: sortBy.length > 0 ? sortBy : ["newest"],
   };
 };
-
