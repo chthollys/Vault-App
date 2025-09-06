@@ -11,7 +11,7 @@ import {
   CreateUserSchema,
   CreateProfileSchema,
   UserSchema,
-} from "@repo/types/src/schemas";
+} from "./schemas";
 
 export type CreateUserData = z.infer<typeof CreateUserSchema>;
 export type User = z.infer<typeof UserSchema>;
