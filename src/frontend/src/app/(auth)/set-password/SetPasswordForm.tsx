@@ -6,7 +6,7 @@ import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignInButton } from "@/UI/buttons";
 import { FormTitle } from "@/components/Typography";
-import { PasswordSchema } from "@repo/types/src/schemas";
+import { PasswordSchema } from "repo/schemas";
 import { GameCardWrapper } from "@/components/Wrapper";
 import type { VerifyEmailFormProps } from "@/lib/types/props";
 import { useRouter } from "next/navigation";

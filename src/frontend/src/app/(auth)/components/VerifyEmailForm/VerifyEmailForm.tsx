@@ -8,7 +8,7 @@ import { verifyOtp } from "@/app/actions/otp.action";
 import FormInputOtp from "./InputOtp";
 import { SignInButton } from "@/UI/buttons";
 import { FormTitle, GameDeveloper } from "@/components/Typography";
-import { OTPSchema } from "@repo/types/src/schemas";
+import { OTPSchema } from "repo/schemas";
 import { GameCardWrapper } from "@/components/Wrapper";
 import type { VerifyEmailFormProps } from "@/lib/types/props";
 import { useRouter } from "next/navigation";

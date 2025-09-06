@@ -2,7 +2,7 @@ import React from "react";
 import type {
   Game,
   ParentChildrenGenre,
-} from "@repo/types/src";
+} from "repo/types";
 import type {
   ComponentPropsWithoutRef,
   ElementType,
@@ -10,7 +10,7 @@ import type {
   Ref,
 } from "react";
 import type { StaticImageData } from "next/image";
-import type { SortingRules } from "./utils";
+import type { GamesQuery } from "./utils";
 import type { InputProps } from "@heroui/react";
 
 export interface ChildrenProp {
@@ -101,7 +101,7 @@ export interface FeaturedGamesProps {
 }
 
 export interface GamesGridContainerProps {
-  sortRule?: SortingRules;
+  sortRule?: GamesQuery;
   title?: string;
 }
 

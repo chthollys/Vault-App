@@ -1,4 +1,4 @@
-import type { Genre } from "@repo/types/src";
+import type { Genre } from "repo/types";
 
 export interface GameInfoDetailProps {
   name: string;

@@ -1,11 +1,11 @@
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { getGamesPaginated } from "../actions/db.action";
-import type { SortingRules } from "@repo/types/src";
-import type { GamesInfinite } from "@repo/types/src";
+import type { GamesQuery } from "repo/types";
+import type { GamesInfinite } from "repo/types";
 import { GAME_INFINITE_PERPAGE } from "@/lib/utils/constants";
 
 export const useGamesInfinite = (
-  sortRule?: SortingRules | null,
+  sortRule?: GamesQuery | null,
   perPage = GAME_INFINITE_PERPAGE
 ) => {
   const sortedCategory = sortRule?.categories

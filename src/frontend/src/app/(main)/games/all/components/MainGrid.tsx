@@ -5,11 +5,11 @@ import GamesInfiniteGrid from "@/components/GameSection/GamesInfiniteGrid";
 import { getValuesByParams } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
-import type { SortingRules } from "@repo/types/src";
+import type { GamesQuery } from "repo/types";
 
 export default function MainGrid() {
   const searchParams = useSearchParams();
-  const sortRules: SortingRules = {
+  const sortRules: GamesQuery = {
     categories: getValuesByParams(searchParams, "category"),
     sortBy: getValuesByParams(searchParams, "sortBy"),
   };

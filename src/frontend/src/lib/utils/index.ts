@@ -1,5 +1,5 @@
-import { NonNullableObject } from "@repo/types/src";
-import type { GamesQuery, SortBy } from "@repo/types/src";
+import { NonNullableObject } from "repo/types";
+import type { GamesQuery, SortBy } from "repo/types";
 
 export const generateAuthToken = async () => {
   return Math.floor(100000 + Math.random() * 900000).toString();

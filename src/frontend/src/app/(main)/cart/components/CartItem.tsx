@@ -1,7 +1,7 @@
 import { PriceSection } from "@/components/GameSection";
 import ImageOptimized from "@/components/ImageOptimized";
 import { GameCardWrapperWithHover as CartItemWrapper } from "@/components/Wrapper";
-import type { Game } from "@repo/types/src";
+import type { Game } from "repo/types";
 import { DeleteCartItemButton } from "@/UI/buttons";
 import { GameBadge } from "@/UI/icons";
 

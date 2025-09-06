@@ -9,7 +9,7 @@ import LoginAccountNow from "./LoginAccountNow";
 import { sendOtpFn } from "@/app/actions/otp.action";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { EmailSchema } from "@repo/types/src/schemas";
+import { EmailSchema } from "repo/schemas";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";

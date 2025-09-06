@@ -5,15 +5,15 @@ import db from "~/prisma/db";
 import bcrypt from "bcrypt";
 import { buildGameQuery } from "@/lib/utils";
 import { SALT_ROUNDS } from "@/lib/utils/constants";
-import type { CreateReviewData, CreateUserData } from "@repo/types/src";
-import type { SortingRules } from "@repo/types/src";
+import type { CreateReviewData, CreateUserData } from "repo/types";
+import type { GamesQuery } from "repo/types";
 
 export async function getUsers() {
   const res = await axiosClient({ url: "/users", method: "GET" });
   return res.data;
 }
 
-export async function getGames(sortRule?: SortingRules | null) {
+export async function getGames(sortRule?: GamesQuery | null) {
   const { where, orderBy } = buildGameQuery(sortRule);
   return db.game.findMany({
     where,
@@ -30,7 +30,7 @@ export async function getGame(id: string) {
 }
 
 export async function getGamesPaginated(
-  sortRule: SortingRules | null | undefined,
+  sortRule: GamesQuery | null | undefined,
   page: number,
   perPage: number
 ) {

@@ -1,9 +1,9 @@
-import type { SortingRules } from "@repo/types/src";
-import type { Game } from "@repo/types/src";
+import type { GamesQuery } from "repo/types";
+import type { Game } from "repo/types";
 import { getGames } from "../actions/db.action";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-export const useGames = (sortRule?: SortingRules | null) => {
+export const useGames = (sortRule?: GamesQuery | null) => {
   const sortedCategory = sortRule?.categories
     ? [...sortRule.categories].sort()
     : null;
