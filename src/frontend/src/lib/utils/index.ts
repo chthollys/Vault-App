@@ -108,39 +108,3 @@ export const getSortingRulesFromParams = (
   };
 };
 
-export const buildGameQuery = (sortRule?: SortingRules | null) => {
-  const where = sortRule?.categories?.length
-    ? {
-        genres: {
-          some: {
-            genre: {
-              id: {
-                in: sortRule.categories,
-              },
-            },
-          },
-        },
-      }
-    : {};
-
-  let orderBy: Record<string, "asc" | "desc"> | undefined;
-
-  if (sortRule?.sortBy?.length) {
-    switch (sortRule.sortBy[0]) {
-      case "newest":
-        orderBy = { releaseDate: "desc" };
-        break;
-      case "popular":
-        orderBy = { popularity: "desc" };
-        break;
-      case "lowest-price":
-        orderBy = { price: "asc" };
-        break;
-      case "highest-price":
-        orderBy = { price: "desc" };
-        break;
-    }
-  }
-
-  return { where, orderBy };
-};
