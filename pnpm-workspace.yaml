@@ -1,6 +1,7 @@
 packages:
   - "src/frontend"
   - "src/backend"
+  - "packages/types"
 
 onlyBuiltDependencies:
   - "@heroui/shared-utils"
