@@ -17,4 +17,29 @@ export class GenresRepository {
       return this.errorHandler(err, "Failed to fetch genres.");
     }
   }
+
+  async findById(id: string): Promise<Genre | null> {
+    try {
+      return await this.prisma.genre.findUnique({ where: { id } });
+    } catch (err) {
+      return this.errorHandler(
+        err,
+        `Failed to fetch genre with an id of ${id}`,
+      );
+    }
+  }
+
+  async findByGameId(id: string): Promise<{ genre: Genre }[]> {
+    try {
+      return await this.prisma.gameGenre.findMany({
+        where: { gameId: id },
+        select: { genre: true },
+      });
+    } catch (err) {
+      return this.errorHandler(
+        err,
+        `Failed to fetch genre with an id of ${id}`,
+      );
+    }
+  }
 }

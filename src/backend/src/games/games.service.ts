@@ -1,13 +1,17 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { GamesRepository } from "./games.repository";
-import { Game } from "@prisma/client";
-import type { SortingRules } from "repo/types";
+import { Game, Genre } from "@prisma/client";
 import { buildGamesQuery } from "utils/prisma.util";
+import type { GamesQueryDto } from "src/dtos";
+import { GenresService } from "src/genres/genres.service";
 
 @Injectable()
 export class GamesService {
-  constructor(private gamesRepo: GamesRepository) {}
-  async findAll(sortingRules: SortingRules): Promise<Game[]> {
+  constructor(
+    private genreService: GenresService,
+    private gamesRepo: GamesRepository,
+  ) {}
+  async findAll(sortingRules: GamesQueryDto): Promise<Game[]> {
     const args = buildGamesQuery(sortingRules);
     const games = await this.gamesRepo.findAll(args);
     if (!games) {
@@ -16,11 +20,15 @@ export class GamesService {
     return games;
   }
 
-  async findById(id: string) {
+  async findById(id: string): Promise<Game> {
     const game = await this.gamesRepo.findById(id);
     if (!game) {
       throw new NotFoundException(`Game with an id of ${id} not found.`);
     }
     return game;
+  }
+
+  async findGenresByGameId(id: string): Promise<Genre[]> {
+    return await this.genreService.findByGameId(id);
   }
 }

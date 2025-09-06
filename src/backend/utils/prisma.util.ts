@@ -4,7 +4,7 @@ import {
   ConflictException,
   InternalServerErrorException,
 } from "@nestjs/common";
-import type { SortingRules } from "repo/types";
+import type { GamesQuery, OrderBy } from "repo/types";
 
 export function handlePrismaError(err: any, message: string): never {
   if (err instanceof Prisma.PrismaClientValidationError) {
@@ -20,7 +20,7 @@ export function handlePrismaError(err: any, message: string): never {
 }
 
 export const buildGamesQuery = (
-  sortRule?: SortingRules | null,
+  sortRule?: GamesQuery | null,
 ): Prisma.GameFindManyArgs => {
   const where = sortRule?.categories?.length
     ? {
@@ -36,7 +36,7 @@ export const buildGamesQuery = (
       }
     : {};
 
-  let orderBy: Record<string, "asc" | "desc"> | undefined;
+  let orderBy: Record<string, OrderBy> | undefined;
 
   if (sortRule?.sortBy?.length) {
     switch (sortRule.sortBy[0]) {
