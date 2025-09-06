@@ -11,6 +11,7 @@
     "format": "prettier . --write"
   },
   "dependencies": {
+    "repo": "workspace:*",
     "@auth/prisma-adapter": "^2.10.0",
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",

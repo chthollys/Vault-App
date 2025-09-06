@@ -1,6 +1,6 @@
 import { Expose } from "class-transformer";
-
-export class UserDto {
+import type { User } from "repo";
+export class UserDto implements User {
   @Expose()
   id: string;
 
@@ -13,8 +13,8 @@ export class UserDto {
   @Expose()
   phone: string;
 
-  // @Expose()
-  // password: string;
+  @Expose()
+  password: string;
 
   @Expose()
   address: string;
