@@ -2,7 +2,7 @@ import { Type } from "class-transformer";
 import { IsNumber, IsOptional } from "class-validator";
 import type { GamesQuery, SortBy } from "repo/types";
 
-export class GameQueryDto implements GamesQuery {
+export class GamesQueryDto implements GamesQuery {
   @IsOptional()
   categories?: string[] | null | undefined;
 
