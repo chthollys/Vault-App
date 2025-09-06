@@ -1,41 +1,26 @@
-import {
-  BadRequestException,
-  ConflictException,
-  Injectable,
-  InternalServerErrorException,
-} from "@nestjs/common";
-import { Prisma } from "@prisma/client";
+import { Injectable } from "@nestjs/common";
+import { User } from "@prisma/client";
 import { PrismaService } from "../prisma.service";
+import { handlePrismaError } from "utils/prisma.util";
 
 @Injectable()
 export class UsersRepository {
   constructor(private prisma: PrismaService) {}
-  private handlePrismaError(err: any, message: string): never {
-    if (err instanceof Prisma.PrismaClientValidationError) {
-      throw new BadRequestException(err.message);
-    }
-    if (
-      err instanceof Prisma.PrismaClientKnownRequestError &&
-      err.code === "P2002"
-    ) {
-      throw new ConflictException(`Unique constraint violation.`);
-    }
-    throw new InternalServerErrorException(message);
-  }
+  private errorHandler = handlePrismaError;
 
-  async findUsers() {
+  async findAll(): Promise<User[]> {
     try {
-      return await this.prisma.user.findMany({});
+      return await this.prisma.user.findMany();
     } catch (err) {
-      this.handlePrismaError(err, "Failed to find users.");
+      return this.errorHandler(err, "Failed to find users.");
     }
   }
 
-  async findUserById(id: string) {
+  async findById(id: string): Promise<User | null> {
     try {
       return await this.prisma.user.findUnique({ where: { id } });
     } catch (error) {
-      this.handlePrismaError(error, "Failed to find user.");
+      return this.errorHandler(error, "Failed to find user.");
     }
   }
 }
