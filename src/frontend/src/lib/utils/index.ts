@@ -1,5 +1,5 @@
-import { NonNullableObject } from "@/lib/types/utils";
-import type { SortingRules } from "@/lib/types/utils";
+import { NonNullableObject } from "@repo/types/src";
+import type { SortingRules } from "@repo/types/src";
 
 export const generateAuthToken = async () => {
   return Math.floor(100000 + Math.random() * 900000).toString();

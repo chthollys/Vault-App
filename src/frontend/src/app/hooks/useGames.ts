@@ -1,6 +1,6 @@
-import type { SortingRules } from "@/lib/types/utils";
-import type { Game } from "@/lib/types/data";
-import { getGames } from "../actions/db";
+import type { SortingRules } from "@repo/types/src";
+import type { Game } from "@repo/types/src";
+import { getGames } from "../actions/db.action";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 export const useGames = (sortRule?: SortingRules | null) => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { formatStarRating } from "@/lib/utils/utils";
+import { formatStarRating } from "@/lib/utils";
 import { useMemo } from "react";
 import { Wrapper } from "@/components/Wrapper/base";
 import type { SpanElementProps } from "@/lib/types/props";

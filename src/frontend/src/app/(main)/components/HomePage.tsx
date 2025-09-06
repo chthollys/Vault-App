@@ -1,9 +1,9 @@
 "use client";
 
-import type { Game } from "@/lib/types/data";
+import type { Game } from "@repo/types/src";
 import { useState, useEffect } from "react";
 import { useGames } from "@/app/hooks/useGames";
-import { getRandomSubArray } from "@/lib/utils/utils";
+import { getRandomSubArray } from "@/lib/utils";
 import FeaturedGames from "./FeaturedGames";
 import GameGridsSection from "./GameGridsSection";
 

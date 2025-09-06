@@ -1,5 +1,8 @@
 import React from "react";
-import type { Game, ParentChildrenGenre } from "./data";
+import type {
+  Game,
+  ParentChildrenGenre,
+} from "@repo/types/src";
 import type {
   ComponentPropsWithoutRef,
   ElementType,

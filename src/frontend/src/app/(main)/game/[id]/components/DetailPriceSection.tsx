@@ -1,5 +1,5 @@
 import { GamePrice } from "@/components/Typography";
-import { formatToUSD } from "@/lib/utils/utils";
+import { formatToUSD } from "@/lib/utils";
 
 export interface DetailPriceSectionProps {
   price: number;

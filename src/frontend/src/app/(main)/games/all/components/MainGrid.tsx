@@ -2,10 +2,10 @@
 
 import Loading from "@/app/loading";
 import GamesInfiniteGrid from "@/components/GameSection/GamesInfiniteGrid";
-import { getValuesByParams } from "@/lib/utils/utils";
+import { getValuesByParams } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
-import type { SortingRules } from "@/lib/types/utils";
+import type { SortingRules } from "@repo/types/src";
 
 export default function MainGrid() {
   const searchParams = useSearchParams();

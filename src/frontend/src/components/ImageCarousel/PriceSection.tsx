@@ -1,6 +1,6 @@
 import type { PriceSectionProps } from "@/lib/types/props";
 import { GamePrice, BeforePrice, DiscountBadge } from "../Typography";
-import { getPercentageRatio, formatToUSD } from "@/lib/utils/utils";
+import { getPercentageRatio, formatToUSD } from "@/lib/utils";
 
 export default function PriceSection({ price, afterPrice }: PriceSectionProps) {
   if (price === null || price === undefined) {

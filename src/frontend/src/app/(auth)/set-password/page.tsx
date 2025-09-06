@@ -1,6 +1,6 @@
 "use server";
 
-import { getCookieValue } from "@/app/actions/cookies";
+import { getCookieValue } from "@/app/actions/cookies.action";
 import { redirect } from "next/navigation";
 import SetPasswordForm from "./SetPasswordForm";
 import { auth } from "@/auth";

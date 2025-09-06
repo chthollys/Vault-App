@@ -8,7 +8,7 @@ import { MdManageSearch } from "react-icons/md";
 import { useDebounce } from "@uidotdev/usehooks";
 import { usePathname, useRouter } from "next/navigation";
 import ImageOptimized from "../ImageOptimized";
-import { formatToUSD } from "@/lib/utils/utils";
+import { formatToUSD } from "@/lib/utils";
 
 export default function SearchBar() {
   const { data: games } = useGames();

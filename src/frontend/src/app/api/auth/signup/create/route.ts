@@ -1,4 +1,4 @@
-import { createUser } from "@/app/actions/db";
+import { createUser } from "@/app/actions/db.action";
 import { signIn } from "@/auth";
 import { NextRequest, NextResponse } from "next/server";
 

@@ -1,22 +1,16 @@
 "use server";
 
+import axiosClient from "@/lib/axios-client";
 import db from "~/prisma/db";
 import bcrypt from "bcrypt";
-import { buildGameQuery } from "@/lib/utils/utils";
+import { buildGameQuery } from "@/lib/utils";
 import { SALT_ROUNDS } from "@/lib/utils/constants";
-import type { CreateReviewData, CreateUserData } from "@/lib/types/data";
-import type { SortingRules } from "@/lib/types/utils";
+import type { CreateReviewData, CreateUserData } from "@repo/types/src";
+import type { SortingRules } from "@repo/types/src";
 
 export async function getUsers() {
-  return await db.user.findMany({});
-}
-
-export async function getGame(id: string) {
-  return await db.game.findUnique({
-    where: {
-      id,
-    },
-  });
+  const res = await axiosClient({ url: "/users", method: "GET" });
+  return res.data;
 }
 
 export async function getGames(sortRule?: SortingRules | null) {
@@ -24,6 +18,14 @@ export async function getGames(sortRule?: SortingRules | null) {
   return db.game.findMany({
     where,
     ...(orderBy && { orderBy }),
+  });
+}
+
+export async function getGame(id: string) {
+  return await db.game.findUnique({
+    where: {
+      id,
+    },
   });
 }
 
@@ -48,12 +50,8 @@ export async function getGamesPaginated(
 }
 
 export async function getGenres() {
-  return await db.genre.findMany({
-    where: { parentId: null },
-    include: {
-      subGenres: true,
-    },
-  });
+  const res = await axiosClient({ url: "/genres", method: "GET" });
+  return res.data;
 }
 
 export async function getGenreByGameId(gameId: string) {

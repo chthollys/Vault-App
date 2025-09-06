@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import VerifyEmailForm from "../components/VerifyEmailForm/VerifyEmailForm";
-import { getCookieValue } from "@/app/actions/cookies";
+import { getCookieValue } from "@/app/actions/cookies.action";
 
 export default async function VerifyEmailPage() {
   const session = await auth();

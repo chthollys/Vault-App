@@ -1,4 +1,4 @@
-import type { Game } from "@/lib/types/data";
+import type { Game } from "@repo/types/src";
 import GameInfoLeftSection from "./GameInfoLeftSection";
 import GameInfoRightSection from "./GameInfoRightSection";
 

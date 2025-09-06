@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "~/prisma/db";
 import nodemailer from "nodemailer";
 import crypto from "crypto";
-import { getUserByEmail } from "@/app/actions/db";
-import { getCookieValue } from "@/app/actions/cookies";
+import { getUserByEmail } from "@/app/actions/db.action";
+import { getCookieValue } from "@/app/actions/cookies.action";
 
 export async function POST(req: NextRequest) {
   const { email } = await req.json();

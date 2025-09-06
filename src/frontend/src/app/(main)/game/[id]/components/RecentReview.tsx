@@ -1,5 +1,5 @@
 import { RatingStar } from "@/components/Typography";
-import type { Review } from "@/lib/types/data";
+import type { Review } from "@repo/types/src";
 
 export interface RecentReviewProps {
   review: Review | undefined;
