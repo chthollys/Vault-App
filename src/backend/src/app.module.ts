@@ -14,6 +14,8 @@ import { APP_PIPE } from "@nestjs/core";
 import { GamesModule } from "./games/games.module";
 import { GenresController } from "./genres/genres.controller";
 import { GenresModule } from "./genres/genres.module";
+import { ReviewsController } from "./reviews/reviews.controller";
+import { ReviewsModule } from "./reviews/reviews.module";
 
 @Module({
   imports: [
@@ -24,8 +26,14 @@ import { GenresModule } from "./genres/genres.module";
     PrismaModule,
     GamesModule,
     GenresModule,
+    ReviewsModule,
   ],
-  controllers: [AppController, UsersController, GenresController],
+  controllers: [
+    AppController,
+    UsersController,
+    GenresController,
+    ReviewsController,
+  ],
   providers: [
     AppService,
     {

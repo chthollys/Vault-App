@@ -20,7 +20,23 @@ export class UsersRepository {
     try {
       return await this.prisma.user.findUnique({ where: { id } });
     } catch (error) {
-      return this.errorHandler(error, "Failed to find user.");
+      return this.errorHandler(error, "Failed to fetch user.");
+    }
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    try {
+      return await this.prisma.user.findUnique({ where: { email } });
+    } catch (err) {
+      return this.errorHandler(err, `Failed to fetch user.`);
+    }
+  }
+
+  async findByReviewId(id: string): Promise<User | null> {
+    try {
+      return this.prisma.review.findUnique({ where: { id } }).user();
+    } catch (err) {
+      return this.errorHandler(err, `Failed to fetch user`);
     }
   }
 }

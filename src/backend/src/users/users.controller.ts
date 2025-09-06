@@ -7,14 +7,24 @@ import { User } from "@prisma/client";
 @Controller("users")
 @Serialize(UserDto)
 export class UsersController {
-  constructor(private userService: UsersService) {}
+  constructor(private usersService: UsersService) {}
   @Get()
   getUsers(): Promise<User[]> {
-    return this.userService.findUsers();
+    return this.usersService.findAll();
   }
 
   @Get("/:id")
   getUser(@Param("id") id: string): Promise<User> {
-    return this.userService.findUserById(id);
+    return this.usersService.findById(id);
+  }
+
+  @Get("/email/:email")
+  getUserByEmail(@Param("email") email: string): Promise<User> {
+    return this.usersService.findByEmail(email);
+  }
+
+  @Get("/review-id/:id")
+  getUserByReviewId(@Param("id") id: string) {
+    return this.usersService.findByReviewId(id);
   }
 }

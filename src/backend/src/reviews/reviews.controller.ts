@@ -8,7 +8,7 @@ import { ReviewDto } from "src/dtos/review.dto";
 export class ReviewsController {
   constructor(private reviewsService: ReviewsService) {}
   @Get("/:id")
-  getReview(@Param() id: string) {
+  getReview(@Param("id") id: string) {
     return this.reviewsService.findById(id);
   }
 }
