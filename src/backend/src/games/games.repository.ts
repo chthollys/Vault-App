@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Game } from "@prisma/client";
+import { Game, Prisma } from "@prisma/client";
 import { PrismaService } from "src/prisma.service";
 import { handlePrismaError } from "utils/prisma.util";
 
@@ -7,9 +7,9 @@ import { handlePrismaError } from "utils/prisma.util";
 export class GamesRepository {
   constructor(private prisma: PrismaService) {}
   private errorHandler = handlePrismaError;
-  async findAll(): Promise<Game[]> {
+  async findAll(args: Prisma.GameFindManyArgs): Promise<Game[]> {
     try {
-      return this.prisma.game.findMany();
+      return this.prisma.game.findMany(args);
     } catch (err) {
       return this.errorHandler(err, "Failed to fetch games.");
     }

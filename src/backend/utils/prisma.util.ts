@@ -4,7 +4,7 @@ import {
   ConflictException,
   InternalServerErrorException,
 } from "@nestjs/common";
-import type { SortingRules } from "repo";
+import type { SortingRules } from "repo/types";
 
 export function handlePrismaError(err: any, message: string): never {
   if (err instanceof Prisma.PrismaClientValidationError) {
@@ -19,7 +19,9 @@ export function handlePrismaError(err: any, message: string): never {
   throw new InternalServerErrorException(message);
 }
 
-export const buildGameQuery = (sortRule?: SortingRules | null) => {
+export const buildGamesQuery = (
+  sortRule?: SortingRules | null,
+): Prisma.GameFindManyArgs => {
   const where = sortRule?.categories?.length
     ? {
         genres: {

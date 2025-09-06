@@ -1,12 +1,15 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { GamesRepository } from "./games.repository";
 import { Game } from "@prisma/client";
+import type { SortingRules } from "repo/types";
+import { buildGamesQuery } from "utils/prisma.util";
 
 @Injectable()
 export class GamesService {
   constructor(private gamesRepo: GamesRepository) {}
-  async findAll(): Promise<Game[]> {
-    const games = await this.gamesRepo.findAll();
+  async findAll(sortingRules: SortingRules): Promise<Game[]> {
+    const args = buildGamesQuery(sortingRules);
+    const games = await this.gamesRepo.findAll(args);
     if (!games) {
       throw new NotFoundException(`Games not found.`);
     }

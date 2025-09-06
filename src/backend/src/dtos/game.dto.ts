@@ -1,5 +1,5 @@
 import { Expose } from "class-transformer";
-import type { Game } from "repo";
+import type { Game } from "repo/types";
 
 export class GameDto implements Game {
   @Expose()

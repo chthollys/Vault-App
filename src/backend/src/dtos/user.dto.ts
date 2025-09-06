@@ -1,5 +1,5 @@
 import { Expose } from "class-transformer";
-import type { User } from "repo";
+import type { User } from "repo/types";
 export class UserDto implements User {
   @Expose()
   id: string;
