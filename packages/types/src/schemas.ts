@@ -63,6 +63,10 @@ export const UserSchema = CreateUserSchema.extend({
   id: z.cuid(),
   createdAt: z.date(),
   updatedAt: z.date(),
+  emailVerified: z.date(),
+  phone: z.string(),
+  address: z.string(),
+  image: z.url(),
 });
 
 export const CreateProfileSchema = z.object({

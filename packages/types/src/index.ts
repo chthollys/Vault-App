@@ -35,9 +35,10 @@ export type ParentChildrenGenre = Genre & { subGenres: Genre[] };
 export type CreateReviewData = z.infer<typeof CreateReviewSchema>;
 export type Review = z.infer<typeof ReviewSchema>;
 
+export type SortBy = "newest" | "popular" | "highest-price" | "lowest-price";
 export type SortingRules = {
   categories?: string[] | null;
-  sortBy?: string[] | null;
+  sortBy?: SortBy[] | null;
 };
 
 export type NonNullableObject<T> = { [P in keyof T]: NonNullable<T[P]> };
