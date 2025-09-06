@@ -18,12 +18,17 @@ export class SerializeInterceptor<T> implements NestInterceptor {
     context: ExecutionContext,
     next: CallHandler,
   ): Observable<any> | Promise<Observable<any>> {
-    return next
-      .handle()
-      .pipe(
-        map((data: any) =>
-          plainToInstance(this.dto, data, { excludeExtraneousValues: true }),
-        ),
-      );
+    return next.handle().pipe(
+      map((data: any) => {
+        if (Array.isArray(data)) {
+          return data.map((item) =>
+            plainToInstance(this.dto, item, { excludeExtraneousValues: true }),
+          );
+        }
+        return plainToInstance(this.dto, data, {
+          excludeExtraneousValues: true,
+        });
+      }),
+    );
   }
 }
