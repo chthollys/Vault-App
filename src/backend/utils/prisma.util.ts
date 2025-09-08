@@ -22,13 +22,18 @@ export function handlePrismaError(err: any, message: string): never {
 export const buildGamesQuery = (
   sortRule?: GamesQuery | null,
 ): Prisma.GameFindManyArgs => {
-  const where = sortRule?.categories?.length
+  if (!sortRule) {
+    return {};
+  }
+
+  const { categories, sortBy, page, limit } = sortRule;
+  const where = categories?.length
     ? {
         genres: {
           some: {
             genre: {
               id: {
-                in: sortRule.categories,
+                in: categories,
               },
             },
           },
@@ -37,9 +42,8 @@ export const buildGamesQuery = (
     : {};
 
   let orderBy: Record<string, OrderBy> | undefined;
-
-  if (sortRule?.sortBy?.length) {
-    switch (sortRule.sortBy[0]) {
+  if (sortBy?.length) {
+    switch (sortBy[0]) {
       case "newest":
         orderBy = { releaseDate: "desc" };
         break;
@@ -53,6 +57,10 @@ export const buildGamesQuery = (
         orderBy = { price: "desc" };
         break;
     }
+  }
+  // For paginated game query
+  if (page && limit) {
+    return { where, orderBy, skip: page * limit, take: limit + 1 };
   }
 
   return { where, orderBy };
