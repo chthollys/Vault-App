@@ -3,30 +3,29 @@
 import axiosClient from "@/lib/axios-client";
 import db from "~/prisma/db";
 import bcrypt from "bcrypt";
-import { buildGameQuery } from "@/lib/utils";
 import { SALT_ROUNDS } from "@/lib/utils/constants";
-import type { CreateReviewData, CreateUserData } from "repo/types";
+import type {
+  CreateReviewData,
+  CreateUserData,
+  Game,
+  Genre,
+  ParentChildrenGenre,
+  Review,
+  User,
+} from "repo/types";
 import type { GamesQuery } from "repo/types";
 
 export async function getUsers() {
-  const res = await axiosClient({ url: "/users", method: "GET" });
-  return res.data;
+  return (await axiosClient<User>({ url: "/users", method: "GET" })).data;
 }
 
 export async function getGames(sortRule?: GamesQuery | null) {
-  const { where, orderBy } = buildGameQuery(sortRule);
-  return db.game.findMany({
-    where,
-    ...(orderBy && { orderBy }),
-  });
+  return (await axiosClient<Game[]>({ url: "/games", params: { ...sortRule } }))
+    .data;
 }
 
 export async function getGame(id: string) {
-  return await db.game.findUnique({
-    where: {
-      id,
-    },
-  });
+  return (await axiosClient<Game>({ url: `/games/${id}` })).data;
 }
 
 export async function getGamesPaginated(
@@ -34,14 +33,10 @@ export async function getGamesPaginated(
   page: number,
   perPage: number
 ) {
-  const { where, orderBy } = buildGameQuery(sortRule);
-
-  const games = await db.game.findMany({
-    where,
-    ...(orderBy && { orderBy }),
-    skip: page * perPage,
-    take: perPage + 1,
-  });
+  const gamesQuery: GamesQuery = { ...sortRule, limit: perPage, page };
+  const games = (
+    await axiosClient<Game[]>({ url: "/games", params: { ...gamesQuery } })
+  ).data;
 
   return {
     games: games.slice(0, perPage),
@@ -49,62 +44,28 @@ export async function getGamesPaginated(
   };
 }
 
-export async function getGenres() {
-  const res = await axiosClient({ url: "/genres", method: "GET" });
-  return res.data;
+export async function getNestedGenres(): Promise<ParentChildrenGenre[]> {
+  return (
+    await axiosClient<ParentChildrenGenre[]>({ url: "/genres", method: "GET" })
+  ).data;
 }
 
-export async function getGenreByGameId(gameId: string) {
-  const response = await db.gameGenre.findMany({
-    where: {
-      gameId,
-    },
-    select: {
-      genre: true,
-    },
-  });
-  return response;
+export async function getGenresByGameId(gameId: string): Promise<Genre[]> {
+  return (await axiosClient<Genre[]>({ url: `/games/${gameId}/genres` })).data;
 }
 
-export const getReviewByGameId = async (gameId: string) => {
-  const response = await db.review.findMany({
-    where: {
-      gameId,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
-  return response;
+export const getReviewsByGameId = async (gameId: string): Promise<Review[]> => {
+  return (await axiosClient<Review[]>({ url: `/games/${gameId}/reviews` }))
+    .data;
 };
 
-export const getUserByReviewId = async (reviewId: string) => {
-  const response = await db.review.findUnique({
-    where: {
-      id: reviewId,
-    },
-    select: {
-      user: {
-        select: {
-          name: true,
-          image: true,
-        },
-      },
-    },
-  });
-
-  return {
-    avatarUrl: response?.user.image ?? null,
-    reviewer: response?.user.name ?? null,
-  };
+export const getUserByReviewId = async (reviewId: string): Promise<User> => {
+  return (await axiosClient<User>({ url: `/users/review-id/${reviewId}` }))
+    .data;
 };
 
 export const getUserByEmail = async (email: string) => {
-  return await db.user.findUnique({
-    where: {
-      email,
-    },
-  });
+  return (await axiosClient<User>({ url: `/users/email/${email}` })).data;
 };
 
 export const saveUserPassword = async (
