@@ -6,6 +6,6 @@ export class ReviewDto implements Review {
   @Expose() userId: string;
   @Expose() gameId: string;
   @Expose() createdAt: Date;
-  @Expose() comment: string;
+  @Expose() comment: string | null;
   @Expose() rating: number;
 }
