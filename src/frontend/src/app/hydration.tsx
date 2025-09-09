@@ -1,6 +1,10 @@
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getQueryClient } from "@/lib/utils/get-query-client";
-import { getGames, getGamesPaginated, getGenres } from "./actions/db.action";
+import {
+  getGames,
+  getGamesPaginated,
+  getNestedGenres,
+} from "./actions/db.action";
 import type { HydrationProps } from "@/lib/types/props";
 import { GAME_INFINITE_PERPAGE } from "@/lib/utils/constants";
 
@@ -13,7 +17,7 @@ export default async function Hydration({ children }: HydrationProps) {
     }),
     queryClient.prefetchQuery({
       queryKey: ["genres"],
-      queryFn: getGenres,
+      queryFn: getNestedGenres,
     }),
     queryClient.prefetchInfiniteQuery({
       queryKey: ["games", "infinite", null, null],

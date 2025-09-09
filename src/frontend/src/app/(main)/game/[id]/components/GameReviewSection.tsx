@@ -1,6 +1,6 @@
 import { SectionTitle } from "@/components/Typography";
 import ReviewItem from "./ReviewItem";
-import { getReviewByGameId } from "@/app/actions/db.action";
+import { getReviewsByGameId } from "@/app/actions/db.action";
 
 export interface GameReviewSectionProps {
   gameId: string;
@@ -9,7 +9,7 @@ export interface GameReviewSectionProps {
 export default async function GameReviewSection({
   gameId,
 }: GameReviewSectionProps) {
-  const reviews = await getReviewByGameId(gameId);
+  const reviews = await getReviewsByGameId(gameId);
   return (
     <>
       <section

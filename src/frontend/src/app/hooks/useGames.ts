@@ -1,6 +1,6 @@
 import type { GamesQuery } from "repo/types";
 import type { Game } from "repo/types";
-import { getGames } from "../actions/db.action";
+import { getGames } from "../actions/api.client";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 export const useGames = (sortRule?: GamesQuery | null) => {
