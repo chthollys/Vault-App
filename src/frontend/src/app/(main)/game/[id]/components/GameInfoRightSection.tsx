@@ -3,7 +3,7 @@ import GameInfoDetail from "./GameInfoDetail";
 import DescriptionSection from "./Description";
 import RatingSection from "./RatingSection";
 import type { Game } from "repo/types";
-import { getGenreByGameId, getReviewByGameId } from "@/app/actions/db.action";
+import { getGenresByGameId, getReviewsByGameId } from "@/app/actions/db.action";
 
 export interface GameInfoRightSection {
   game: Game;
@@ -12,8 +12,8 @@ export interface GameInfoRightSection {
 export default async function GameInfoRightSection({
   game,
 }: GameInfoRightSection) {
-  const genres = await getGenreByGameId(game.id);
-  const reviews = await getReviewByGameId(game.id);
+  const genres = await getGenresByGameId(game.id);
+  const reviews = await getReviewsByGameId(game.id);
 
   return (
     <div className="flex w-auto flex-col">

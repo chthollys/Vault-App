@@ -1,8 +1,5 @@
 import React from "react";
-import type {
-  Game,
-  ParentChildrenGenre,
-} from "repo/types";
+import type { Game, ParentChildrenGenre } from "repo/types";
 import type {
   ComponentPropsWithoutRef,
   ElementType,
@@ -10,8 +7,9 @@ import type {
   Ref,
 } from "react";
 import type { StaticImageData } from "next/image";
-import type { GamesQuery } from "./utils";
 import type { InputProps } from "@heroui/react";
+import type { GamesQuery } from "repo/types";
+import type { Genre } from "repo/types";
 
 export interface ChildrenProp {
   children?: React.ReactNode;
@@ -140,6 +138,13 @@ export interface GameCardCoverProps {
 export interface GameCardInfoProps {
   game: Game;
   isInCart: boolean;
+}
+
+export interface GameInfoDetailProps {
+  name: string;
+  genres: Genre[];
+  developer: string;
+  publisher?: string;
 }
 
 export interface PriceSectionProps {

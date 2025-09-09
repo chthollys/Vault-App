@@ -1,11 +1,4 @@
-import type { Genre } from "repo/types";
-
-export interface GameInfoDetailProps {
-  name: string;
-  genres: { genre: Genre }[];
-  developer: string;
-  publisher?: string;
-}
+import type { GameInfoDetailProps } from "@/lib/types/props";
 
 export default function GameInfoDetail({
   name,
@@ -21,12 +14,12 @@ export default function GameInfoDetail({
       <p className="mx-0 mt-0 mb-2 text-[1.2rem] font-medium text-white/50">
         {developer}
       </p>
-      {genres.map(({ genre }) => (
+      {genres.map(({ id, name }) => (
         <p
-          key={genre.id}
+          key={id}
           className="text-primary m-0 inline-block w-fit rounded-[20px] border-[0.5px] border-solid border-[rgba(139,_92,_246,_0.3)] bg-[rgba(139,_92,_246,_0.15)] px-4 py-2 text-[0.9rem] font-semibold"
         >
-          {genre.name}
+          {name}
         </p>
       ))}
     </div>
