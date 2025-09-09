@@ -11,10 +11,12 @@ import {
   CreateUserSchema,
   CreateProfileSchema,
   UserSchema,
+  UserDtoSchema,
 } from "./schemas";
 
 export type CreateUserData = z.infer<typeof CreateUserSchema>;
 export type User = z.infer<typeof UserSchema>;
+export type UserDto = z.infer<typeof UserDtoSchema>;
 
 export type CreateProfileData = z.infer<typeof CreateProfileSchema>;
 export type Profile = z.infer<typeof CreateProfileSchema>;
