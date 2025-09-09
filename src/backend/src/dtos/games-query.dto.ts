@@ -4,7 +4,7 @@ import type { GamesQuery, SortBy } from "repo/types";
 
 export class GamesQueryDto implements GamesQuery {
   @IsOptional()
-  categories?: string[] | null | undefined;
+  category?: string[] | null | undefined;
 
   @IsOptional()
   sortBy?: SortBy[] | null | undefined;

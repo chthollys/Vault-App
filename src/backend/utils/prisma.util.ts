@@ -26,7 +26,7 @@ export const buildGamesQuery = (
     return {};
   }
 
-  const { categories, sortBy, page, limit } = sortRule;
+  const { category: categories, sortBy, page, limit } = sortRule;
   const where = categories?.length
     ? {
         genres: {
