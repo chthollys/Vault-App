@@ -1,26 +1,34 @@
 import { Controller, Get, Param, Query } from "@nestjs/common";
 import { GamesService } from "./games.service";
-import { Game, Genre } from "@prisma/client";
-import { GamesQueryDto } from "src/dtos";
+import { GamesQueryDto, GenreDto } from "src/dtos";
 import { Serialize } from "src/interceptors/serialize.interceptor";
 import { GameDto } from "src/dtos";
+import { ReviewDto } from "src/dtos/review.dto";
 
 @Controller("games")
-@Serialize(GameDto)
 export class GamesController {
   constructor(private gamesService: GamesService) {}
   @Get()
-  getGames(@Query() sortingRules: GamesQueryDto): Promise<Game[]> {
+  @Serialize(GameDto)
+  getAllGame(@Query() sortingRules: GamesQueryDto): Promise<GameDto[]> {
     return this.gamesService.findAll(sortingRules);
   }
 
   @Get("/:id")
-  getGame(@Param("id") id: string): Promise<Game> {
+  @Serialize(GameDto)
+  getGame(@Param("id") id: string): Promise<GameDto> {
     return this.gamesService.findById(id);
   }
 
   @Get("/:id/genres")
-  getGenreByGameId(@Param("id") id: string): Promise<Genre[]> {
-    return this.gamesService.findGenresByGameId(id);
+  @Serialize(GenreDto)
+  getGenreByGameId(@Param("id") id: string): Promise<GenreDto[]> {
+    return this.gamesService.findAllGenreByGameId(id);
+  }
+
+  @Get("/:id/reviews")
+  @Serialize(ReviewDto)
+  getReviewsByGameId(@Param("id") id: string): Promise<ReviewDto[]> {
+    return this.gamesService.findReviewsByGameId(id);
   }
 }
