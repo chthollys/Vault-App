@@ -9,17 +9,17 @@ import { User } from "@prisma/client";
 export class UsersController {
   constructor(private usersService: UsersService) {}
   @Get()
-  getUsers(): Promise<User[]> {
+  getAllUser(): Promise<UserDto[]> {
     return this.usersService.findAll();
   }
 
   @Get("/:id")
-  getUser(@Param("id") id: string): Promise<User> {
+  getUser(@Param("id") id: string): Promise<UserDto> {
     return this.usersService.findById(id);
   }
 
   @Get("/email/:email")
-  getUserByEmail(@Param("email") email: string): Promise<User> {
+  getUserByEmail(@Param("email") email: string): Promise<UserDto> {
     return this.usersService.findByEmail(email);
   }
 

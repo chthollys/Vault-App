@@ -9,7 +9,7 @@ export class GenresController {
   constructor(private genresService: GenresService) {}
   @Get()
   @Serialize(NestedGenreDto)
-  getGenres(): Promise<Genre[]> {
+  getAllGenre(): Promise<Genre[]> {
     return this.genresService.findAll();
   }
 }
