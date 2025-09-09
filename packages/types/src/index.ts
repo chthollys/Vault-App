@@ -40,8 +40,8 @@ export type OrderBy = "asc" | "desc";
 export type GamesQuery = {
   categories?: string[] | null;
   sortBy?: SortBy[] | null;
-  limit?: number | null;
-  page?: number | null;
+  limit?: number;
+  page?: number;
 };
 
 export type NonNullableObject<T> = { [P in keyof T]: NonNullable<T[P]> };

@@ -13,7 +13,7 @@ export default function GamesInfiniteGrid({
 }: GamesGridContainerProps) {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGamesInfinite(sortRule);
-  const games = data.pages[0].games;
+  const games = data.pages.flatMap((p) => p.games);
 
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function GamesInfiniteGrid({
         {isFetchingNextPage ? (
           <Loading />
         ) : hasNextPage ? (
-          <GridButton>Scroll to load more</GridButton>
+          <GridButton>Scroll down to load more</GridButton>
         ) : (
           <></>
         )}

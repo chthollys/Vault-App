@@ -59,7 +59,7 @@ export const buildGamesQuery = (
     }
   }
   // For paginated game query
-  if (page && limit) {
+  if (page !== undefined && limit !== undefined) {
     return { where, orderBy, skip: page * limit, take: limit + 1 };
   }
 

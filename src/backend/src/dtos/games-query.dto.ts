@@ -11,10 +11,10 @@ export class GamesQueryDto implements GamesQuery {
 
   @IsOptional()
   @Type(() => Number)
-  limit?: number | null | undefined;
+  limit?: number | undefined;
 
   @IsOptional()
   @Type(() => Number)
   @IsNumber()
-  page?: number | null | undefined;
+  page?: number | undefined;
 }

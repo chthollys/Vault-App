@@ -38,6 +38,8 @@ export async function getGamesPaginated(
     await axiosClient<Game[]>({ url: "/games", params: { ...gamesQuery } })
   ).data;
 
+  console.log("pages: ", page, "perPage: ", perPage);
+
   return {
     games: games.slice(0, perPage),
     hasMore: games.length > perPage,
