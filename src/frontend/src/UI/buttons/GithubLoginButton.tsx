@@ -2,7 +2,6 @@
 
 import type { ChildrenProp } from "@/lib/types/props";
 import { Button } from "@mui/material";
-import { signIn } from "next-auth/react";
 import { FaGithub } from "react-icons/fa";
 
 export default function GithubAuthButton({ children }: ChildrenProp) {

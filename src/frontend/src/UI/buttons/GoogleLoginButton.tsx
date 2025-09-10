@@ -1,6 +1,5 @@
 "use client";
 
-import { signIn } from "next-auth/react";
 import Button from "@mui/material/Button";
 import { FcGoogle } from "react-icons/fc";
 import type { ChildrenProp } from "@/lib/types/props";

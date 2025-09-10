@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@heroui/react";
-import { signOut } from "next-auth/react";
 import { IoExitOutline } from "react-icons/io5";
 
 export default function LogoutButton() {

@@ -16,6 +16,7 @@ import { GenresController } from "./genres/genres.controller";
 import { GenresModule } from "./genres/genres.module";
 import { ReviewsController } from "./reviews/reviews.controller";
 import { ReviewsModule } from "./reviews/reviews.module";
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { ReviewsModule } from "./reviews/reviews.module";
     GamesModule,
     GenresModule,
     ReviewsModule,
+    AuthModule,
   ],
   controllers: [
     AppController,

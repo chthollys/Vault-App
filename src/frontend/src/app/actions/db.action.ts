@@ -1,7 +1,6 @@
 "use server";
 
 import axiosClient from "@/lib/axios-client";
-import db from "~/prisma/db";
 import bcrypt from "bcrypt";
 import { SALT_ROUNDS } from "@/lib/utils/constants";
 import type {
@@ -66,45 +65,45 @@ export const getUserByEmail = async (email: string) => {
   return (await axiosClient<User>({ url: `/users/email/${email}` })).data;
 };
 
-export const saveUserPassword = async (
-  userId: string,
-  plainPassword: string
-) => {
-  const hashedPassword = await bcrypt.hash(plainPassword, SALT_ROUNDS);
-  const response = await db.user.update({
-    where: { id: userId },
-    data: { password: hashedPassword },
-  });
-  return response;
-};
+// export const saveUserPassword = async (
+//   userId: string,
+//   plainPassword: string
+// ) => {
+//   const hashedPassword = await bcrypt.hash(plainPassword, SALT_ROUNDS);
+//   const response = await db.user.update({
+//     where: { id: userId },
+//     data: { password: hashedPassword },
+//   });
+//   return response;
+// };
 
-export const verifyPassword = async (
-  userId: string,
-  inputPassword: string
-): Promise<boolean> => {
-  const user = await db.user.findUnique({
-    where: { id: userId },
-    select: { password: true },
-  });
-  if (!user) return false;
-  return bcrypt.compare(inputPassword, user.password || "");
-};
+// export const verifyPassword = async (
+//   userId: string,
+//   inputPassword: string
+// ): Promise<boolean> => {
+//   const user = await db.user.findUnique({
+//     where: { id: userId },
+//     select: { password: true },
+//   });
+//   if (!user) return false;
+//   return bcrypt.compare(inputPassword, user.password || "");
+// };
 
-export const createUser = async (user: CreateUserData) => {
-  const hashedPassword = await bcrypt.hash(user.password, SALT_ROUNDS);
-  const response = await db.user.create({
-    data: {
-      ...user,
-      password: hashedPassword,
-      emailVerified: new Date(),
-    },
-  });
-  return response;
-};
+// export const createUser = async (user: CreateUserData) => {
+//   const hashedPassword = await bcrypt.hash(user.password, SALT_ROUNDS);
+//   const response = await db.user.create({
+//     data: {
+//       ...user,
+//       password: hashedPassword,
+//       emailVerified: new Date(),
+//     },
+//   });
+//   return response;
+// };
 
-export const createReview = async (review: CreateReviewData) => {
-  const response = await db.review.create({
-    data: review,
-  });
-  return response;
-};
+// export const createReview = async (review: CreateReviewData) => {
+//   const response = await db.review.create({
+//     data: review,
+//   });
+//   return response;
+// };
