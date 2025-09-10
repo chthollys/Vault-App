@@ -6,13 +6,17 @@ import {
   getNestedGenres,
 } from "./actions/db.action";
 import type { HydrationProps } from "@/lib/types/props";
-import { GAME_INFINITE_PERPAGE } from "@/lib/utils/constants";
+import {
+  DEFAULT_CATEGORIES,
+  DEFAULT_SORTBY,
+  GAME_INFINITE_PERPAGE,
+} from "@/lib/utils/constants";
 
 export default async function Hydration({ children }: HydrationProps) {
   const queryClient = getQueryClient();
   await Promise.all([
     queryClient.prefetchQuery({
-      queryKey: ["games", null, null],
+      queryKey: ["games", DEFAULT_CATEGORIES, DEFAULT_SORTBY],
       queryFn: () => getGames(null),
     }),
     queryClient.prefetchQuery({
@@ -20,7 +24,7 @@ export default async function Hydration({ children }: HydrationProps) {
       queryFn: getNestedGenres,
     }),
     queryClient.prefetchInfiniteQuery({
-      queryKey: ["games", "infinite", null, null],
+      queryKey: ["games", "infinite", DEFAULT_CATEGORIES, DEFAULT_SORTBY],
       queryFn: ({ pageParam = 0 }) =>
         getGamesPaginated(null, pageParam as number, GAME_INFINITE_PERPAGE),
       initialPageParam: 0,

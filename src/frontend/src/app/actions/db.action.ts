@@ -33,10 +33,8 @@ export async function getGamesPaginated(
   page: number,
   perPage: number
 ) {
-  const gamesQuery: GamesQuery = { ...sortRule, limit: perPage, page };
-  const games = (
-    await axiosClient<Game[]>({ url: "/games", params: { ...gamesQuery } })
-  ).data;
+  const params: GamesQuery = { ...sortRule, limit: perPage, page };
+  const games = (await axiosClient<Game[]>({ url: "/games", params })).data;
 
   return {
     games: games.slice(0, perPage),

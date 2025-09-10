@@ -81,11 +81,11 @@ export const getRandomSubArray = <T>(arr: T[], n: number): T[] => {
 };
 
 export const getValuesByParams = <T extends string>(
-  params: URLSearchParams | undefined | null,
+  params: URLSearchParams | undefined,
   keyname: string
-): T[] | null => {
+): T[] => {
   const result = ((params && params.getAll(keyname)) as T[]) || [];
-  return result.length > 0 ? result : null;
+  return result.length > 0 ? result : [];
 };
 
 export const getPercentageRatio = (
@@ -103,7 +103,7 @@ export const getSortingRulesFromParams = (
   const sortBy = getValuesByParams<SortBy>(searchParams, "sortBy") || [];
 
   return {
-    categories: categories.length > 0 ? categories.sort() : null,
+    categories: categories.length > 0 ? categories.sort() : [],
     sortBy: sortBy.length > 0 ? sortBy : ["newest"],
   };
 };

@@ -1,20 +1,29 @@
-import { Type } from "class-transformer";
-import { IsNumber, IsOptional } from "class-validator";
+import { Transform, Type } from "class-transformer";
+import { IsArray, IsOptional, IsString } from "class-validator";
 import type { GamesQuery, SortBy } from "repo/types";
 
 export class GamesQueryDto implements GamesQuery {
   @IsOptional()
-  category?: string[] | null | undefined;
+  @Transform(({ value }) =>
+    typeof value === "string" ? value.split(",") : value,
+  )
+  @IsArray()
+  @IsString({ each: true })
+  categories?: string[];
 
   @IsOptional()
-  sortBy?: SortBy[] | null | undefined;
+  @Transform(({ value }) =>
+    typeof value === "string" ? value.split(",") : value,
+  )
+  @IsArray()
+  @IsString({ each: true })
+  sortBy?: SortBy[] | null;
 
   @IsOptional()
   @Type(() => Number)
-  limit?: number | undefined;
+  limit?: number;
 
   @IsOptional()
   @Type(() => Number)
-  @IsNumber()
-  page?: number | undefined;
+  page?: number;
 }
