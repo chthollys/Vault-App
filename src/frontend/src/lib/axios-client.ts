@@ -1,5 +1,11 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import qs from "qs";
+
+export type ApiError = {
+  status?: number;
+  message: string;
+  details?: any;
+};
 
 const axiosClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_NEST_API_URL || process.env.NEST_API_URL,
@@ -10,5 +16,24 @@ const axiosClient = axios.create({
     serialize: (params) => qs.stringify(params, { arrayFormat: "comma" }),
   },
 });
+
+function normalizeError(error: unknown): ApiError {
+  if (axios.isAxiosError(error)) {
+    const err = error as AxiosError<any>;
+    return {
+      status: err.response?.status,
+      message:
+        err.response?.data.message || err.message || "Something went wrong",
+      details: err.response?.data,
+    };
+  }
+
+  return { message: (error as Error)?.message ?? "Unknown error" };
+}
+
+axiosClient.interceptors.response.use(
+  (res) => res,
+  (err) => Promise.reject(normalizeError(err))
+);
 
 export default axiosClient;
