@@ -6,8 +6,16 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
-    "./types": "./dist/types/src/index.d.ts",
-    "./schemas": "./dist/types/src/schemas.d.ts"
+    "./types": {
+      "types": "./dist/types/src/index.d.ts",
+      "require": "./dist/types/src/index.js",
+      "default": "./dist/types/src/index.js"
+    },
+    "./schemas": {
+      "types": "./dist/types/src/schemas.d.ts",
+      "require": "./dist/types/src/schemas.js",
+      "default": "./dist/types/src/schemas.js"
+    }
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
