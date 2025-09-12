@@ -1,13 +1,11 @@
 import Link from "next/link";
 import { Logo } from "../Typography";
 import Menu from "./Menu";
-import { auth } from "@/auth";
 import { LoginButton } from "@/UI/buttons";
 import { UserActionModal } from "../UserActionModal";
 import SearchBar from "@/components/MainHeader/SearchBar";
 
 export default async function MainHeader() {
-  const session = await auth();
   return (
     <nav
       className="border-glass-border shadow-glass bg-nav-bar sticky top-0 z-50 border-b-[1px] border-solid backdrop-blur-[20px]"
@@ -26,7 +24,7 @@ export default async function MainHeader() {
 
         <div className="flex items-center gap-6">
           <>
-            {session ? (
+            {/* {session ? (
               <UserActionModal
                 iconUrl={session.user.image}
                 name={session.user.name}
@@ -36,7 +34,7 @@ export default async function MainHeader() {
               <Link href={"/login"}>
                 <LoginButton>Sign in</LoginButton>
               </Link>
-            )}
+            )} */}
           </>
         </div>
       </div>
