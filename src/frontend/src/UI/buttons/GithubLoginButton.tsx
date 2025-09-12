@@ -9,7 +9,7 @@ export default function GithubAuthButton({ children }: ChildrenProp) {
     <Button
       variant="contained"
       startIcon={<FaGithub size={20} />}
-      onClick={() => signIn("github", { callbackUrl: "/" })}
+      // onClick={() => signIn("github", { callbackUrl: "/" })}
       sx={{
         textTransform: "none",
         borderRadius: "8px",

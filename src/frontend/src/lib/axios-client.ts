@@ -1,11 +1,6 @@
-import axios, { AxiosError } from "axios";
+import axios, { type AxiosError } from "axios";
 import qs from "qs";
-
-export type ApiError = {
-  status?: number;
-  message: string;
-  details?: any;
-};
+import type { ApiError, ApiErrorResponse } from "repo/types";
 
 const axiosClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_NEST_API_URL || process.env.NEST_API_URL,
@@ -19,7 +14,7 @@ const axiosClient = axios.create({
 
 function normalizeError(error: unknown): ApiError {
   if (axios.isAxiosError(error)) {
-    const err = error as AxiosError<any>;
+    const err = error as AxiosError<ApiErrorResponse>;
     return {
       status: err.response?.status,
       message:

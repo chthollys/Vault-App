@@ -9,7 +9,7 @@ export default function GoogleLoginButton({ children }: ChildrenProp) {
     <Button
       variant="outlined"
       startIcon={<FcGoogle size={20} />}
-      onClick={() => signIn("google", { callbackUrl: "/" })}
+      // onClick={() => signIn("google", { callbackUrl: "/" })}
       sx={{
         textTransform: "none",
         borderRadius: "12px",

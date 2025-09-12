@@ -9,7 +9,7 @@ export default function LogoutButton() {
       variant="light"
       startContent={<IoExitOutline size={30} />}
       size="lg"
-      onPress={() => signOut()}
+      // onPress={() => signOut()}
     >
       Logout
     </Button>

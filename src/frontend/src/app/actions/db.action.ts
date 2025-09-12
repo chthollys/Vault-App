@@ -4,6 +4,7 @@ import axiosClient from "@/lib/axios-client";
 import bcrypt from "bcrypt";
 import { SALT_ROUNDS } from "@/lib/utils/constants";
 import type {
+  ApiDataResponse,
   CreateReviewData,
   CreateUserData,
   Game,
@@ -14,26 +15,36 @@ import type {
 } from "repo/types";
 import type { GamesQuery } from "repo/types";
 
-export async function getUsers() {
-  return (await axiosClient<User>({ url: "/users", method: "GET" })).data;
+export async function getUsers(): Promise<User> {
+  const res = (await axiosClient.get<ApiDataResponse<User>>("/users")).data;
+  return res.data;
 }
 
-export async function getGames(sortRule?: GamesQuery | null) {
-  return (await axiosClient<Game[]>({ url: "/games", params: { ...sortRule } }))
+export async function getGames(sortRule?: GamesQuery | null): Promise<Game[]> {
+  const res = (
+    await axiosClient.get<ApiDataResponse<Game[]>>("/games", {
+      params: { ...sortRule },
+    })
+  ).data;
+  return res.data;
+}
+
+export async function getGame(id: string): Promise<Game> {
+  const res = (await axiosClient.get<ApiDataResponse<Game>>(`/games/${id}`))
     .data;
-}
-
-export async function getGame(id: string) {
-  return (await axiosClient<Game>({ url: `/games/${id}` })).data;
+  return res.data;
 }
 
 export async function getGamesPaginated(
   sortRule: GamesQuery | null | undefined,
   page: number,
   perPage: number
-) {
+): Promise<{ games: Game[]; hasMore: boolean }> {
   const params: GamesQuery = { ...sortRule, limit: perPage, page };
-  const games = (await axiosClient<Game[]>({ url: "/games", params })).data;
+  const res = (
+    await axiosClient.get<ApiDataResponse<Game[]>>("/games", { params })
+  ).data;
+  const games = res.data;
 
   return {
     games: games.slice(0, perPage),
@@ -42,27 +53,44 @@ export async function getGamesPaginated(
 }
 
 export async function getNestedGenres(): Promise<ParentChildrenGenre[]> {
-  return (
-    await axiosClient<ParentChildrenGenre[]>({ url: "/genres", method: "GET" })
+  const res = (
+    await axiosClient.get<ApiDataResponse<ParentChildrenGenre[]>>("/genres")
   ).data;
+  return res.data;
 }
 
 export async function getGenresByGameId(gameId: string): Promise<Genre[]> {
-  return (await axiosClient<Genre[]>({ url: `/games/${gameId}/genres` })).data;
+  const res = (
+    await axiosClient<ApiDataResponse<Genre[]>>({
+      url: `/games/${gameId}/genres`,
+    })
+  ).data;
+  return res.data;
 }
 
 export const getReviewsByGameId = async (gameId: string): Promise<Review[]> => {
-  return (await axiosClient<Review[]>({ url: `/games/${gameId}/reviews` }))
-    .data;
+  const res = (
+    await axiosClient<ApiDataResponse<Review[]>>({
+      url: `/games/${gameId}/reviews`,
+    })
+  ).data;
+  return res.data;
 };
 
 export const getUserByReviewId = async (reviewId: string): Promise<User> => {
-  return (await axiosClient<User>({ url: `/users/review-id/${reviewId}` }))
-    .data;
+  const res = (
+    await axiosClient<ApiDataResponse<User>>({
+      url: `/users/review-id/${reviewId}`,
+    })
+  ).data;
+  return res.data;
 };
 
 export const getUserByEmail = async (email: string) => {
-  return (await axiosClient<User>({ url: `/users/email/${email}` })).data;
+  const res = (
+    await axiosClient<ApiDataResponse<User>>({ url: `/users/email/${email}` })
+  ).data;
+  return res.data;
 };
 
 // export const saveUserPassword = async (

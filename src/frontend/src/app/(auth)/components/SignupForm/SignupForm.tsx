@@ -30,12 +30,8 @@ export default function SignupForm() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: sendOtpFn,
-    onSuccess: (data) => {
-      if (data.redirect && data.message) {
-        router.push(data.redirect);
-      } else {
-        router.push("/verify-email");
-      }
+    onSuccess: () => {
+      router.push("/verify-email");
     },
     onError: (err) => toast.error(err.message ?? "Something went wrong."),
   });
