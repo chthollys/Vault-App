@@ -1,6 +1,6 @@
 import { Controller, Get } from "@nestjs/common";
 import { GenresService } from "./genres.service";
-import { Genre } from "@prisma/client";
+import type { Genre } from "@prisma/client";
 import { Serialize } from "src/interceptors/serialize.interceptor";
 import { NestedGenreDto } from "src/dtos/genre.dto";
 

@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Genre } from "@prisma/client";
+import type { Genre } from "@prisma/client";
 import { PrismaService } from "src/prisma.service";
 import { handlePrismaError } from "utils/prisma.util";
 
