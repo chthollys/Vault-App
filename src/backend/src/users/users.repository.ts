@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { User } from "@prisma/client";
 import { PrismaService } from "../prisma.service";
 import { handlePrismaError } from "utils/prisma.util";
+import type { RegisterDto } from "src/dtos";
 
 @Injectable()
 export class UsersRepository {
@@ -37,6 +38,14 @@ export class UsersRepository {
       return this.prisma.review.findUnique({ where: { id } }).user();
     } catch (err) {
       return this.errorHandler(err, `Failed to fetch user`);
+    }
+  }
+
+  async create(data: RegisterDto): Promise<User> {
+    try {
+      return this.prisma.user.create({ data });
+    } catch (err) {
+      return this.errorHandler(err, "Failed to create new user");
     }
   }
 }
