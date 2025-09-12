@@ -15,6 +15,11 @@
       "types": "./dist/types/src/schemas.d.ts",
       "require": "./dist/types/src/schemas.js",
       "default": "./dist/types/src/schemas.js"
+    },
+    "./helpers/*": {
+      "types": "./dist/helpers/*.d.ts",
+      "require": "./dist/helpers/*.js",
+      "default": "./dist/helpers/*.js"
     }
   },
   "scripts": {

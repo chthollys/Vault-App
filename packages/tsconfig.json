@@ -9,5 +9,5 @@
     "emitDeclarationOnly": false,
     "moduleResolution": "nodenext"
   },
-  "include": ["types/src"]
+  "include": ["types/src", "helpers"]
 }

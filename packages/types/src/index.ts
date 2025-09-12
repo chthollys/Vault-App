@@ -48,7 +48,7 @@ export type GamesQuery = {
 
 export type NonNullableObject<T> = { [P in keyof T]: NonNullable<T[P]> };
 
-export type APIResponse<T> = {
+export type ApiResponse<T = void> = {
   success: boolean;
   message?: string;
   data?: T;
