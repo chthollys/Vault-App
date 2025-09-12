@@ -1,6 +1,9 @@
+import bcrypt from "bcrypt";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { UsersRepository } from "./users.repository";
-import { User } from "@prisma/client";
+import type { User } from "@prisma/client";
+import type { RegisterDto } from "src/dtos";
+import { SALT_ROUNDS } from "utils/constants";
 
 @Injectable()
 export class UsersService {
@@ -33,5 +36,21 @@ export class UsersService {
       );
     }
     return user;
+  }
+
+  async existByEmail(email: string): Promise<boolean> {
+    return !!(await this.usersRepo.findByEmail(email));
+  }
+
+  async existById(id: string): Promise<boolean> {
+    return !!(await this.usersRepo.findById(id));
+  }
+
+  async create(data: RegisterDto): Promise<User> {
+    const newUserData = { ...data };
+    if (data.password) {
+      newUserData.password = await bcrypt.hash(data.password, SALT_ROUNDS);
+    }
+    return this.usersRepo.create(newUserData);
   }
 }
