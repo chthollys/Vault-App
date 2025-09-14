@@ -27,8 +27,7 @@ export class AuthService {
       throw new ConflictException("Email already registered, please login");
     }
 
-    const expires = new Date(Date.now() + 5 * 60 * 1000);
-    const { token } = await this.tokenService.upcreate(email, expires);
+    const { token } = await this.tokenService.upcreate(email);
     await this.mailService.send({
       to: email,
       subject: "Vault App - OTP Verification Code",

@@ -7,8 +7,8 @@ import type { VerificationToken } from "@prisma/client";
 export class VerificationTokenService {
   constructor(private tokenRepo: VerificationTokenRepository) {}
   upcreate(identifier: string, expiresAt?: Date): Promise<VerificationToken> {
-    // 10 min default
-    const expires = expiresAt ?? new Date(Date.now() + 10 * 60 * 1000);
+    // 5 min default
+    const expires = expiresAt ?? new Date(Date.now() + 5 * 60 * 1000);
     const token = crypto.randomInt(100000, 999999).toString();
     return this.tokenRepo.upcreate({
       where: {
