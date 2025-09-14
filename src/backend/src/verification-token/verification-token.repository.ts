@@ -7,11 +7,11 @@ import { handlePrismaError } from "utils/prisma.util";
 export class VerificationTokenRepository {
   constructor(private prisma: PrismaService) {}
   private errorHandler = handlePrismaError;
-  async create(
-    data: Prisma.VerificationTokenCreateInput,
+  async upcreate(
+    args: Prisma.VerificationTokenUpsertArgs,
   ): Promise<VerificationToken> {
     try {
-      return await this.prisma.verificationToken.create({ data });
+      return await this.prisma.verificationToken.upsert(args);
     } catch (err) {
       return this.errorHandler(err, "Failed to create verification token");
     }

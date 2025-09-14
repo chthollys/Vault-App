@@ -6,11 +6,23 @@ import type { VerificationToken } from "@prisma/client";
 @Injectable()
 export class VerificationTokenService {
   constructor(private tokenRepo: VerificationTokenRepository) {}
-  create(identifier: string, expires?: Date): Promise<VerificationToken> {
-    return this.tokenRepo.create({
-      identifier,
-      token: crypto.randomInt(100000, 999999).toString(),
-      expires: expires ?? new Date(Date.now() + 10 * 60 * 1000),
+  upcreate(identifier: string, expiresAt?: Date): Promise<VerificationToken> {
+    // 10 min default
+    const expires = expiresAt ?? new Date(Date.now() + 10 * 60 * 1000);
+    const token = crypto.randomInt(100000, 999999).toString();
+    return this.tokenRepo.upcreate({
+      where: {
+        identifier,
+      },
+      update: {
+        token,
+        expires,
+      },
+      create: {
+        identifier,
+        token,
+        expires,
+      },
     });
   }
 
