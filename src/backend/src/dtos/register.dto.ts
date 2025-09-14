@@ -6,7 +6,7 @@ export class RegisterDto implements CreateUserData {
   email: string;
 
   @IsOptional()
-  name: string;
+  name?: string;
 
   @IsOptional()
   @IsString()
