@@ -1,8 +1,7 @@
 import { Injectable } from "@nestjs/common";
-import { User } from "@prisma/client";
-import { PrismaService } from "../prisma.service";
+import type { Prisma, User } from "@prisma/client";
+import { PrismaService } from "../prisma/prisma.service";
 import { handlePrismaError } from "utils/prisma.util";
-import type { RegisterDto } from "src/dtos";
 
 @Injectable()
 export class UsersRepository {
@@ -41,11 +40,19 @@ export class UsersRepository {
     }
   }
 
-  async create(data: RegisterDto): Promise<User> {
+  async create(data: Prisma.UserCreateInput): Promise<User> {
     try {
       return this.prisma.user.create({ data });
     } catch (err) {
       return this.errorHandler(err, "Failed to create new user");
+    }
+  }
+
+  async update(args: Prisma.UserUpdateArgs): Promise<User> {
+    try {
+      return await this.prisma.user.update(args);
+    } catch (err) {
+      return this.errorHandler(err, "Failed to update user");
     }
   }
 }

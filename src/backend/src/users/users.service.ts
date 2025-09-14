@@ -53,4 +53,15 @@ export class UsersService {
     }
     return this.usersRepo.create(newUserData);
   }
+
+  async verifyEmail(email: string): Promise<User> {
+    const existingUser = await this.existByEmail(email);
+    if (!existingUser) {
+      throw new NotFoundException("User not found");
+    }
+    return await this.usersRepo.update({
+      where: { email },
+      data: { emailVerified: new Date() },
+    });
+  }
 }
