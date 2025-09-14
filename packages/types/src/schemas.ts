@@ -53,7 +53,8 @@ export const CreateUserSchema = z.object({
   name: z
     .string()
     .min(3, { error: "Username must include 3 or more character" })
-    .optional(),
+    .optional()
+    .nullable(),
   password: z.string().optional(),
 });
 
