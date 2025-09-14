@@ -7,6 +7,8 @@ import { UsersQueryDto } from "./users-query.dto";
 import { RegisterDto } from "./register.dto";
 import { RegisterEmailDto } from "./register-email.dto";
 import { VerifyOtpDto } from "./verify-otp.dto";
+import { SetPasswordDto } from "./set-password.dto";
+import { UserSignupStepDto } from "./user-signup-step.dto";
 
 export {
   GameDto,
@@ -18,4 +20,6 @@ export {
   UsersQueryDto,
   RegisterEmailDto,
   VerifyOtpDto,
+  SetPasswordDto as SetPassword,
+  UserSignupStepDto,
 };

@@ -1,7 +1,7 @@
 import type { AuthUser } from "src/auth/types/payload";
 import "express";
 import "express-session";
-import type { UserSignupStepData } from "repo/types";
+import type { UserSignupState } from "src/auth/types/signup-state";
 
 declare module "express" {
   interface Request {
@@ -11,6 +11,6 @@ declare module "express" {
 
 declare module "express-session" {
   interface Session {
-    "signup-state"?: UserSignupStepData;
+    "signup-state"?: UserSignupState;
   }
 }

@@ -1,6 +1,6 @@
 import { IsString } from "class-validator";
 
-export class VerifyOtpDto {
+export class SetPasswordDto {
   @IsString()
-  otp: string;
+  password: string;
 }

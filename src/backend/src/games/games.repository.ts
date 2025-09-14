@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import type { Game, Prisma } from "@prisma/client";
-import { PrismaService } from "src/prisma.service";
+import { PrismaService } from "src/prisma/prisma.service";
 import { handlePrismaError } from "utils/prisma.util";
 
 @Injectable()
