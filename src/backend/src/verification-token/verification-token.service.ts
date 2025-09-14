@@ -1,11 +1,12 @@
 import { Injectable } from "@nestjs/common";
 import { VerificationTokenRepository } from "./verification-token.repository";
 import crypto from "node:crypto";
+import type { VerificationToken } from "@prisma/client";
 
 @Injectable()
 export class VerificationTokenService {
   constructor(private tokenRepo: VerificationTokenRepository) {}
-  create(identifier: string, expires?: Date) {
+  create(identifier: string, expires?: Date): Promise<VerificationToken> {
     return this.tokenRepo.create({
       identifier,
       token: crypto.randomInt(100000, 999999).toString(),
@@ -13,7 +14,10 @@ export class VerificationTokenService {
     });
   }
 
-  findOne(identifier: string, token?: string) {
+  findOne(
+    identifier: string,
+    token?: string,
+  ): Promise<VerificationToken | null> {
     return this.tokenRepo.findOne({ where: { identifier, token } });
   }
 
