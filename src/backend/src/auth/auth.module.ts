@@ -12,14 +12,7 @@ import { MailModule } from "src/mail/mail.module";
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: "jwt" }),
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        secret: configService.get<string>("JWT_SECRET"),
-        signOptions: { expiresIn: "15m" },
-      }),
-    }),
+
     UsersModule,
     VerificationTokenModule,
     MailModule,
