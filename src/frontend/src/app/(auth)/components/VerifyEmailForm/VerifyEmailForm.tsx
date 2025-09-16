@@ -4,42 +4,43 @@ import { useMutation } from "@tanstack/react-query";
 import z from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { verifyOtp } from "@/app/actions/otp.action";
+import { verifyOtp } from "@/app/actions/signup.action";
 import FormInputOtp from "./InputOtp";
 import { SignInButton } from "@/UI/buttons";
 import { FormTitle, GameDeveloper } from "@/components/Typography";
 import { OTPSchema } from "repo/schemas";
 import { GameCardWrapper } from "@/components/Wrapper";
-import type { VerifyEmailFormProps } from "@/lib/types/props";
-import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { SignupFormProps } from "@/lib/types/props";
+import { getSignupStep } from "@/app/actions/api.client";
 
 type Input = z.infer<typeof OTPSchema>;
 
-export default function VerifyEmailForm({ email }: VerifyEmailFormProps) {
-  const router = useRouter();
+export default function VerifyEmailForm({ onSuccess }: SignupFormProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Input>({
-    defaultValues: { code: "", email },
+    defaultValues: { code: "" },
     resolver: zodResolver(OTPSchema),
     mode: "onSubmit",
   });
 
   const { mutate, isPending } = useMutation({
     mutationFn: verifyOtp,
-    onSuccess: async () => {
-      router.push("/set-password");
+    onSuccess: async (data) => {
+      toast.success(data.message ?? "OTP verified succesfully");
+      const { step } = await getSignupStep();
+      onSuccess(step);
     },
     onError: (err) => {
       toast.error(err.message ?? "Something went wrong.");
     },
   });
 
-  const onSubmit: SubmitHandler<Input> = ({ code, email }) => {
-    mutate({ email, otp: code });
+  const onSubmit: SubmitHandler<Input> = ({ code }) => {
+    mutate(code);
   };
 
   return (

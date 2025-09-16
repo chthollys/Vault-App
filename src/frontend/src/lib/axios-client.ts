@@ -7,6 +7,7 @@ const axiosClient = axios.create({
   headers: { "Content-Type": "application/json" },
   allowAbsoluteUrls: false,
   method: "GET",
+  withCredentials: true,
   paramsSerializer: {
     serialize: (params) => qs.stringify(params, { arrayFormat: "comma" }),
   },

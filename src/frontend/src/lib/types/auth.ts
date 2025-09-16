@@ -3,3 +3,10 @@ export type SignupState = {
   message: string;
   email?: string;
 };
+
+export enum UserSignupStep {
+  Start,
+  VerifyOtp,
+  SetPassword,
+  Done,
+}

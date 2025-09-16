@@ -6,17 +6,18 @@ import { FormTitle, GameDeveloper } from "@/components/Typography";
 import { FormInput } from "@/UI/input";
 import { SignInButton } from "@/UI/buttons";
 import LoginAccountNow from "./LoginAccountNow";
-import { sendOtpFn } from "@/app/actions/otp.action";
+import { sendOtpFn } from "@/app/actions/signup.action";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { EmailSchema } from "repo/schemas";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
+import { getSession, getSignupStep } from "@/app/actions/api.client";
+import type { SignupFormProps } from "@/lib/types/props";
 
 type Inputs = z.infer<typeof EmailSchema>;
 
-export default function SignupForm() {
+export default function SignupForm({ onSuccess }: SignupFormProps) {
   const {
     register,
     handleSubmit,
@@ -26,12 +27,15 @@ export default function SignupForm() {
     mode: "onSubmit",
     resolver: zodResolver(EmailSchema),
   });
-  const router = useRouter();
 
   const { mutate, isPending } = useMutation({
     mutationFn: sendOtpFn,
-    onSuccess: () => {
-      router.push("/verify-email");
+    onSuccess: async (data) => {
+      toast.success(
+        data.message ?? "OTP sent succesfully, please check your email."
+      );
+      const { step } = await getSignupStep();
+      onSuccess(step);
     },
     onError: (err) => toast.error(err.message ?? "Something went wrong."),
   });
@@ -41,7 +45,7 @@ export default function SignupForm() {
   };
 
   return (
-    <GameCardWrapper className="border-glass-border static h-max w-full min-w-[755px] cursor-default overflow-visible border-[1px] border-solid px-16 pt-16 pb-8">
+    <GameCardWrapper className="border-glass-border static m-auto h-max w-full max-w-4xl min-w-[755px] cursor-default overflow-visible border-[1px] border-solid px-16 pt-16 pb-8">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex h-max w-full flex-col gap-8"

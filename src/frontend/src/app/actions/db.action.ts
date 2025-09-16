@@ -1,19 +1,24 @@
 "use server";
 
 import axiosClient from "@/lib/axios-client";
-import bcrypt from "bcrypt";
-import { SALT_ROUNDS } from "@/lib/utils/constants";
+import { UserSignupStep } from "@/lib/types/auth";
 import type {
   ApiDataResponse,
-  CreateReviewData,
-  CreateUserData,
   Game,
   Genre,
   ParentChildrenGenre,
   Review,
   User,
+  CurrentUserSession,
 } from "repo/types";
 import type { GamesQuery } from "repo/types";
+
+export async function getCurrentUserSession(): Promise<CurrentUserSession> {
+  const res = (
+    await axiosClient.get<ApiDataResponse<CurrentUserSession>>("/auth/me")
+  ).data;
+  return res.data;
+}
 
 export async function getUsers(): Promise<User> {
   const res = (await axiosClient.get<ApiDataResponse<User>>("/users")).data;
@@ -61,36 +66,44 @@ export async function getNestedGenres(): Promise<ParentChildrenGenre[]> {
 
 export async function getGenresByGameId(gameId: string): Promise<Genre[]> {
   const res = (
-    await axiosClient<ApiDataResponse<Genre[]>>({
-      url: `/games/${gameId}/genres`,
-    })
+    await axiosClient.get<ApiDataResponse<Genre[]>>(`/games/${gameId}/genres`)
   ).data;
   return res.data;
 }
 
 export const getReviewsByGameId = async (gameId: string): Promise<Review[]> => {
   const res = (
-    await axiosClient<ApiDataResponse<Review[]>>({
-      url: `/games/${gameId}/reviews`,
-    })
+    await axiosClient.get<ApiDataResponse<Review[]>>(`/games/${gameId}/reviews`)
   ).data;
   return res.data;
 };
 
 export const getUserByReviewId = async (reviewId: string): Promise<User> => {
   const res = (
-    await axiosClient<ApiDataResponse<User>>({
-      url: `/users/review-id/${reviewId}`,
-    })
+    await axiosClient.get<ApiDataResponse<User>>(`/users/review-id/${reviewId}`)
   ).data;
   return res.data;
 };
 
-export const getUserByEmail = async (email: string) => {
+export const getUserByEmail = async (email: string): Promise<User> => {
   const res = (
-    await axiosClient<ApiDataResponse<User>>({ url: `/users/email/${email}` })
+    await axiosClient.get<ApiDataResponse<User>>(`/users/email/${email}`)
   ).data;
   return res.data;
+};
+
+export const getSignupStep = async (): Promise<{ step: UserSignupStep }> => {
+  const res = (
+    await axiosClient.get<ApiDataResponse<{ step: UserSignupStep }>>(
+      "/auth/signup/step"
+    )
+  ).data;
+  return res.data;
+};
+
+export const getSession = async () => {
+  const res = (await axiosClient.get("/auth/session")).data;
+  return res;
 };
 
 // export const saveUserPassword = async (

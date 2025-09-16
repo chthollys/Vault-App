@@ -1,17 +1,12 @@
-// import { auth } from "@/auth";
-import { redirect } from "next/navigation";
-import SignupForm from "../components/SignupForm/SignupForm";
+import { getSignupStep } from "@/app/actions/db.action";
+import SignupFlow from "../components/SignupFlow";
 
-export default async function SignupPage() {
-  // const session = await auth();
-
-  // if (session) {
-  //   redirect("/");
-  // }
+export default async function AuthPage() {
+  const { step } = await getSignupStep();
 
   return (
-    <div className="m-auto mt-12 w-full max-w-4xl">
-      <SignupForm />
-    </div>
+    <>
+      <SignupFlow initialStep={step} />
+    </>
   );
 }

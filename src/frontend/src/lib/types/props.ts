@@ -10,6 +10,7 @@ import type { StaticImageData } from "next/image";
 import type { InputProps } from "@heroui/react";
 import type { GamesQuery } from "repo/types";
 import type { Genre } from "repo/types";
+import { UserSignupStep } from "./auth";
 
 export interface ChildrenProp {
   children?: React.ReactNode;
@@ -180,12 +181,12 @@ export interface GamePageProps {
   }>;
 }
 
-export interface VerifyEmailFormProps {
-  email: string;
+export interface SignupFlowProps {
+  initialStep: UserSignupStep;
 }
 
-export interface SetPasswordFormProps {
-  email: string;
+export interface SignupFormProps {
+  onSuccess: (step: UserSignupStep) => void;
 }
 
 export interface BadgedIconProps {

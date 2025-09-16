@@ -6,8 +6,17 @@ import type {
   Review,
   User,
   ApiDataResponse,
+  CurrentUserSession,
 } from "repo/types";
 import type { GamesQuery } from "repo/types";
+import { UserSignupStep } from "@/lib/types/auth";
+
+export async function getCurrentUserSession(): Promise<CurrentUserSession> {
+  const res = (
+    await axiosClient.get<ApiDataResponse<CurrentUserSession>>("/auth/me")
+  ).data;
+  return res.data;
+}
 
 export async function getUsers(): Promise<User> {
   const res = (await axiosClient.get<ApiDataResponse<User>>("/users")).data;
@@ -85,4 +94,19 @@ export const getUserByEmail = async (email: string) => {
     await axiosClient<ApiDataResponse<User>>({ url: `/users/email/${email}` })
   ).data;
   return res.data;
+};
+
+export const getSignupStep = async (): Promise<{ step: UserSignupStep }> => {
+  const res = (
+    await axiosClient.get<ApiDataResponse<{ step: UserSignupStep }>>(
+      "/auth/signup/step",
+      { withCredentials: true }
+    )
+  ).data;
+  return res.data;
+};
+
+export const getSession = async () => {
+  const res = (await axiosClient.get("/auth/session")).data;
+  return res;
 };

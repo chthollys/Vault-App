@@ -8,19 +8,20 @@ import { SignInButton } from "@/UI/buttons";
 import { FormTitle } from "@/components/Typography";
 import { PasswordSchema } from "repo/schemas";
 import { GameCardWrapper } from "@/components/Wrapper";
-import type { VerifyEmailFormProps } from "@/lib/types/props";
-import { useRouter } from "next/navigation";
 import { FormPasswordInput } from "@/UI/input";
-import { createUserAccount } from "@/app/actions/user.action";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useDebounce } from "@uidotdev/usehooks";
+import { setPassword } from "@/app/actions/signup.action";
+import { getCurrentUserSession, getSignupStep } from "@/app/actions/api.client";
+import { SignupFormProps } from "@/lib/types/props";
+import { useRouter } from "next/navigation";
 
 type Input = z.infer<typeof PasswordSchema>;
 
-export default function SetPasswordForm({ email }: VerifyEmailFormProps) {
-  const [passwordErrorsArray, setPasswordErrorsArray] = useState<string[]>([]);
+export default function SetPasswordForm({ onSuccess }: SignupFormProps) {
   const router = useRouter();
+  const [passwordErrorsArray, setPasswordErrorsArray] = useState<string[]>([]);
   const {
     register,
     control,
@@ -33,11 +34,13 @@ export default function SetPasswordForm({ email }: VerifyEmailFormProps) {
   });
 
   const { mutate, isPending } = useMutation({
-    mutationFn: createUserAccount,
-    onSuccess: async (data) => {
-      toast.success(
-        `Your account created succesfully, you're logged in ${data.user.email ? `as ${data.user.email}` : "."}`
-      );
+    mutationFn: setPassword,
+    onSuccess: async () => {
+      const [{ email }, { step }] = await Promise.all([
+        getCurrentUserSession(),
+        getSignupStep(),
+      ]);
+      toast.success(`Your account created succesfully, logged in as ${email}`);
       router.push("/");
     },
     onError: (err) => {
@@ -47,7 +50,6 @@ export default function SetPasswordForm({ email }: VerifyEmailFormProps) {
 
   const watched = useWatch({ name: ["password", "confirm"], control });
   const debouncedWatched = useDebounce<string[]>(watched, 300);
-  console.log(debouncedWatched[0]);
 
   useEffect(() => {
     const errorParsing = () => {
@@ -72,7 +74,7 @@ export default function SetPasswordForm({ email }: VerifyEmailFormProps) {
   }, [debouncedWatched]);
 
   const onSubmit: SubmitHandler<Input> = ({ password }) => {
-    mutate({ email, password });
+    mutate(password);
   };
 
   return (
