@@ -5,6 +5,7 @@ import { buildGamesQuery } from "utils/prisma.util";
 import type { GamesQueryDto } from "src/dtos";
 import { GenresService } from "src/genres/genres.service";
 import { ReviewsService } from "src/reviews/reviews.service";
+import { when } from "joi";
 
 @Injectable()
 export class GamesService {
@@ -23,7 +24,7 @@ export class GamesService {
   }
 
   async findById(id: string): Promise<Game> {
-    const game = await this.gamesRepo.findById(id);
+    const game = await this.gamesRepo.findUnique({ where: { id } });
     if (!game) {
       throw new NotFoundException(`Game with an id of ${id} not found.`);
     }

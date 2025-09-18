@@ -1,31 +1,27 @@
 import { Injectable } from "@nestjs/common";
-import type { Genre } from "@prisma/client";
+import type { Genre, Prisma } from "@prisma/client";
+import { PrismaErrorCatcher } from "src/error/error.handler";
 import { PrismaService } from "src/prisma/prisma.service";
 import { handlePrismaError } from "utils/prisma.util";
 
 @Injectable()
-export class GenresRepository {
-  constructor(private prisma: PrismaService) {}
-  private errorHandler = handlePrismaError;
-  async findAll(): Promise<Genre[]> {
+export class GenresRepository extends PrismaErrorCatcher {
+  constructor(private prisma: PrismaService) {
+    super();
+  }
+  async findAll(args: Prisma.GenreFindManyArgs): Promise<Genre[]> {
     try {
-      return await this.prisma.genre.findMany({
-        where: { parentId: null },
-        include: { subGenres: true },
-      });
+      return await this.prisma.genre.findMany(args);
     } catch (err) {
       return this.errorHandler(err, "Failed to fetch genres.");
     }
   }
 
-  async findById(id: string): Promise<Genre | null> {
+  async findByUnique(args: Prisma.GenreFindUniqueArgs): Promise<Genre | null> {
     try {
-      return await this.prisma.genre.findUnique({ where: { id } });
+      return await this.prisma.genre.findUnique(args);
     } catch (err) {
-      return this.errorHandler(
-        err,
-        `Failed to fetch genre with an id of ${id}`,
-      );
+      return this.errorHandler(err, `Failed to fetch genre`);
     }
   }
 
