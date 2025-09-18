@@ -10,7 +10,7 @@ export class VerificationTokenService {
     // 5 min default
     const expires = expiresAt ?? new Date(Date.now() + 5 * 60 * 1000);
     const token = crypto.randomInt(100000, 999999).toString();
-    return this.tokenRepo.upcreate({
+    return this.tokenRepo.upsert({
       where: {
         identifier,
       },

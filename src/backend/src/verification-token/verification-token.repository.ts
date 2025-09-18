@@ -1,13 +1,15 @@
 import { Injectable } from "@nestjs/common";
 import type { Prisma, VerificationToken } from "@prisma/client";
+import { PrismaErrorCatcher } from "src/error/error.handler";
 import { PrismaService } from "src/prisma/prisma.service";
 import { handlePrismaError } from "utils/prisma.util";
 
 @Injectable()
-export class VerificationTokenRepository {
-  constructor(private prisma: PrismaService) {}
-  private errorHandler = handlePrismaError;
-  async upcreate(
+export class VerificationTokenRepository extends PrismaErrorCatcher {
+  constructor(private prisma: PrismaService) {
+    super();
+  }
+  async upsert(
     args: Prisma.VerificationTokenUpsertArgs,
   ): Promise<VerificationToken> {
     try {

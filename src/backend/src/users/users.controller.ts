@@ -17,11 +17,6 @@ export class UsersController {
     return this.usersService.findById(id);
   }
 
-  @Get("/exist/:id")
-  getUserExist(@Param("id") id: string): Promise<boolean> {
-    return this.usersService.existById(id);
-  }
-
   @Get("/email/:email")
   getUserByEmail(@Param("email") email: string): Promise<UserDto> {
     return this.usersService.findByEmail(email);

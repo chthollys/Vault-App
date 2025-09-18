@@ -1,27 +1,26 @@
 import { Injectable } from "@nestjs/common";
-import { Review } from "@prisma/client";
+import { Prisma, Review } from "@prisma/client";
+import { PrismaErrorCatcher } from "src/error/error.handler";
 import { PrismaService } from "src/prisma/prisma.service";
 import { handlePrismaError } from "utils/prisma.util";
 
 @Injectable()
-export class ReviewsRepository {
-  constructor(private prisma: PrismaService) {}
-  private errorHandler = handlePrismaError;
+export class ReviewsRepository extends PrismaErrorCatcher {
+  constructor(private prisma: PrismaService) {
+    super();
+  }
 
-  async findById(id: string): Promise<Review | null> {
+  async findOne(args: Prisma.ReviewFindFirstArgs): Promise<Review | null> {
     try {
-      return await this.prisma.review.findUnique({ where: { id } });
+      return await this.prisma.review.findFirst(args);
     } catch (err) {
-      return this.errorHandler(
-        err,
-        `Failed to fetch review with an id of ${id}`,
-      );
+      return this.errorHandler(err, `Failed to fetch review`);
     }
   }
 
-  async findAllByGameId(gameId: string): Promise<Review[]> {
+  async findAll(args: Prisma.ReviewFindManyArgs): Promise<Review[]> {
     try {
-      return await this.prisma.review.findMany({ where: { gameId } });
+      return await this.prisma.review.findMany(args);
     } catch (err) {
       return this.errorHandler(err, `Failed to fetch reviews`);
     }

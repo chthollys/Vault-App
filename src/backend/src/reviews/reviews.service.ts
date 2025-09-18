@@ -7,7 +7,7 @@ export class ReviewsService {
   constructor(private reviewsRepo: ReviewsRepository) {}
 
   async findById(id: string): Promise<Review> {
-    const review = await this.reviewsRepo.findById(id);
+    const review = await this.reviewsRepo.findOne({ where: { id } });
     if (!review) {
       throw new NotFoundException("Review not found");
     }
@@ -15,6 +15,6 @@ export class ReviewsService {
   }
 
   async findAllByGameId(gameId: string): Promise<Review[]> {
-    return await this.reviewsRepo.findAllByGameId(gameId);
+    return await this.reviewsRepo.findAll({ where: { gameId } });
   }
 }

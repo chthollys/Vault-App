@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { UsersRepository } from "./users.repository";
 import type { User } from "@prisma/client";
-import type { RegisterDto } from "src/dtos";
+import type { RegisterUserDto } from "src/dtos";
 import { SALT_ROUNDS } from "utils/constants";
 
 @Injectable()
@@ -13,7 +13,7 @@ export class UsersService {
   }
 
   async findById(id: string): Promise<User> {
-    const user = await this.usersRepo.findById(id);
+    const user = await this.usersRepo.findUnique({ where: { id } });
     if (!user) {
       throw new NotFoundException(`User with an id of ${id} not found`);
     }
@@ -21,7 +21,7 @@ export class UsersService {
   }
 
   async findByEmail(email: string): Promise<User> {
-    const user = await this.usersRepo.findByEmail(email);
+    const user = await this.usersRepo.findUnique({ where: { email } });
     if (!user) {
       throw new NotFoundException(`User with an email ${email} not found`);
     }
@@ -29,7 +29,9 @@ export class UsersService {
   }
 
   async findByReviewId(reviewId: string): Promise<User> {
-    const user = await this.usersRepo.findByReviewId(reviewId);
+    const user = await this.usersRepo.findOne({
+      where: { reviews: { some: { id: reviewId } } },
+    });
     if (!user) {
       throw new NotFoundException(
         `User with a review id ${reviewId} not found`,
@@ -38,24 +40,32 @@ export class UsersService {
     return user;
   }
 
-  async existByEmail(email: string): Promise<boolean> {
-    return !!(await this.usersRepo.findByEmail(email));
+  async maybeFindById(id: string): Promise<User | null> {
+    return await this.usersRepo.findUnique({ where: { id } });
   }
 
-  async existById(id: string): Promise<boolean> {
-    return !!(await this.usersRepo.findById(id));
+  async maybeFindByEmail(email: string): Promise<User | null> {
+    return await this.usersRepo.findUnique({ where: { email } });
   }
 
-  async create(data: RegisterDto): Promise<User> {
+  async upsertByEmail(email: string): Promise<User> {
+    return await this.usersRepo.upsert({
+      where: { email },
+      update: {},
+      create: { email },
+    });
+  }
+
+  async create(data: RegisterUserDto): Promise<User> {
     const newUserData = { ...data };
     if (data.password) {
       newUserData.password = await bcrypt.hash(data.password, SALT_ROUNDS);
     }
-    return this.usersRepo.create(newUserData);
+    return this.usersRepo.create({ data: newUserData });
   }
 
   async verifyEmail(email: string): Promise<User> {
-    const existingUser = await this.existByEmail(email);
+    const existingUser = await this.maybeFindByEmail(email);
     if (!existingUser) {
       throw new NotFoundException("User not found");
     }
