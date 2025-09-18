@@ -35,6 +35,7 @@ model User {
 
   accounts      Account[]
   sessions      Session[]
+  refreshToken  RefreshToken[]
   cart          Cart?
   orders        Order[]
   reviews       Review[]
@@ -71,6 +72,19 @@ model Session {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  tokenId   String   @unique
+  userId    String
+  tokenHash String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model VerificationToken {
