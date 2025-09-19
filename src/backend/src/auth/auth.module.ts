@@ -6,7 +6,11 @@ import { PassportModule } from "@nestjs/passport";
 import { UsersModule } from "src/users/users.module";
 import { VerificationTokenModule } from "src/verification-token/verification-token.module";
 import { MailModule } from "src/mail/mail.module";
-import { SignupGuard } from "./guards/SignupGuard.guard";
+import { SignupGuard } from "./guards/signup.guard";
+import { GoogleStrategy } from "./strategies/google.strategy";
+import { AccountsModule } from "./accounts/accounts.module";
+import { RefreshTokenModule } from "./refresh-token/refresh-token.module";
+import { AuthCookieService } from "./auth-cookies.service";
 
 @Module({
   imports: [
@@ -14,8 +18,16 @@ import { SignupGuard } from "./guards/SignupGuard.guard";
     UsersModule,
     VerificationTokenModule,
     MailModule,
+    AccountsModule,
+    RefreshTokenModule,
   ],
-  providers: [AuthService, JwtStrategy, SignupGuard],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    SignupGuard,
+    GoogleStrategy,
+    AuthCookieService,
+  ],
   controllers: [AuthController],
 })
 export class AuthModule {}

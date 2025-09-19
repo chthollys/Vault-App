@@ -1,4 +1,4 @@
-export const COOKIE_IS_SECURE = process.env.NODE_ENV === "production";
+export const IS_PROD = process.env.NODE_ENV === "production";
 export const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 export const PORT = process.env.PORT;
 export const DATABASE_URL = process.env.DATABASE_URL;

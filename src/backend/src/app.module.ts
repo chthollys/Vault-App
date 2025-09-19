@@ -5,7 +5,7 @@ import {
   ValidationPipe,
 } from "@nestjs/common";
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from "@nestjs/core";
-import { ConfigModule, ConfigService } from "@nestjs/config";
+import { ConfigModule } from "@nestjs/config";
 import cookieParser from "cookie-parser";
 import { ApiResponseInterceptor } from "./interceptors/api-response.interceptor";
 import { ApiExceptionFilter } from "./filters/api-exception.filter";
@@ -24,6 +24,7 @@ import { RedisService } from "./redis/redis.service";
 import { RedisStore } from "connect-redis";
 import Joi from "joi";
 import { JwtModule } from "@nestjs/jwt";
+import { IS_PROD, JWT_SECRET, SESSION_SECRET } from "utils/env";
 
 @Module({
   imports: [
@@ -37,9 +38,8 @@ import { JwtModule } from "@nestjs/jwt";
     JwtModule.registerAsync({
       global: true,
       imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        secret: configService.get<string>("JWT_SECRET"),
+      useFactory: async () => ({
+        secret: JWT_SECRET,
         signOptions: { expiresIn: "15m" },
       }),
     }),
@@ -71,24 +71,21 @@ import { JwtModule } from "@nestjs/jwt";
   ],
 })
 export class AppModule implements NestModule {
-  constructor(
-    private configService: ConfigService,
-    private redisService: RedisService,
-  ) {}
+  constructor(private redisService: RedisService) {}
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(
         cookieParser(),
         session({
           store: new RedisStore({ client: this.redisService.getClient() }),
-          secret: this.configService.get<string>("REDIS_URL")!, // Joi validated
+          secret: SESSION_SECRET!,
           resave: false,
           saveUninitialized: false,
           cookie: {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
+            secure: IS_PROD,
             sameSite: "lax",
-            maxAge: 5 * 60 * 1000,
+            maxAge: IS_PROD ? 24 * 60 * 60 * 1000 : 5 * 60 * 1000,
           },
         }),
       )

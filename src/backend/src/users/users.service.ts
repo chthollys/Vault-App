@@ -48,11 +48,14 @@ export class UsersService {
     return await this.usersRepo.findUnique({ where: { email } });
   }
 
-  async upsertByEmail(email: string): Promise<User> {
+  async upsertByEmail(
+    email: string,
+    data?: Omit<RegisterUserDto, "email">,
+  ): Promise<User> {
     return await this.usersRepo.upsert({
       where: { email },
-      update: {},
-      create: { email },
+      update: { ...data },
+      create: { email, ...data },
     });
   }
 
