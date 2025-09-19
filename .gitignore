@@ -76,3 +76,8 @@ coverage/
 
 # Prisma generated
 /generated/prisma
+seed.ts
+
+# Other files
+.csv/
+.sql/

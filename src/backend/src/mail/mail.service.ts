@@ -1,6 +1,7 @@
 import { Inject, Injectable, OnModuleInit } from "@nestjs/common";
 import { MAIL_TRANSPORT } from "utils/constants";
 import type { Transporter } from "nodemailer";
+import { EMAIL_FROM } from "utils/env";
 
 type MailOptions = {
   to: string;
@@ -23,7 +24,7 @@ export class MailService implements OnModuleInit {
   }
   send(options: MailOptions) {
     return this.transporter.sendMail({
-      from: process.env.EMAIL_FROM,
+      from: EMAIL_FROM,
       ...options,
     });
   }
