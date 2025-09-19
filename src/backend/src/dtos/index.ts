@@ -4,22 +4,16 @@ import { GamesQueryDto } from "./games-query.dto";
 import { UserDto } from "./user.dto";
 import { ReviewDto } from "./review.dto";
 import { UsersQueryDto } from "./users-query.dto";
-import { RegisterDto } from "./register.dto";
-import { RegisterEmailDto } from "./register-email.dto";
-import { VerifyOtpDto } from "./verify-otp.dto";
-import { SetPasswordDto } from "./set-password.dto";
-import { UserSignupStepDto } from "./user-signup-step.dto";
+import { RegisterUserDto } from "./register-user.dto";
+import { LoginDto } from "./login.dto";
 
 export {
   GameDto,
   GamesQueryDto,
   GenreDto,
   UserDto,
-  RegisterDto,
+  RegisterUserDto,
   ReviewDto,
   UsersQueryDto,
-  RegisterEmailDto,
-  VerifyOtpDto,
-  SetPasswordDto as SetPassword,
-  UserSignupStepDto,
+  LoginDto,
 };

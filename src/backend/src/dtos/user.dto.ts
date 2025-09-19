@@ -2,10 +2,7 @@ import { Expose } from "class-transformer";
 import type { UserDto as User } from "repo/types";
 export class UserDto implements User {
   @Expose() id: string;
-
-  @Expose()
-  name: string | null;
-
+  @Expose() name: string | null;
   @Expose() email: string;
   @Expose() phone: string | null;
   @Expose() password: string | null;
