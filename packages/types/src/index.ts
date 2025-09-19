@@ -17,6 +17,10 @@ import {
 export type CreateUserData = z.infer<typeof CreateUserSchema>;
 export type User = z.infer<typeof UserSchema>;
 export type UserDto = z.infer<typeof UserDtoSchema>;
+export type CurrentUserSession = {
+  id: string;
+  email: string;
+};
 
 export type CreateProfileData = z.infer<typeof CreateProfileSchema>;
 export type Profile = z.infer<typeof CreateProfileSchema>;
@@ -48,9 +52,43 @@ export type GamesQuery = {
 
 export type NonNullableObject<T> = { [P in keyof T]: NonNullable<T[P]> };
 
-export type ApiMessageResponse = {
-  success: boolean;
-  message?: string;
-};
+export type ApiResponse<T = void> =
+  | ApiDataResponse<T>
+  | ApiMessageResponse
+  | ApiErrorResponse;
 
-export type ApiDataResponse<T> = ApiMessageResponse & { data: T };
+/**
+ * @description Incoming API backend response with optional message
+ */
+export interface ApiMessageResponse {
+  success: true;
+  message?: string;
+}
+
+/**
+ * @description
+ * Incoming API backend response
+ * with data and optional message
+ */
+export interface ApiDataResponse<T> {
+  success: true;
+  data: T;
+  message?: string;
+}
+
+/**
+ * @description Incoming API backend response
+ */
+export interface ApiErrorResponse {
+  success: false;
+  message: string;
+}
+
+/**
+ * @description Axios error interceptor
+ */
+export type ApiError = {
+  status?: number;
+  message: string;
+  details?: any;
+};

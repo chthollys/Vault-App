@@ -40,7 +40,6 @@ export const PasswordSchema = z
   });
 
 export const OTPSchema = z.object({
-  email: z.email({ error: "Email data is invalid." }),
   code: z.string().min(6, "OTP have invalid length"),
 });
 
