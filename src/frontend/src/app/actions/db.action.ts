@@ -1,6 +1,6 @@
 "use server";
 
-import axiosClient from "@/lib/axios-client";
+import { createServerAxios } from "@/lib/axios-server";
 import { UserSignupStep } from "@/lib/types/auth";
 import type {
   ApiDataResponse,
@@ -10,24 +10,36 @@ import type {
   Review,
   User,
   CurrentUserSession,
+  ApiError,
 } from "repo/types";
 import type { GamesQuery } from "repo/types";
 
-export async function getCurrentUserSession(): Promise<CurrentUserSession> {
-  const res = (
-    await axiosClient.get<ApiDataResponse<CurrentUserSession>>("/auth/me")
-  ).data;
-  return res.data;
+export async function getCurrentUserSession(): Promise<CurrentUserSession | null> {
+  try {
+    const client = await createServerAxios();
+    const res = (
+      await client.get<ApiDataResponse<CurrentUserSession>>("/auth/me")
+    ).data;
+    return res.data;
+  } catch (err) {
+    const error = err as ApiError;
+    if (error.status === 401 || error.status === 403) {
+      return null;
+    }
+    throw new Error(error.message);
+  }
 }
 
 export async function getUsers(): Promise<User> {
-  const res = (await axiosClient.get<ApiDataResponse<User>>("/users")).data;
+  const client = await createServerAxios();
+  const res = (await client.get<ApiDataResponse<User>>("/users")).data;
   return res.data;
 }
 
 export async function getGames(sortRule?: GamesQuery | null): Promise<Game[]> {
+  const client = await createServerAxios();
   const res = (
-    await axiosClient.get<ApiDataResponse<Game[]>>("/games", {
+    await client.get<ApiDataResponse<Game[]>>("/games", {
       params: { ...sortRule },
     })
   ).data;
@@ -35,8 +47,8 @@ export async function getGames(sortRule?: GamesQuery | null): Promise<Game[]> {
 }
 
 export async function getGame(id: string): Promise<Game> {
-  const res = (await axiosClient.get<ApiDataResponse<Game>>(`/games/${id}`))
-    .data;
+  const client = await createServerAxios();
+  const res = (await client.get<ApiDataResponse<Game>>(`/games/${id}`)).data;
   return res.data;
 }
 
@@ -45,10 +57,10 @@ export async function getGamesPaginated(
   page: number,
   perPage: number
 ): Promise<{ games: Game[]; hasMore: boolean }> {
+  const client = await createServerAxios();
   const params: GamesQuery = { ...sortRule, limit: perPage, page };
-  const res = (
-    await axiosClient.get<ApiDataResponse<Game[]>>("/games", { params })
-  ).data;
+  const res = (await client.get<ApiDataResponse<Game[]>>("/games", { params }))
+    .data;
   const games = res.data;
 
   return {
@@ -58,43 +70,54 @@ export async function getGamesPaginated(
 }
 
 export async function getNestedGenres(): Promise<ParentChildrenGenre[]> {
+  const client = await createServerAxios();
   const res = (
-    await axiosClient.get<ApiDataResponse<ParentChildrenGenre[]>>("/genres")
+    await client.get<ApiDataResponse<ParentChildrenGenre[]>>("/genres")
   ).data;
   return res.data;
 }
 
 export async function getGenresByGameId(gameId: string): Promise<Genre[]> {
+  const client = await createServerAxios();
   const res = (
-    await axiosClient.get<ApiDataResponse<Genre[]>>(`/games/${gameId}/genres`)
+    await client.get<ApiDataResponse<Genre[]>>(`/games/${gameId}/genres`)
   ).data;
   return res.data;
 }
 
 export const getReviewsByGameId = async (gameId: string): Promise<Review[]> => {
+  const client = await createServerAxios();
   const res = (
-    await axiosClient.get<ApiDataResponse<Review[]>>(`/games/${gameId}/reviews`)
+    await client.get<ApiDataResponse<Review[]>>(`/games/${gameId}/reviews`)
   ).data;
   return res.data;
 };
 
 export const getUserByReviewId = async (reviewId: string): Promise<User> => {
+  const client = await createServerAxios();
   const res = (
-    await axiosClient.get<ApiDataResponse<User>>(`/users/review-id/${reviewId}`)
+    await client.get<ApiDataResponse<User>>(`/users/review-id/${reviewId}`)
   ).data;
+  return res.data;
+};
+
+export const getUserById = async (id: string): Promise<User> => {
+  const client = await createServerAxios();
+  const res = (await client.get<ApiDataResponse<User>>(`/users/${id}`)).data;
   return res.data;
 };
 
 export const getUserByEmail = async (email: string): Promise<User> => {
-  const res = (
-    await axiosClient.get<ApiDataResponse<User>>(`/users/email/${email}`)
-  ).data;
+  const client = await createServerAxios();
+  const res = (await client.get<ApiDataResponse<User>>(`/users/email/${email}`))
+    .data;
   return res.data;
 };
 
 export const getSignupStep = async (): Promise<{ step: UserSignupStep }> => {
+  const client = await createServerAxios();
   const res = (
-    await axiosClient.get<ApiDataResponse<{ step: UserSignupStep }>>(
+    await client.get<ApiDataResponse<{ step: UserSignupStep }>>(
       "/auth/signup/step"
     )
   ).data;
@@ -102,7 +125,8 @@ export const getSignupStep = async (): Promise<{ step: UserSignupStep }> => {
 };
 
 export const getSession = async () => {
-  const res = (await axiosClient.get("/auth/session")).data;
+  const client = await createServerAxios();
+  const res = (await client.get("/auth/session")).data;
   return res;
 };
 

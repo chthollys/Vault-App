@@ -7,15 +7,24 @@ import type {
   User,
   ApiDataResponse,
   CurrentUserSession,
+  ApiError,
 } from "repo/types";
 import type { GamesQuery } from "repo/types";
 import { UserSignupStep } from "@/lib/types/auth";
 
-export async function getCurrentUserSession(): Promise<CurrentUserSession> {
-  const res = (
-    await axiosClient.get<ApiDataResponse<CurrentUserSession>>("/auth/me")
-  ).data;
-  return res.data;
+export async function getCurrentUserSession(): Promise<CurrentUserSession | null> {
+  try {
+    const res = (
+      await axiosClient.get<ApiDataResponse<CurrentUserSession>>("/auth/me")
+    ).data;
+    return res.data;
+  } catch (err) {
+    const error = err as ApiError;
+    if (error.status === 401 || error.status === 403) {
+      return null;
+    }
+    throw new Error(error.message);
+  }
 }
 
 export async function getUsers(): Promise<User> {
@@ -86,6 +95,12 @@ export const getUserByReviewId = async (reviewId: string): Promise<User> => {
       url: `/users/review-id/${reviewId}`,
     })
   ).data;
+  return res.data;
+};
+
+export const getUserById = async (id: string): Promise<User> => {
+  const res = (await axiosClient.get<ApiDataResponse<User>>(`/users/${id}`))
+    .data;
   return res.data;
 };
 

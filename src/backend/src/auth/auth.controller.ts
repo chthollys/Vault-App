@@ -37,7 +37,7 @@ export class AuthController {
 
   @Get("/me")
   @UseGuards(PassportAuthGuard("jwt"))
-  getCurrentUser(@User() user: AuthUser) {
+  getCurrentUser(@User() user: AuthUser): AuthUser {
     return user;
   }
 

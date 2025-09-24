@@ -13,7 +13,7 @@ const axiosClient = axios.create({
   },
 });
 
-function normalizeError(error: unknown): ApiError {
+export function normalizeError(error: unknown): ApiError {
   if (axios.isAxiosError(error)) {
     const err = error as AxiosError<ApiErrorResponse>;
     return {

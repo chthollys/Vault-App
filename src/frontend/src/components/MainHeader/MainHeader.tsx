@@ -4,8 +4,23 @@ import Menu from "./Menu";
 import { LoginButton } from "@/UI/buttons";
 import { UserActionModal } from "../UserActionModal";
 import SearchBar from "@/components/MainHeader/SearchBar";
+import { getCurrentUserSession, getUserById } from "@/app/actions/db.action";
 
 export default async function MainHeader() {
+  const user = await getCurrentUserSession();
+  console.log(user);
+  let headerAction = (
+    <Link href={"/login"}>
+      <LoginButton>Sign in</LoginButton>
+    </Link>
+  );
+
+  if (user) {
+    const { image, name, email } = await getUserById(user.id);
+    headerAction = (
+      <UserActionModal iconUrl={image} name={name} email={email} />
+    );
+  }
   return (
     <nav
       className="border-glass-border shadow-glass bg-nav-bar sticky top-0 z-50 border-b-[1px] border-solid backdrop-blur-[20px]"
@@ -23,19 +38,7 @@ export default async function MainHeader() {
         </div>
 
         <div className="flex items-center gap-6">
-          <>
-            {/* {session ? (
-              <UserActionModal
-                iconUrl={session.user.image}
-                name={session.user.name}
-                email={session.user.email}
-              />
-            ) : (
-              <Link href={"/login"}>
-                <LoginButton>Sign in</LoginButton>
-              </Link>
-            )} */}
-          </>
+          <>{headerAction}</>
         </div>
       </div>
     </nav>

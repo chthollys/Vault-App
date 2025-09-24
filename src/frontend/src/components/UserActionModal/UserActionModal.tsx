@@ -46,7 +46,7 @@ export default function UserActionModal({
                 color="default"
                 className="opa h-20 w-20"
               />
-              Hello, {name ? name?.split(" ")[0] : "Player"}.
+              Hello, {name ? name?.split(" ")[0] : email?.split("@")[0]}
             </ModalHeader>
 
             <ModalBody className="flex w-full flex-col items-center">

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { VerifyEmailForm } from "./VerifyEmailForm";
 import { SetPasswordForm } from "./SetPasswordForm";
 import type { SignupFlowProps } from "@/lib/types/props";
-import { getSignupStep } from "@/app/actions/api.client";
+import { getSignupStep } from "@/app/actions/api-client.action";
 import { SignupForm } from "./SignupForm";
 
 export default function SignupFlow({ initialStep }: SignupFlowProps) {

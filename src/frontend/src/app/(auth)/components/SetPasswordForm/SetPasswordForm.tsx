@@ -13,7 +13,10 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useDebounce } from "@uidotdev/usehooks";
 import { setPassword } from "@/app/actions/signup.action";
-import { getCurrentUserSession, getSignupStep } from "@/app/actions/api.client";
+import {
+  getCurrentUserSession,
+  getSignupStep,
+} from "@/app/actions/api-client.action";
 import { SignupFormProps } from "@/lib/types/props";
 import { useRouter } from "next/navigation";
 
@@ -36,11 +39,12 @@ export default function SetPasswordForm({ onSuccess }: SignupFormProps) {
   const { mutate, isPending } = useMutation({
     mutationFn: setPassword,
     onSuccess: async () => {
-      const [{ email }, { step }] = await Promise.all([
-        getCurrentUserSession(),
-        getSignupStep(),
-      ]);
-      toast.success(`Your account created succesfully, logged in as ${email}`);
+      const user = await getCurrentUserSession();
+      toast.success(
+        user
+          ? `Account created successfully, you're logged in as ${user.email}`
+          : "Account created succesfully"
+      );
       router.push("/");
     },
     onError: (err) => {
