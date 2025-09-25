@@ -1,1 +1,2 @@
-web: pnpm --filter backend build && pnpm --filter backend migrate:deploy && pnpm --filter backend start:prod
+web: turbo run build --filter=backend && pnpm --filter backend migrate:deploy && pnpm --filter backend start:prod
+
