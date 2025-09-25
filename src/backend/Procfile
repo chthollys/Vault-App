@@ -1,4 +1,0 @@
-web: pnpm install --no-frozen-lockfile && pnpm build && pnpm migrate:deploy && pnpm start:prod
-
-
-
