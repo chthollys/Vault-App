@@ -10,7 +10,8 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "turbo run format"
+    "format": "turbo run format",
+    "sync-lockfile:backend": "pnpm install --filter backend --lockfile-only && mv pnpm-lock.yaml src/backend/"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
