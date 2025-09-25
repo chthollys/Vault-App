@@ -27,6 +27,7 @@ import type { AuthUser } from "./types/jwt";
 import type { Response, Request } from "express";
 import type { Session } from "express-session";
 import { AuthCookieService } from "./auth-cookies.service";
+import { FRONTEND_URL } from "utils/env";
 
 @Controller("auth")
 export class AuthController {
@@ -116,6 +117,7 @@ export class AuthController {
       email: user?.email,
     });
     this.authCookieService.setAuthCookies(res, tokens);
+    res.redirect(`${FRONTEND_URL}`);
     return user;
   }
 

@@ -5,11 +5,16 @@ import { FcGoogle } from "react-icons/fc";
 import type { ChildrenProp } from "@/lib/types/props";
 
 export default function GoogleLoginButton({ children }: ChildrenProp) {
+  const handleGoogleLogin = () => {
+    const baseUrl = process.env.NEST_API_URL ?? "http://localhost:4000";
+    window.location.href = `${baseUrl}/auth/google`;
+  };
+
   return (
     <Button
       variant="outlined"
       startIcon={<FcGoogle size={20} />}
-      // onClick={() => signIn("google", { callbackUrl: "/" })}
+      onClick={handleGoogleLogin}
       sx={{
         textTransform: "none",
         borderRadius: "12px",
