@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  transpilePackages: ["repo"],
+  webpack: (config) => {
+    config.resolve.alias["repo"] = path.resolve(__dirname, "../../packages");
+  },
   images: {
     remotePatterns: [
       {
