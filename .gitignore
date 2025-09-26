@@ -81,3 +81,5 @@ seed.ts
 # Other files
 .csv/
 .sql/
+# Turborepo
+.turbo

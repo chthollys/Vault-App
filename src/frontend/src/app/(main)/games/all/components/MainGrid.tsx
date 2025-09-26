@@ -5,7 +5,7 @@ import GamesInfiniteGrid from "@/components/GameSection/GamesInfiniteGrid";
 import { getValuesByParams } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
-import type { GamesQuery } from "repo/types";
+import type { GamesQuery } from @repo/types;
 
 export default function MainGrid() {
   const searchParams = useSearchParams();

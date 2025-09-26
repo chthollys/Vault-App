@@ -1,6 +1,6 @@
 import Image from "@/components/ImageOptimized";
 import { getUserByReviewId } from "@/app/actions/db.action";
-import type { Review } from "repo/types";
+import type { Review } from @repo/types;
 import { RatingStar } from "@/components/Typography";
 
 export interface ReviewProps {

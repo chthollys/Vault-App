@@ -11,7 +11,7 @@ import type {
   User,
   CurrentUserSession,
   ApiError,
-} from "repo/types";
+} from @repo/types;
 import type { GamesQuery } from "@repo/types";
 
 export async function getCurrentUserSession(): Promise<CurrentUserSession | null> {
