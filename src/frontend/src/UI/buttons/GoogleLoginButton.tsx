@@ -3,10 +3,11 @@
 import Button from "@mui/material/Button";
 import { FcGoogle } from "react-icons/fc";
 import type { ChildrenProp } from "@/lib/types/props";
+import { API_URL } from "@/lib/env";
 
 export default function GoogleLoginButton({ children }: ChildrenProp) {
   const handleGoogleLogin = () => {
-    const baseUrl = process.env.NEST_API_URL ?? "http://localhost:4000";
+    const baseUrl = API_URL;
     window.location.href = `${baseUrl}/auth/google`;
   };
 

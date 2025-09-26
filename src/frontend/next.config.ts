@@ -1,3 +1,4 @@
+import { S3_BUCKET_NAME, S3_REGION } from "@/lib/env";
 import type { NextConfig } from "next";
 import path from "path";
 
@@ -14,7 +15,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: `${process.env.S3_BUCKET_NAME}.s3.${process.env.S3_REGION}.amazonaws.com`,
+        hostname: `${S3_BUCKET_NAME}.s3.${S3_REGION}.amazonaws.com`,
         port: "",
         pathname: `/**/*`,
       },
