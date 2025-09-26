@@ -4,7 +4,8 @@
   "private": "true",
   "workspaces": [
     "src/frontend",
-    "src/backend"
+    "src/backend",
+    "packages/*"
   ],
   "scripts": {
     "build": "turbo run build",

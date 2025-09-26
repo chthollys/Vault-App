@@ -14,6 +14,8 @@ import {
   UserDtoSchema,
 } from "./schemas";
 
+export * from "./schemas";
+
 export type CreateUserData = z.infer<typeof CreateUserSchema>;
 export type User = z.infer<typeof UserSchema>;
 export type UserDto = z.infer<typeof UserDtoSchema>;

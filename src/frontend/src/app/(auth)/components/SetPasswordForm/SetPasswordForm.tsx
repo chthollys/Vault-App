@@ -6,7 +6,7 @@ import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignInButton } from "@/UI/buttons";
 import { FormTitle } from "@/components/Typography";
-import { PasswordSchema } from "repo/schemas";
+import { PasswordSchema } from "@repo/types";
 import { GameCardWrapper } from "@/components/Wrapper";
 import { FormPasswordInput } from "@/UI/input";
 import { toast } from "react-toastify";

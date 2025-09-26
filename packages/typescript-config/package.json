@@ -1,0 +1,9 @@
+{
+  "name": "@repo/typescript-config",
+  "version": "1.0.0",
+  "license": "ISC",
+  "packageManager": "pnpm@10.15.1",
+  "publishConfig": {
+    "access": "public"
+  }
+}

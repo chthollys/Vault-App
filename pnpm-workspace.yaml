@@ -2,6 +2,8 @@ packages:
   - "src/frontend"
   - "src/backend"
   - "packages"
+  - "packages/types"
+  - "packages/typescript-config"
 
 onlyBuiltDependencies:
   - "@heroui/shared-utils"
@@ -12,3 +14,5 @@ onlyBuiltDependencies:
   - prisma
   - sharp
   - unrs-resolver
+
+linkWorkspacePackages: true

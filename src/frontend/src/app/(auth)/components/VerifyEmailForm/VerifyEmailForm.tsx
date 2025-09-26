@@ -8,7 +8,7 @@ import { verifyOtp } from "@/app/actions/signup.action";
 import FormInputOtp from "./InputOtp";
 import { SignInButton } from "@/UI/buttons";
 import { FormTitle, GameDeveloper } from "@/components/Typography";
-import { OTPSchema } from "repo/schemas";
+import { OTPSchema } from "@repo/types";
 import { GameCardWrapper } from "@/components/Wrapper";
 import { toast } from "react-toastify";
 import { SignupFormProps } from "@/lib/types/props";

@@ -1,5 +1,5 @@
-import type { GamesQuery } from "repo/types";
-import type { Game } from "repo/types";
+import type { GamesQuery } from "@repo/types";
+import type { Game } from "@repo/types";
 import { getGames } from "../actions/api-client.action";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { DEFAULT_CATEGORIES, DEFAULT_SORTBY } from "@/lib/utils/constants";

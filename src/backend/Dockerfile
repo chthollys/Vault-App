@@ -1,38 +1,41 @@
-# 1. Base image with Node
+# ---- Builder stage ----
 FROM node:22-alpine AS builder
 
-# 2. Set working dir
+# Set working directory
 WORKDIR /app
 
-# 3. Install pnpm
+# Enable pnpm
 RUN corepack enable && corepack prepare pnpm@10.15.1 --activate
 
-# 4. Copy package.json + lockfile
-COPY package.json pnpm-lock.yaml ./
+# Copy only the root manifests first (better layer caching)
+COPY pnpm-workspace.yaml pnpm-lock.yaml package.json ./
 
-# 5. Install dependencies (no frozen lockfile headaches)
-RUN pnpm install --no-frozen-lockfile
+# Copy all workspaces needed (so pnpm can resolve repo@workspace:*)
+COPY packages ./packages
+COPY src ./src
 
-# 6. Copy source code
-COPY . .
+# Move into backend workspace
+WORKDIR /app/src/backend
 
-# 7. Build backend
+# Install only backend dependencies (resolves through workspace)
+RUN pnpm install --filter backend... --no-frozen-lockfile
+
+# Build backend
 RUN pnpm build
 
-# --- Runtime image ---
+
+# ---- Runtime stage ----
 FROM node:22-alpine AS runner
 WORKDIR /app
 
-# Copy only necessary files from builder
+# Copy runtime files
+COPY --from=builder /app/src/backend/dist ./dist
+COPY --from=builder /app/src/backend/package.json ./package.json
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/package.json ./package.json
-
-# Prisma client (generated at build time)
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 
-# Expose NestJS default port
 EXPOSE 4000
 
-# Run migrations + start
+# Run Prisma migrations, then start the server
 CMD ["sh", "-c", "pnpm prisma migrate deploy && node dist/main.js"]
+

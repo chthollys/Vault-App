@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    resolveAlias: { repo: path.resolve(__dirname, "../../packages") },
+  },
   reactStrictMode: true,
   transpilePackages: ["repo"],
   webpack: (config) => {

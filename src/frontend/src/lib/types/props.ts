@@ -1,5 +1,5 @@
 import React from "react";
-import type { Game, ParentChildrenGenre } from "repo/types";
+import type { Game, ParentChildrenGenre } from "@repo/types";
 import type {
   ComponentPropsWithoutRef,
   ElementType,
@@ -8,8 +8,8 @@ import type {
 } from "react";
 import type { StaticImageData } from "next/image";
 import type { InputProps } from "@heroui/react";
-import type { GamesQuery } from "repo/types";
-import type { Genre } from "repo/types";
+import type { GamesQuery } from "@repo/types";
+import type { Genre } from "@repo/types";
 import { UserSignupStep } from "./auth";
 
 export interface ChildrenProp {

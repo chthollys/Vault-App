@@ -1,5 +1,5 @@
 import { Expose } from "class-transformer";
-import type { Genre, ParentChildrenGenre } from "repo/types";
+import type { Genre, ParentChildrenGenre } from "@repo/types";
 
 export class GenreDto implements Genre {
   @Expose()

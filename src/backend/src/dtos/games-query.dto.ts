@@ -1,6 +1,6 @@
 import { Transform, Type } from "class-transformer";
 import { IsArray, IsOptional, IsString } from "class-validator";
-import type { GamesQuery, SortBy } from "repo/types";
+import type { GamesQuery, SortBy } from "@repo/types";
 
 export class GamesQueryDto implements GamesQuery {
   @IsOptional()

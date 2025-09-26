@@ -1,5 +1,0 @@
-{
-  "files": [],
-  "exclude": ["node_modules"],
-  "references": [{ "path": "./src/frontend" }, { "path": "./src/backend" }]
-}

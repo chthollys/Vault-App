@@ -1,5 +1,5 @@
 import { Expose } from "class-transformer";
-import { Review } from "repo/types";
+import { Review } from "@repo/types";
 
 export class ReviewDto implements Review {
   @Expose() id: string;

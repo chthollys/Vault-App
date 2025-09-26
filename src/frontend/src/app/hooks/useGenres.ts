@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import type { ParentChildrenGenre } from "repo/types";
+import type { ParentChildrenGenre } from "@repo/types";
 import { getNestedGenres } from "../actions/api-client.action";
 
 export const useGenres = () => {

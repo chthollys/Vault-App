@@ -1,6 +1,6 @@
 import axios, { type AxiosError } from "axios";
 import qs from "qs";
-import type { ApiError, ApiErrorResponse } from "repo/types";
+import type { ApiError, ApiErrorResponse } from "@repo/types";
 
 const axiosClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_NEST_API_URL || process.env.NEST_API_URL,

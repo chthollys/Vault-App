@@ -1,7 +1,7 @@
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { getGamesPaginated } from "../actions/api-client.action";
-import type { GamesQuery } from "repo/types";
-import type { GamesInfinite } from "repo/types";
+import type { GamesQuery } from "@repo/types";
+import type { GamesInfinite } from "@repo/types";
 import {
   DEFAULT_CATEGORIES,
   DEFAULT_SORTBY,

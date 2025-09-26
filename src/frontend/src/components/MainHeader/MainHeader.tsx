@@ -8,7 +8,6 @@ import { getCurrentUserSession, getUserById } from "@/app/actions/db.action";
 
 export default async function MainHeader() {
   const user = await getCurrentUserSession();
-  console.log(user);
   let headerAction = (
     <Link href={"/login"}>
       <LoginButton>Sign in</LoginButton>

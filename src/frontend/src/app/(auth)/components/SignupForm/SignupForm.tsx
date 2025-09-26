@@ -8,7 +8,7 @@ import { SignInButton } from "@/UI/buttons";
 import LoginAccountNow from "./LoginAccountNow";
 import { sendOtpFn } from "@/app/actions/signup.action";
 import { useMutation } from "@tanstack/react-query";
-import { EmailSchema } from "repo/schemas";
+import { EmailSchema } from "@repo/types";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";

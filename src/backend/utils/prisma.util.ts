@@ -4,7 +4,7 @@ import {
   ConflictException,
   InternalServerErrorException,
 } from "@nestjs/common";
-import type { GamesQuery, OrderBy } from "repo/types";
+import type { GamesQuery, OrderBy } from "@repo/types";
 import { GamesQueryDto } from "src/dtos";
 
 export function handlePrismaError(err: any, message: string): never {
