@@ -5,7 +5,7 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 # Install pnpm globally
-RUN npm install -g pnpm
+RUN corepack enable
 
 # Copy root configs
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json turbo.json ./
