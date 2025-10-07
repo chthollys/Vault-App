@@ -34,7 +34,7 @@ ENV NODE_ENV=production
 # Copy only the built dist and necessary files
 COPY --from=builder /app/src/backend/dist ./dist
 COPY --from=builder /app/src/backend/package.json ./
-COPY --from=builder /app/src/backend/node_modules ./node_modules
+COPY --from=builder /app/node_modules ./node_modules
 
 # Expose your NestJS port
 EXPOSE 8000
