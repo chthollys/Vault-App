@@ -40,5 +40,5 @@ COPY --from=builder /app/src/backend/node_modules ./node_modules
 EXPOSE 8000
 
 # Default start command
-CMD ["node", "dist/main.js"]
+CMD ["node", "dist/src/main.js"]
 
