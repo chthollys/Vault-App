@@ -41,4 +41,4 @@ RUN pnpm install --prod --filter backend...
 COPY --from=builder /app/src/backend/dist ./dist
 
 EXPOSE 8000
-CMD ["pnpm", "--filter", "backend", "start"]
+CMD ["node", "dist/src/main.js"]
