@@ -1,41 +1,45 @@
-# ---- Builder stage ----
-FROM node:22-alpine AS builder
-
-# Set working directory
+# ---------------------------
+# 1. Base Builder
+# ---------------------------
+FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Enable pnpm
-RUN corepack enable && corepack prepare pnpm@10.15.1 --activate
+# Install pnpm globally
+RUN npm install -g pnpm
 
-# Copy only the root manifests first (better layer caching)
-COPY pnpm-workspace.yaml pnpm-lock.yaml package.json ./
+# Copy root configs
+COPY pnpm-lock.yaml pnpm-workspace.yaml package.json turbo.json ./
 
-# Copy all workspaces needed (so pnpm can resolve repo@workspace:*)
+# Copy only backend and shared packages
+COPY src/backend ./src/backend
 COPY packages ./packages
-COPY src ./src
 
-# Move into backend workspace
+# Move into backend
 WORKDIR /app/src/backend
 
-# Install only backend dependencies (resolves through workspace)
-RUN pnpm install --filter backend... --no-frozen-lockfile
+# Install dependencies (respecting pnpm workspace)
+RUN pnpm install --filter backend...
 
-# Build backend
-RUN pnpm build
+# Build the NestJS app
+RUN pnpm run build
 
-
-# ---- Runtime stage ----
-FROM node:22-alpine AS runner
+# ---------------------------
+# 2. Runtime Image
+# ---------------------------
+FROM node:20-alpine AS runner
 WORKDIR /app
 
-# Copy runtime files
-COPY --from=builder /app/src/backend/dist ./dist
-COPY --from=builder /app/src/backend/package.json ./package.json
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+ENV NODE_ENV=production
 
+# Copy only the built dist and necessary files
+COPY --from=builder /app/src/backend/dist ./dist
+COPY --from=builder /app/src/backend/package.json ./
+COPY --from=builder /app/src/backend/node_modules ./node_modules
+COPY --from=builder /app/src/backend/.env ./.env
+
+# Expose your NestJS port
 EXPOSE 4000
 
-# Run Prisma migrations, then start the server
-CMD ["sh", "-c", "pnpm prisma migrate deploy && node dist/main.js"]
+# Default start command
+CMD ["node", "dist/main.js"]
 
