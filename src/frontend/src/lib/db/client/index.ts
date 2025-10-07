@@ -1,4 +1,4 @@
-import axiosClient from "@/lib/axios-client";
+import axiosClient from "@/lib/axios/client";
 import type {
   Game,
   Genre,
@@ -8,7 +8,7 @@ import type {
   ApiDataResponse,
   CurrentUserSession,
   ApiError,
-} from @repo/types;
+} from "@repo/types";
 import type { GamesQuery } from "@repo/types";
 import { UserSignupStep } from "@/lib/types/auth";
 

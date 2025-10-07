@@ -66,7 +66,7 @@ export const UserSchema = CreateUserSchema.extend({
   emailVerified: z.date().nullable(),
   phone: z.string().nullable(),
   address: z.string().nullable(),
-  image: z.url().nullable(),
+  image: z.url(),
 });
 
 export const UserDtoSchema = CreateUserSchema.extend({

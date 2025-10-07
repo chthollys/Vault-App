@@ -1,6 +1,6 @@
 import Image from "@/components/ImageOptimized";
-import { getUserByReviewId } from "@/app/actions/db.action";
-import type { Review } from @repo/types;
+import { getUserByReviewId } from "@/lib/db/server";
+import type { Review } from "@repo/types";
 import { RatingStar } from "@/components/Typography";
 
 export interface ReviewProps {
@@ -14,12 +14,12 @@ export default async function ReviewItem({ review }: ReviewProps) {
       <div className="flex items-start justify-between gap-4">
         <div className="flex flex-1 items-center gap-4">
           <Image
-            src={data.avatarUrl!}
+            src={data.image!}
             alt="Avatar user image"
             className="h-[45px] w-[45px] rounded-full object-cover"
           />
           <div className="flex flex-col">
-            <span className="text-primary">{data.reviewer}</span>
+            <span className="text-primary">{data.image!}</span>
             <span className="text-[0.9rem] font-normal text-white/50">
               {review.createdAt.toLocaleDateString()}
             </span>

@@ -1,5 +1,5 @@
 import type { ApiError, ApiResponse } from "@repo/types";
-import axiosClient from "@/lib/axios-client";
+import axiosClient from "../axios/client";
 
 export const sendOtpFn = async (email: string) => {
   try {

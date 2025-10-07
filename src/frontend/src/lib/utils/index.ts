@@ -73,8 +73,8 @@ export const getRandomSubArray = <T>(arr: T[], n: number): T[] => {
 
   while (n--) {
     const x = Math.floor(Math.random() * len);
-    result[n] = arr[x in taken ? taken[x] : x];
-    taken[x] = --len in taken ? taken[len] : len;
+    result[n] = arr[x in taken ? (taken[x] as number) : x] as T;
+    taken[x] = --len in taken ? (taken[len] as number) : len;
   }
 
   return result;

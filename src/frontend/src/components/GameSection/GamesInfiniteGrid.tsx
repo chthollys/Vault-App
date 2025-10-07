@@ -21,7 +21,7 @@ export default function GamesInfiniteGrid({
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
+        if (entries[0]?.isIntersecting) {
           fetchNextPage();
         }
       },

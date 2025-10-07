@@ -1,7 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import type { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import type { CookieOptions } from "./types/cookies";
 import { IS_PROD } from "@/lib/env";
 
 export const getCookieValue = async (name: string) => {
@@ -11,7 +11,7 @@ export const getCookieValue = async (name: string) => {
 export const setCookie = async ({
   secure = IS_PROD,
   ...config
-}: ResponseCookie) => {
+}: CookieOptions) => {
   (await cookies()).set({
     ...config,
     secure,

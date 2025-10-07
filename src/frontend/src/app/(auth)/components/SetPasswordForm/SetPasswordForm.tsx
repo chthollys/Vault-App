@@ -12,11 +12,8 @@ import { FormPasswordInput } from "@/UI/input";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useDebounce } from "@uidotdev/usehooks";
-import { setPassword } from "@/app/actions/signup.action";
-import {
-  getCurrentUserSession,
-  getSignupStep,
-} from "@/app/actions/api-client.action";
+import { setPassword } from "@/lib/db/signup.action";
+import { getCurrentUserSession, getSignupStep } from "@/lib/db/client";
 import { SignupFormProps } from "@/lib/types/props";
 import { useRouter } from "next/navigation";
 

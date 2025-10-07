@@ -4,7 +4,7 @@ import Menu from "./Menu";
 import { LoginButton } from "@/UI/buttons";
 import { UserActionModal } from "../UserActionModal";
 import SearchBar from "@/components/MainHeader/SearchBar";
-import { getCurrentUserSession, getUserById } from "@/app/actions/db.action";
+import { getCurrentUserSession, getUserById } from "@/lib/db/server";
 
 export default async function MainHeader() {
   const user = await getCurrentUserSession();

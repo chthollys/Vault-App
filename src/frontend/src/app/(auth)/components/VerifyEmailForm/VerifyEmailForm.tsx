@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import z from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { verifyOtp } from "@/app/actions/signup.action";
+import { verifyOtp } from "@/lib/db/signup.action";
 import FormInputOtp from "./InputOtp";
 import { SignInButton } from "@/UI/buttons";
 import { FormTitle, GameDeveloper } from "@/components/Typography";
@@ -12,7 +12,7 @@ import { OTPSchema } from "@repo/types";
 import { GameCardWrapper } from "@/components/Wrapper";
 import { toast } from "react-toastify";
 import { SignupFormProps } from "@/lib/types/props";
-import { getSignupStep } from "@/app/actions/api-client.action";
+import { getSignupStep } from "@/lib/db/client";
 
 type Input = z.infer<typeof OTPSchema>;
 

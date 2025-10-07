@@ -1,10 +1,6 @@
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getQueryClient } from "@/lib/utils/get-query-client";
-import {
-  getGames,
-  getGamesPaginated,
-  getNestedGenres,
-} from "./actions/db.action";
+import { getGames, getGamesPaginated, getNestedGenres } from "../lib/db/server";
 import type { HydrationProps } from "@/lib/types/props";
 import {
   DEFAULT_CATEGORIES,

@@ -2,8 +2,8 @@ import { GameCardWrapper } from "@/components/Wrapper";
 import GameInfoDetail from "./GameInfoDetail";
 import DescriptionSection from "./Description";
 import RatingSection from "./RatingSection";
-import type { Game } from @repo/types;
-import { getGenresByGameId, getReviewsByGameId } from "@/app/actions/db.action";
+import type { Game } from "@repo/types";
+import { getGenresByGameId, getReviewsByGameId } from "@/lib/db/server";
 
 export interface GameInfoRightSection {
   game: Game;

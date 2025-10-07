@@ -1,6 +1,6 @@
 "use server";
 
-import { createServerAxios } from "@/lib/axios-server";
+import { createServerAxios } from "@/lib/axios/server";
 import { UserSignupStep } from "@/lib/types/auth";
 import type {
   ApiDataResponse,
@@ -11,7 +11,7 @@ import type {
   User,
   CurrentUserSession,
   ApiError,
-} from @repo/types;
+} from "@repo/types";
 import type { GamesQuery } from "@repo/types";
 
 export async function getCurrentUserSession(): Promise<CurrentUserSession | null> {
