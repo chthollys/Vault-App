@@ -1,44 +1,53 @@
-# ---------------------------
-# 1. Base Builder
-# ---------------------------
+# ================================
+# 1. Builder Stage
+# ================================
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Install pnpm globally
 RUN corepack enable
 
-# Copy root configs
-COPY pnpm-lock.yaml pnpm-workspace.yaml package.json turbo.json ./
+# Copy monorepo root files
+COPY pnpm-workspace.yaml pnpm-lock.yaml package.json turbo.json ./
 
-# Copy only backend and shared packages
+# Copy backend and shared packages
 COPY src/backend ./src/backend
 COPY packages ./packages
 
-# Move into backend
 WORKDIR /app/src/backend
 
-# Install dependencies (respecting pnpm workspace)
+# Install dependencies for build only
 RUN pnpm install --filter backend...
 
-# Build the NestJS app
+# Optional: Prisma
+RUN pnpm prisma generate || echo "No Prisma schema found"
+
+# Build NestJS app
 RUN pnpm run build
 
-# ---------------------------
-# 2. Runtime Image
-# ---------------------------
+# ================================
+# 2. Runner Stage (Clean & Prod)
+# ================================
 FROM node:20-alpine AS runner
 WORKDIR /app
 
+RUN corepack enable
+
 ENV NODE_ENV=production
+ENV PORT=8000
 
-# Copy only the built dist and necessary files
+# Copy only package definitions
+COPY src/backend/package.json ./
+COPY src/backend/pnpm-lock.yaml ./
+COPY pnpm-workspace.yaml ./
+
+# Install production-only dependencies
+RUN pnpm install --prod --filter backend...
+
+# Copy build output
 COPY --from=builder /app/src/backend/dist ./dist
-COPY --from=builder /app/src/backend/package.json ./
-COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/packages ./packages
 
-# Expose your NestJS port
+# Expose and run
 EXPOSE 8000
-
-# Default start command
 CMD ["node", "dist/src/main.js"]
 
