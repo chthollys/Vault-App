@@ -38,7 +38,7 @@ COPY --from=builder /app/src/backend/node_modules ./node_modules
 COPY --from=builder /app/src/backend/.env ./.env
 
 # Expose your NestJS port
-EXPOSE 4000
+EXPOSE 8000
 
 # Default start command
 CMD ["node", "dist/main.js"]
