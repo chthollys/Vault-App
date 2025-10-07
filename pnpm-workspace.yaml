@@ -16,3 +16,6 @@ onlyBuiltDependencies:
   - unrs-resolver
 
 linkWorkspacePackages: true
+syncInjectedDepsAfterScripts:
+  - build
+injectWorkspacePackages: true
