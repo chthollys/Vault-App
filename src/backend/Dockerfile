@@ -8,7 +8,7 @@ ENV PORT=8000
 
 COPY pnpm-workspace.yaml ./
 COPY package.json ./
-COPY src/backend/package.json ./src/backend/
+COPY src/backend/ ./src/backend/
 COPY packages/ ./packages/
 
 RUN pnpm install --prod --filter backend...
