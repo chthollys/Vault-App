@@ -6,6 +6,8 @@ RUN ls /app -al
 RUN npm install -g pnpm
 RUN npm install -g turbo@2.5.6
 
+COPY package.json .
+COPY pnpm-workspace.yaml .
 COPY src/backend/ ./app/src/backend
 COPY packages/ ./app/packages
 
