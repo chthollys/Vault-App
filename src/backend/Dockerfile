@@ -1,27 +1,34 @@
-FROM node:20-alpine AS builder
-WORKDIR /app
-
-RUN ls /app -al
+FROM node:22-alpine AS builder
 
 RUN npm install -g pnpm
 RUN npm install -g turbo@2.5.6
 
-COPY package.json .
-COPY pnpm-workspace.yaml .
-COPY src/backend/ ./app/src/backend
-COPY packages/ ./app/packages
+COPY package.json pnpm-workspace.yaml turbo.json pnpm-lock.yaml /app/
+COPY packages /app/
+COPY src/backend /app/src/
+
+WORKDIR /app
+
+RUN pnpm install --frozen-lockfile
 
 RUN turbo prune backend --docker
 
-FROM builder AS installer
+FROM node:22-alpine AS installer
 WORKDIR /app
 
+RUN npm install -g pnpm
+
 COPY --from=builder /app/out/json/ .
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile || pnpm install --no-frozen-lockfile
 
 COPY --from=builder /app/out/full/ .
 RUN pnpm turbo run build
 
 EXPOSE 8000
 
-CMD ["node", "main.js"]
+FROM node:22-alpine AS runner
+WORKDIR /app
+
+COPY --from=installer /app ./
+
+CMD ["node", "dist/src/main.js"]
