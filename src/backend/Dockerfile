@@ -9,8 +9,7 @@ ENV PORT=8000
 COPY pnpm-workspace.yaml ./
 COPY package.json ./
 COPY src/backend/package.json ./src/backend/
-COPY packages/types/package.json ./packages/types
-COPY packages/typescript-config/package.json ./packages/typescript-config
+COPY packages/ ./packages/
 
 RUN pnpm install --prod --filter backend...
 # If you need to build, add a build step here:
