@@ -2,7 +2,7 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 RUN npm install -g pnpm
-RUN npm install -g turbo@^2.5.6
+RUN npm install -g turbo@2.5.6
 COPY . .
 
 RUN turbo prune backend --docker
