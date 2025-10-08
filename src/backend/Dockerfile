@@ -6,6 +6,8 @@ RUN corepack enable
 ENV NODE_ENV=production
 ENV PORT=8000
 
+RUN pnpm install -g turbo
+
 COPY pnpm-workspace.yaml ./
 COPY package.json ./
 COPY src/backend/ ./src/backend/
