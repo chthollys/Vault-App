@@ -1,34 +1,25 @@
-# ---------- Stage 1: Builder ----------
-FROM node:20-alpine AS builder
-
+# ================================
+# 2. Runner Stage (Clean & Prod)
+# ================================
+FROM node:20-alpine AS runner
 WORKDIR /app
 
-# Copy only package files first (for caching)
-COPY package*.json ./
-COPY pnpm-lock.yaml ./
-RUN corepack enable && pnpm install --frozen-lockfile
+# Use Corepack to manage pnpm
+RUN corepack enable
 
-# Copy source code and build
-COPY . .
-RUN pnpm prisma generate --no-engine
-RUN pnpm build
-
-# ---------- Stage 2: Production ----------
-FROM node:20-alpine AS production
-
-WORKDIR /app
-
-# Copy only built output and dependencies needed for runtime
-COPY package*.json ./
-COPY pnpm-lock.yaml ./
-RUN corepack enable && pnpm install --prod --frozen-lockfile
-
-# Copy built app from builder
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/prisma ./prisma
-
-# Environment setup
 ENV NODE_ENV=production
-EXPOSE 3000
+ENV PORT=8000
 
-CMD ["node", "dist/src/main.js"]
+# Copy only the necessary manifests to install prod dependencies
+COPY pnpm-workspace.yaml ./
+COPY package.json ./
+COPY src/backend/package.json ./src/backend/
+
+# Now install ONLY production dependencies
+RUN pnpm install --prod --filter backend...
+
+# Copy the compiled code from the 'builder' stage
+COPY --from=builder /app/src/backend/dist ./dist
+
+EXPOSE 8000
+CMD ["node", "dist/main.js"]
