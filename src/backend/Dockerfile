@@ -31,6 +31,7 @@ ENV PORT=8000
 
 # Copy only the necessary manifests to install prod dependencies
 COPY pnpm-workspace.yaml ./
+COPY package.json ./
 COPY packages/ ./packages/
 COPY src/backend/package.json ./src/backend/
 
