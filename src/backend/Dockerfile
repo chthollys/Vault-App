@@ -7,7 +7,8 @@ COPY package.json pnpm-workspace.yaml turbo.json pnpm-lock.yaml /app/
 COPY packages /app/
 COPY src/backend /app/src/
 
-RUN ls -alr /app/
+RUN ls -alr /app
+RUN ls -alr /app/src
 
 WORKDIR /app
 
