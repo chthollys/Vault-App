@@ -10,10 +10,10 @@ RUN turbo prune backend --docker
 FROM builder as installer
 WORKDIR /app
 
-COPY --from=builder /app/out/json .
+COPY --from=builder /app/out/json/ .
 RUN pnpm install --frozen-lockfile
 
-COPY --from=builder /app/out/full .
+COPY --from=builder /app/out/full/ .
 RUN pnpm turbo run build
 
 EXPOSE 8000
