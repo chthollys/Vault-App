@@ -1,7 +1,7 @@
 # ================================
 # 2. Runner Stage (Clean & Prod)
 # ================================
-FROM node:20-alpine AS runner
+FROM node:20-alpine AS builder
 WORKDIR /app
 
 # Use Corepack to manage pnpm
