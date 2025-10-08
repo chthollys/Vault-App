@@ -1,7 +1,7 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-RUN corepack enable
+RUN npm install -g pnpm
 
 ENV NODE_ENV=production
 ENV PORT=8000
