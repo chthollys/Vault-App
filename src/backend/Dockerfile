@@ -2,30 +2,20 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 RUN npm install -g pnpm
+RUN npm install -g turbo@^2.5.6
+COPY . .
 
-ENV NODE_ENV=production
-ENV PORT=8000
+RUN turbo prune backend --docker
 
-RUN pnpm install -g turbo
-
-COPY pnpm-workspace.yaml ./
-COPY package.json ./
-COPY src/backend/ ./src/backend/
-COPY packages/ ./packages/
-
-RUN pnpm install --prod --filter backend...
-# If you need to build, add a build step here:
-RUN pnpm run build --filter backend...
-
-# The builder stage ends here
-
-FROM node:20-alpine AS runner
+FROM builder as installer
 WORKDIR /app
 
-ENV NODE_ENV=production
-ENV PORT=8000
+COPY --from=builder /app/out/json .
+RUN pnpm install --frozen-lockfile
 
-COPY --from=builder /app/src/backend/dist ./dist
+COPY --from=builder /app/out/full .
+RUN pnpm turbo run build
 
 EXPOSE 8000
-CMD ["node", "dist/main.js"]
+
+CMD ["node", "main.js"]
