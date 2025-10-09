@@ -19,10 +19,9 @@ WORKDIR /app
 
 RUN npm install -g pnpm
 RUN npm install -g turbo@2.5.6
-RUN npm install -g tsc
 
 COPY --from=builder /app/out/full/ .
-RUN pnpm install --prod
+RUN pnpm install
 RUN pnpm turbo run build
 
 
