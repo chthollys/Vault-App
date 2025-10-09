@@ -2,6 +2,7 @@ import { S3_BUCKET_NAME, S3_REGION } from "@/lib/env";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  transpilePackages: ["@repo/types", "@repo/typescript-config"],
   reactStrictMode: true,
   images: {
     remotePatterns: [
