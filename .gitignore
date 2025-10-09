@@ -32,6 +32,7 @@ turbo.log
 
 # Example env stays
 !.env.example
+.env/
 
 # -------------------------
 # Logs & debug
