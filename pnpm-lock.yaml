@@ -252,6 +252,12 @@ importers:
       '@react-aria/i18n':
         specifier: ^3.12.11
         version: 3.12.12(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@repo/types':
+        specifier: workspace:*
+        version: link:../../packages/types
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
       '@tanstack/react-query':
         specifier: ^5.83.0
         version: 5.85.9(react@19.1.1)
@@ -316,12 +322,6 @@ importers:
       '@eslint/eslintrc':
         specifier: ^3
         version: 3.3.1
-      '@repo/types':
-        specifier: workspace:*
-        version: link:../../packages/types
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../packages/typescript-config
       '@tailwindcss/postcss':
         specifier: ^4.1.11
         version: 4.1.12

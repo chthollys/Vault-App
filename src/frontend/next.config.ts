@@ -1,8 +1,10 @@
 import { S3_BUCKET_NAME, S3_REGION } from "@/lib/env";
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
   transpilePackages: ["@repo/types", "@repo/typescript-config"],
+  outputFileTracingRoot: path.join(__dirname, "../.."),
   reactStrictMode: true,
   images: {
     remotePatterns: [
