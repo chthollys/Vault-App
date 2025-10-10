@@ -21,7 +21,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "~/*": ["./*"]
+      "~/*": ["./*"],
+      "@repo/types": ["../../packages/types"]
     }
   },
   "include": [
@@ -29,8 +30,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "../../packages/types/src/schemas.ts",
-    "../../packages/types/src/index.ts"
+    "../../packages/types/**/*.ts"
   ],
   "exclude": ["node_modules", ".turbo"]
 }
