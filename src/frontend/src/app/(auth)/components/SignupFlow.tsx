@@ -13,14 +13,14 @@ import { toast } from "react-toastify";
 export default function SignupFlow({ initialStep }: SignupFlowProps) {
   const [step, setStep] = useState<UserSignupStep>(initialStep);
 
-  useEffect(() => {
-    async function fetchStep() {
-      const [data, err] = await tryCatch(getSignupStep);
-      if (err || !data) toast.error("Failed to read user signup step.");
-      setStep(data?.step ?? UserSignupStep.Start);
-    }
-    fetchStep();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchStep() {
+  //     const [data, err] = await tryCatch(getSignupStep);
+  //     if (err || !data) toast.error("Failed to read user signup step.");
+  //     setStep(data?.step ?? UserSignupStep.Start);
+  //   }
+  //   fetchStep();
+  // }, []);
 
   return (
     <div className="mt-20 w-full">
