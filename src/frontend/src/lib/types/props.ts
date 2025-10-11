@@ -148,6 +148,10 @@ export interface GameInfoDetailProps {
   publisher?: string;
 }
 
+export interface GameInfoLeftSection {
+  game: Game;
+}
+
 export interface PriceSectionProps {
   price: number;
   afterPrice?: number | null;
@@ -200,4 +204,9 @@ export interface BreadcrumbsNavProps {
 
 export interface DeleteCartItemButtonProps extends ChildrenProp {
   onClick?: () => void;
+}
+
+export interface DetailPriceSectionProps {
+  price: number;
+  discountedPrice?: number;
 }

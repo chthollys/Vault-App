@@ -3,11 +3,7 @@ import { GameCardWrapper } from "@/components/Wrapper";
 import GameCoverWrapper from "@/components/Wrapper/GameCoverWrapper";
 import DetailPriceSection from "./DetailPriceSection";
 import UserActions from "./UserActions";
-import type { Game } from "@repo/types";
-
-export interface GameInfoLeftSection {
-  game: Game;
-}
+import type { GameInfoLeftSection } from "@/lib/types/props";
 
 export default function GameInfoLeftSection({ game }: GameInfoLeftSection) {
   return (
@@ -22,7 +18,14 @@ export default function GameInfoLeftSection({ game }: GameInfoLeftSection) {
           />
         </GameCoverWrapper>
 
-        <DetailPriceSection price={game.price} />
+        {game.discountedPrice ? (
+          <DetailPriceSection
+            price={game.price}
+            discountedPrice={game.discountedPrice}
+          />
+        ) : (
+          <DetailPriceSection price={game.price} />
+        )}
         <UserActions />
       </GameCardWrapper>
     </div>

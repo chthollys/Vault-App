@@ -9,7 +9,7 @@ export default function DiscountBadge({
   return (
     <Wrapper
       as="span"
-      className="rounded-sm px-2 py-1 text-[0.8rem] font-semibold shadow-sm"
+      className="bg-primary rounded-sm px-2 py-1 text-[0.8rem] font-semibold shadow-sm"
       nextClass={className}
       {...props}
     >
