@@ -14,7 +14,7 @@ export class AuthCookieService {
   setAuthCookies(res: Response, tokens: Partial<TokenPair>) {
     const base: CookieOptions = {
       httpOnly: true,
-      sameSite: "lax",
+      sameSite: IS_PROD ? "none" : "lax",
       secure: IS_PROD,
     };
     const { access_token, refresh_token } = tokens;
