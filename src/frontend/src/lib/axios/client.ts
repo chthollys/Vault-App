@@ -1,10 +1,10 @@
 import axios, { type AxiosError } from "axios";
 import qs from "qs";
 import type { ApiError, ApiErrorResponse } from "@repo/types";
-import { API_URL } from "../env";
+// import { API_URL } from "../env";
 
 const axiosClient = axios.create({
-  baseURL: API_URL,
+  baseURL: "/api",
   headers: { "Content-Type": "application/json" },
   allowAbsoluteUrls: false,
   method: "GET",

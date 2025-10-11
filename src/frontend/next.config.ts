@@ -1,8 +1,11 @@
-import { S3_BUCKET_NAME, S3_REGION } from "@/lib/env";
+import { API_URL, S3_BUCKET_NAME, S3_REGION } from "@/lib/env";
 import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
+  async rewrites() {
+    return [{ source: "/api/:path*", destination: `${API_URL}/:path*` }];
+  },
   transpilePackages: ["@repo/types", "@repo/typescript-config"],
   outputFileTracingRoot: path.join(__dirname, "../.."),
   reactStrictMode: true,
