@@ -32,7 +32,7 @@ export default async function MainHeader() {
 
         <Menu />
 
-        <div className="my-0 max-w-md min-w-56 flex-1" role="search">
+        <div className="my-0 box-border max-w-md min-w-56 flex-1" role="search">
           <SearchBar />
         </div>
 

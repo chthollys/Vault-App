@@ -152,6 +152,11 @@ export interface GameInfoLeftSection {
   game: Game;
 }
 
+export interface DescriptionSectionProps {
+  title: string;
+  description: string;
+}
+
 export interface PriceSectionProps {
   price: number;
   afterPrice?: number | null;
