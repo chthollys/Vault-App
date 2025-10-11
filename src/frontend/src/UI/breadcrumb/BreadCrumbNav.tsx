@@ -14,6 +14,7 @@ const labelMap: Record<string, string> = {
 export default function BreadcrumbsNav({ currentLabel }: BreadcrumbsNavProps) {
   const pathname = usePathname();
   const segments = pathname.split("/").filter(Boolean);
+  // '/dashboard/blog' => ['dashboard', 'blog']
 
   const crumbs = [
     { href: "/", label: "Home" },
