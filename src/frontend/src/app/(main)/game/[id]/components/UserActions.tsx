@@ -5,7 +5,7 @@ import { HeartButtonSVG } from "@/UI/icons";
 
 export default function UserActions() {
   return (
-    <div className="mt-6 flex items-center gap-4">
+    <div className="mt-4 flex w-full items-center justify-around gap-4">
       <PurpleButton className="flex-1">Add to Cart</PurpleButton>
       <HeartButtonSVG
         id={"game id"}

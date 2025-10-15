@@ -1,3 +1,4 @@
+import { DivBottomGlassBorder } from "@/components/Wrapper";
 import type { GameInfoDetailProps } from "@/lib/types/props";
 
 export default function GameInfoDetail({
@@ -7,7 +8,7 @@ export default function GameInfoDetail({
   publisher = developer,
 }: GameInfoDetailProps) {
   return (
-    <div className="mb-8 flex flex-col border-b-[1px] border-solid border-b-white/10 pb-6 text-left">
+    <DivBottomGlassBorder>
       <h2 className="mx-0 mt-0 mb-3 text-[2.5rem] leading-[1.2] font-extrabold text-white/90">
         {name}
       </h2>
@@ -22,6 +23,6 @@ export default function GameInfoDetail({
           {name}
         </p>
       ))}
-    </div>
+    </DivBottomGlassBorder>
   );
 }

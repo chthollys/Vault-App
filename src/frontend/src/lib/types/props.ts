@@ -213,5 +213,5 @@ export interface DeleteCartItemButtonProps extends ChildrenProp {
 
 export interface DetailPriceSectionProps {
   price: number;
-  discountedPrice?: number;
+  discountedPrice?: number | null;
 }
