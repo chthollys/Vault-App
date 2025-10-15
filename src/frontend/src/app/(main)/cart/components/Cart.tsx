@@ -7,8 +7,8 @@ export default function Cart() {
   const { data: games } = useGames();
 
   return (
-    <div className="w-full">
-      <ul className="flex w-full flex-col gap-3">
+    <div className="w-full min-w-[48rem]">
+      <ul className="flex w-full flex-col gap-4">
         {games.map((game) => (
           <li key={game.id}>
             <CartItem game={game} />

@@ -1,9 +1,16 @@
-import type { ChildrenProp } from "@/lib/types/props";
+import type { DivElementProps } from "@/lib/types/props";
+import { Wrapper } from "./base";
 
-export default function DivBottomGlassBorder({ children }: ChildrenProp) {
+export default function DivBottomGlassBorder({
+  className,
+  children,
+}: DivElementProps) {
   return (
-    <div className="mb-8 flex flex-col border-b-[1px] border-solid border-b-white/10 pb-6 text-left">
+    <Wrapper
+      nextClass={className}
+      className="mb-8 flex flex-col border-b-[1px] border-solid border-b-white/10 pb-6 text-left"
+    >
       {children}
-    </div>
+    </Wrapper>
   );
 }
