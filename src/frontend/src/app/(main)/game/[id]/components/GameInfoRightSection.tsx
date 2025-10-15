@@ -16,20 +16,18 @@ export default async function GameInfoRightSection({
   const reviews = await getReviewsByGameId(game.id);
 
   return (
-    <div className="flex w-auto flex-col">
-      <GameCardWrapper className="h-fit p-[2em]">
-        <GameInfoDetail
-          name={game.title}
-          genres={genres}
-          publisher={game.publisher}
-          developer={game.developer}
-        />
-        <DescriptionSection
-          title="About This Game"
-          description={game.description}
-        />
-        <RatingSection rating={game.rating} count={reviews.length} />
-      </GameCardWrapper>
-    </div>
+    <GameCardWrapper className="flex min-h-[32rem] w-auto flex-col p-[2em]">
+      <GameInfoDetail
+        name={game.title}
+        genres={genres}
+        publisher={game.publisher}
+        developer={game.developer}
+      />
+      <DescriptionSection
+        title="About This Game"
+        description={game.description}
+      />
+      <RatingSection rating={game.rating} count={reviews.length} />
+    </GameCardWrapper>
   );
 }

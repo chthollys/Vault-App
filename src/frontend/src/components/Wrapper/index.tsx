@@ -3,6 +3,7 @@ import GameCardWrapper from "./GameCardWrapper";
 import GameCoverWrapper from "./GameCoverWrapper";
 import SectionHeaderWrapper from "./SectionHeaderWrapper";
 import GameCardWrapperWithHover from "./GameCardWrapperWithHover";
+import DivBottomGlassBorder from "./DivBottomGlassBorder";
 
 export {
   GameCardInfoWrapper,
@@ -10,4 +11,5 @@ export {
   GameCardWrapperWithHover,
   GameCoverWrapper,
   SectionHeaderWrapper,
+  DivBottomGlassBorder,
 };
