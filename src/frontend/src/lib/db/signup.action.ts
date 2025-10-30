@@ -1,14 +1,12 @@
 import type { ApiError, ApiResponse } from "@repo/types";
-import axiosClient from "../axios/client";
+import { clientApiFetch } from "@/lib/http/client";
 
 export const sendOtpFn = async (email: string) => {
   try {
-    const res = (
-      await axiosClient.post<ApiResponse<{ message: string }>>(
-        "/auth/signup/email/req-otp",
-        { email }
-      )
-    ).data;
+    const res = await clientApiFetch<ApiResponse<{ message: string }>>(
+      "/auth/signup/email/req-otp",
+      { json: { email } }
+    );
     return res;
   } catch (err) {
     const error = err as ApiError;
@@ -18,12 +16,10 @@ export const sendOtpFn = async (email: string) => {
 
 export const verifyOtp = async (otp: string) => {
   try {
-    const res = (
-      await axiosClient.post<ApiResponse<{ message: string }>>(
-        "/auth/signup/email/verify-otp",
-        { otp }
-      )
-    ).data;
+    const res = await clientApiFetch<ApiResponse<{ message: string }>>(
+      "/auth/signup/email/verify-otp",
+      { json: { otp } }
+    );
     return res;
   } catch (err) {
     const error = err as ApiError;
@@ -33,12 +29,10 @@ export const verifyOtp = async (otp: string) => {
 
 export const setPassword = async (password: string) => {
   try {
-    const res = (
-      await axiosClient.post<ApiResponse<{ message: string }>>(
-        "/auth/signup/email/set-password",
-        { password }
-      )
-    ).data;
+    const res = await clientApiFetch<ApiResponse<{ message: string }>>(
+      "/auth/signup/email/set-password",
+      { json: { password } }
+    );
     return res;
   } catch (err) {
     const error = err as ApiError;

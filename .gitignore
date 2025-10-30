@@ -86,3 +86,5 @@ seed.ts
 # Turborepo
 .turbo
 out
+
+.readmeaiignore

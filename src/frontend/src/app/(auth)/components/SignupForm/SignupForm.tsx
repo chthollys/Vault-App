@@ -35,7 +35,7 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
         data.message ?? "OTP sent succesfully, please check your email."
       );
       const { step } = await getSignupStep();
-      console.log(step)
+      console.log(step);
       onSuccess(step);
     },
     onError: (err) => toast.error(err.message ?? "Something went wrong."),
