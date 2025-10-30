@@ -6,8 +6,6 @@ import { useGenres } from "@/app/hooks/useGenres";
 import QuickAction from "./QuickAction";
 import GenreNav from "./GenresNav";
 import GenresCheckbox from "./GenresCheckbox";
-import { Suspense } from "react";
-import { LoadingSpinner } from "@/UI/Spinner";
 
 export default function NavAsideBar() {
   const path = usePathname();
@@ -23,10 +21,8 @@ export default function NavAsideBar() {
   return (
     <AsideBar>
       {(isGamePage || isGamesAll) && <QuickAction />}
-      <Suspense fallback={<LoadingSpinner />}>
-        {isGamesAll && genres && <GenresCheckbox genres={genres} />}
-        {(isHome || isGamePage) && genres && <GenreNav genres={genres} />}
-      </Suspense>
+      {isGamesAll && genres && <GenresCheckbox genres={genres} />}
+      {(isHome || isGamePage) && genres && <GenreNav genres={genres} />}
     </AsideBar>
   );
 }

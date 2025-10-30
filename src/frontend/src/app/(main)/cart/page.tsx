@@ -2,7 +2,6 @@ import Cart from "./components/Cart";
 import { CartCheckout } from "./components/CartCheckout";
 import TitleSection from "./components/TitleSection";
 
-export const dynamic = "force-dynamic";
 export default function CartPage() {
   return (
     <div className="col-span-2 flex flex-col gap-8">
