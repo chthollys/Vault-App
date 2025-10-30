@@ -12,7 +12,7 @@ Vault App is a monorepo powering a digital games marketplace with a modern Next.
 
 ## Tech Stack
 
-- **Frontend**: Next.js 15, React 19, Tailwind CSS 4, HeroUI, Material UI, Framer Motion, TanStack Query, React Hook Form, React Toastify.
+- **Frontend**: Next.js 16, React 19, Tailwind CSS 4, HeroUI, Material UI, Framer Motion, TanStack Query, React Hook Form, React Toastify.
 - **Backend**: NestJS 11, Prisma, PostgreSQL, Redis (Upstash/local), Passport, JWT, Nodemailer.
 - **Tooling & DX**: pnpm 10, TurboRepo, TypeScript 5.9, ESLint 9, Prettier 3, shared TypeScript configs, Docker (backend image).
 
