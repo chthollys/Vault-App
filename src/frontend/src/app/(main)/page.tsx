@@ -3,7 +3,6 @@ import HomePage from "./components/HomePage";
 import { Suspense } from "react";
 import Loading from "../loading";
 
-export const dynamic = "force-dynamic";
 export default function Home() {
   return (
     <Hydration>

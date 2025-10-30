@@ -4,7 +4,7 @@ Vault App is a monorepo powering a digital games marketplace with a modern Next.
 
 ## Highlights
 
-- Next.js 15 App Router storefront with React 19, Turbopack-powered dev server, Tailwind CSS 4, HeroUI/MUI components, TanStack Query, and Zod-validated forms.
+- Next.js 16 App Router storefront with React 19, Turbopack-powered dev server, Tailwind CSS 4, HeroUI/MUI components, TanStack Query, and Zod-validated forms.
 - NestJS 11 REST API with Prisma ORM, PostgreSQL, Redis-backed session cookies, JWT auth, email flows, and OAuth providers (Google/GitHub) in progress.
 - Shared `@repo/types` package containing Zod schemas and DTOs consumed by both services for end-to-end type safety.
 - TurboRepo-managed pnpm workspace for coordinated builds, linting, formatting, and shared TypeScript config.

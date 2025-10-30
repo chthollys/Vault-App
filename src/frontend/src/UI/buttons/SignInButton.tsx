@@ -1,6 +1,5 @@
-import { Button, ButtonProps } from "@mui/material";
+import { Button, ButtonProps, CircularProgress } from "@mui/material";
 import { SignInIcon } from "../icons";
-import { LoadingSpinner } from "../Spinner";
 
 interface SignInButtonProps extends ButtonProps {
   showIcon?: boolean;
@@ -17,9 +16,7 @@ export default function SignInButton({
       className="bg-primary! hover:bg-primary-dark! rounded-md py-3 text-[0.95rem] font-semibold normal-case"
       size="large"
       startIcon={showIcon ? <SignInIcon /> : null}
-      loadingIndicator={
-        <LoadingSpinner color="white" variant="simple" size="sm" />
-      }
+      loadingIndicator={<CircularProgress color="inherit" size="sm" />}
       {...props}
     >
       {children}
