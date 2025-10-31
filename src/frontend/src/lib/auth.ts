@@ -1,12 +1,11 @@
-"use server";
-
 import type {
   ApiDataResponse,
   ApiError,
   CurrentUserSession,
 } from "@repo/types";
-import { serverApiFetch } from "./http/server";
 import { ApiRequestError } from "./http/common";
+import { ApiResponse } from "@repo/types";
+import { clientApiFetch } from "./http/client";
 
 function extractStatus(
   error: ApiError | ApiRequestError | unknown
@@ -17,10 +16,23 @@ function extractStatus(
   return (error as ApiError | ApiRequestError).status;
 }
 
+export async function logout() {
+  try {
+    const res = await clientApiFetch<ApiResponse>("/auth/logout", {
+      method: "POST",
+    });
+    return res.message;
+  } catch (err) {
+    // Handle in useMutation
+    const error = err as Error;
+    throw error;
+  }
+}
+
 export async function getCurrentUser(): Promise<CurrentUserSession | null> {
   try {
     const res =
-      await serverApiFetch<ApiDataResponse<CurrentUserSession>>("/auth/me");
+      await clientApiFetch<ApiDataResponse<CurrentUserSession>>("/auth/me");
     return res.data;
   } catch (err) {
     const status = extractStatus(err);

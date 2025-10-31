@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { Button } from "@heroui/react";
 import { IoExitOutline } from "react-icons/io5";
 import { useMutation } from "@tanstack/react-query";
-import { logout } from "@/lib/auth-client";
+import { logout } from "@/lib/auth";
 
 export default function LogoutButton() {
   const router = useRouter();

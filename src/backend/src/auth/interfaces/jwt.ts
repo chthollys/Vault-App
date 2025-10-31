@@ -15,7 +15,9 @@ export interface JwtRefPayload {
 
 export interface AuthUser {
   id: string;
-  email?: string;
+  email: string;
+  name?: string | null;
+  image?: string | null;
 }
 
 export interface AccessToken {

@@ -1,14 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import { Logo } from "../Typography";
 import Menu from "./Menu";
 import { LoginButton } from "@/UI/buttons";
 import { UserActionModal } from "../UserActionModal";
 import SearchBar from "@/components/MainHeader/SearchBar";
-import { getUserById } from "@/lib/db/server";
-import { getCurrentUser } from "@/lib/auth-server";
+import { useCurrentUser } from "@/app/hooks/useCurrentUser";
 
-export default async function MainHeader() {
-  const user = await getCurrentUser();
+export default function MainHeader() {
+  const user = useCurrentUser();
   let headerAction = (
     <Link href={"/login"}>
       <LoginButton>Sign in</LoginButton>
@@ -16,9 +17,9 @@ export default async function MainHeader() {
   );
 
   if (user) {
-    const { image, name, email } = await getUserById(user.id);
+    const { name, image, email } = user;
     headerAction = (
-      <UserActionModal iconUrl={image} name={name} email={email} />
+      <UserActionModal iconUrl={image} name={name ?? "Guest"} email={email} />
     );
   }
   return (

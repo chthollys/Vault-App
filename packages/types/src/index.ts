@@ -22,6 +22,8 @@ export type UserDto = z.infer<typeof UserDtoSchema>;
 export type CurrentUserSession = {
   id: string;
   email: string;
+  name?: string | null;
+  image?: string | null;
 };
 
 export type CreateProfileData = z.infer<typeof CreateProfileSchema>;
