@@ -1,15 +1,20 @@
 "use client";
 
+import { API_URL } from "@/lib/env";
 import type { ChildrenProp } from "@/lib/types/props";
 import { Button } from "@mui/material";
 import { FaGithub } from "react-icons/fa";
 
 export default function GithubAuthButton({ children }: ChildrenProp) {
+  const handleGitHubLogin = () => {
+    const baseUrl = API_URL;
+    window.location.href = `${baseUrl}/auth/github`;
+  };
   return (
     <Button
       variant="contained"
       startIcon={<FaGithub size={20} />}
-      // onClick={() => signIn("github", { callbackUrl: "/" })}
+      onClick={handleGitHubLogin}
       sx={{
         textTransform: "none",
         borderRadius: "8px",

@@ -11,6 +11,9 @@ export default function ToastProvider() {
       closeOnClick
       pauseOnFocusLoss
       autoClose={3000}
+      theme="dark"
+      hideProgressBar={true}
+      closeButton={false}
     />
   );
 }

@@ -5,7 +5,7 @@ import { LoginButton } from "@/UI/buttons";
 import { UserActionModal } from "../UserActionModal";
 import SearchBar from "@/components/MainHeader/SearchBar";
 import { getUserById } from "@/lib/db/server";
-import { getCurrentUser } from "@/lib/auth";
+import { getCurrentUser } from "@/lib/auth-server";
 
 export default async function MainHeader() {
   const user = await getCurrentUser();

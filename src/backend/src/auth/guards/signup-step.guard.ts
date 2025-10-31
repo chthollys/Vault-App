@@ -2,7 +2,7 @@ import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { Request } from "express";
 import type { Session } from "express-session";
 import { Reflector } from "@nestjs/core";
-import { UserSignupStep } from "../types/signup-state";
+import { UserSignupStep } from "../interfaces/signup-state";
 import { SIGNUP_STEPS } from "utils/constants";
 
 @Injectable()

@@ -19,10 +19,10 @@ import { User } from "../decorators/current-user.decorator";
 import { Serialize } from "src/interceptors/serialize.interceptor";
 import { SignupStepGuard } from "./guards/signup-step.guard";
 import { SignupStep } from "src/decorators/signup-step.decorator";
-import { UserSignupStep } from "./types/signup-state";
+import { UserSignupStep } from "./interfaces/signup-state";
 import { RefreshTokenGuard } from "./guards/refresh-token.guard";
 import { LoginDto } from "src/dtos";
-import type { AuthUser } from "./types/jwt";
+import type { AuthUser } from "./interfaces/jwt";
 import type { Response, Request } from "express";
 import type { Session } from "express-session";
 import { AuthCookieService } from "./auth-cookies.service";
@@ -82,7 +82,7 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
     @SessionValue() session: Session,
     @Body() { password }: SetPasswordDto,
-  ): Promise<{ message: string }> {
+  ): Promise<string> {
     const step = session["signup-state"]?.step;
     const email = session["signup-state"]?.email;
     const tokenPair = await this.authService.createAccount(
@@ -92,7 +92,7 @@ export class AuthController {
     );
     this.authCookieService.setAuthCookies(res, tokenPair);
     delete session["signup-state"];
-    return { message: "Account created succesfully" };
+    return "Account created succesfully";
   }
 
   @Post("/signup/restart")
@@ -147,28 +147,35 @@ export class AuthController {
   async refreshToken(
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
-  ): Promise<{ message: string }> {
+  ): Promise<string> {
     const tokenPair = await this.authService.refreshToken(
       this.authCookieService.getAuthCookies(req, "refresh_token"),
     );
     this.authCookieService.setAuthCookies(res, tokenPair);
-    return { message: "Token refreshed successfully" };
+    return "Token refreshed successfully";
   }
 
   @Post("/login")
   async login(
     @Body() body: LoginDto,
     @Res({ passthrough: true }) res: Response,
-  ): Promise<{ message: string }> {
+  ): Promise<string> {
     const tokenPair = await this.authService.login(body.email, body.password);
     this.authCookieService.setAuthCookies(res, tokenPair);
-    return { message: "Login successful" };
+    return "Login successful";
   }
 
   @Post("/logout")
-  async logout(@User() user: AuthUser): Promise<{ message: string }> {
-    const userId = user.id;
-    await this.authService.logout(userId);
-    return { message: "Logout successful" };
+  @UseGuards(JwtAuthGuard)
+  async logout(
+    @User() user: AuthUser,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<string> {
+    try {
+      await this.authService.logout(user.id);
+      return "Logout successful";
+    } finally {
+      this.authCookieService.clearAuthCookies(res);
+    }
   }
 }

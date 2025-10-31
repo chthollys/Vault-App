@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import z from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { verifyOtp } from "@/lib/db/signup.action";
+import { verifyOtp } from "@/lib/otp-signup";
 import FormInputOtp from "./InputOtp";
 import { SignInButton } from "@/UI/buttons";
 import { FormTitle, GameDeveloper } from "@/components/Typography";
