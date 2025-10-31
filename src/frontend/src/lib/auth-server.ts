@@ -1,12 +1,8 @@
-"use server"
+"use server";
+
 import { cookies } from "next/headers";
-import type {
-  ApiDataResponse,
-  ApiResponse,
-  CurrentUserSession,
-} from "@repo/types";
+import type { ApiDataResponse, CurrentUserSession } from "@repo/types";
 import { serverApiFetch } from "./http/server";
-import { clientApiFetch } from "./http/client";
 
 export async function getCurrentUser() {
   const token = (await cookies()).get("jwt")?.value;
@@ -18,6 +14,7 @@ export async function getCurrentUser() {
     const res = await serverApiFetch<ApiDataResponse<CurrentUserSession>>(
       "/auth/me",
       {
+        method: "GET",
         headers: {
           "Cache-Control": "no-cache",
           Pragma: "no-cache",

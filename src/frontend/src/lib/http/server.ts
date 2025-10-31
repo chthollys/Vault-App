@@ -13,7 +13,14 @@ export async function serverApiFetch<T>(
   path: string,
   options: ApiFetchOptions = {}
 ): Promise<T> {
-  const { params, json, headers: extraHeaders, method, ...rest } = options;
+  const {
+    params,
+    json,
+    headers: extraHeaders,
+    method,
+    credentials,
+    ...rest
+  } = options;
 
   const headerList = await headers();
   const protocol = headerList.get("x-forwarded-proto") ?? "http";
@@ -31,6 +38,7 @@ export async function serverApiFetch<T>(
     method: method ?? (json !== undefined ? "POST" : "GET"),
     headers: {
       "Content-Type": "application/json",
+      credentials: credentials ?? "include",
       ...(cookieHeader ? { Cookie: cookieHeader } : {}),
       ...(extraHeaders ?? {}),
     },

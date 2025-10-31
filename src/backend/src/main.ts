@@ -8,6 +8,7 @@ async function bootstrap() {
   app.enableCors({
     origin: FRONTEND_URL,
     credentials: true,
+    
   });
   const port = PORT ?? 8000;
   await app.listen(port);
