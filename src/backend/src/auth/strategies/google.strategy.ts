@@ -3,7 +3,7 @@ import { PassportStrategy } from "@nestjs/passport";
 import { BadGatewayException, Injectable } from "@nestjs/common";
 import { UsersService } from "src/users/users.service";
 import { AccountsService } from "../accounts/accounts.service";
-import { API_HOST, FRONTEND_URL, GOOGLE_ID, GOOGLE_SECRET } from "utils/env";
+import { BACKEND_URL, GOOGLE_ID, GOOGLE_SECRET } from "utils/env";
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, "google") {
@@ -14,7 +14,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, "google") {
     super({
       clientID: GOOGLE_ID!,
       clientSecret: GOOGLE_SECRET!,
-      callbackURL: `${API_HOST}/auth/google/callback`,
+      callbackURL: `${BACKEND_URL}/auth/google/callback`,
       scope: ["email", "profile"],
     });
   }
