@@ -1,29 +1,33 @@
 "use server";
 
-import { cookies } from "next/headers";
-import type { ApiDataResponse, CurrentUserSession } from "@repo/types";
+import type {
+  ApiDataResponse,
+  ApiError,
+  CurrentUserSession,
+} from "@repo/types";
 import { serverApiFetch } from "./http/server";
+import { ApiRequestError } from "./http/common";
 
-export async function getCurrentUser() {
-  const token = (await cookies()).get("jwt")?.value;
-  if (!token) {
-    return null;
+function extractStatus(
+  error: ApiError | ApiRequestError | unknown
+): number | undefined {
+  if (!error || typeof error !== "object") {
+    return undefined;
   }
+  return (error as ApiError | ApiRequestError).status;
+}
 
+export async function getCurrentUser(): Promise<CurrentUserSession | null> {
   try {
-    const res = await serverApiFetch<ApiDataResponse<CurrentUserSession>>(
-      "/auth/me",
-      {
-        method: "GET",
-        headers: {
-          "Cache-Control": "no-cache",
-          Pragma: "no-cache",
-          Expires: "0",
-        },
-      }
-    );
+    const res =
+      await serverApiFetch<ApiDataResponse<CurrentUserSession>>("/auth/me");
     return res.data;
   } catch (err) {
-    return null;
+    const status = extractStatus(err);
+    if (status === 401 || status === 403) {
+      return null;
+    }
+    const error = err as ApiError;
+    throw new Error(error.message);
   }
 }
