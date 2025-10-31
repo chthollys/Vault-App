@@ -6,7 +6,7 @@ import { FormTitle, GameDeveloper } from "@/components/Typography";
 import { FormInput } from "@/UI/input";
 import { SignInButton } from "@/UI/buttons";
 import LoginAccountNow from "./LoginAccountNow";
-import { sendOtpFn } from "@/lib/db/signup.action";
+import { sendOtpFn } from "@/lib/otp-signup";
 import { useMutation } from "@tanstack/react-query";
 import { EmailSchema } from "@repo/types";
 import z from "zod";

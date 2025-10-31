@@ -12,7 +12,7 @@ import { FormPasswordInput } from "@/UI/input";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useDebounce } from "@uidotdev/usehooks";
-import { setPassword } from "@/lib/db/signup.action";
+import { setPassword } from "@/lib/otp-signup";
 import { getCurrentUserSession, getSignupStep } from "@/lib/db/client";
 import { SignupFormProps } from "@/lib/types/props";
 import { useRouter } from "next/navigation";

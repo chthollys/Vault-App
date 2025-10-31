@@ -1,6 +1,12 @@
+"use server"
 import { cookies } from "next/headers";
-import type { ApiDataResponse, CurrentUserSession } from "@repo/types";
+import type {
+  ApiDataResponse,
+  ApiResponse,
+  CurrentUserSession,
+} from "@repo/types";
 import { serverApiFetch } from "./http/server";
+import { clientApiFetch } from "./http/client";
 
 export async function getCurrentUser() {
   const token = (await cookies()).get("jwt")?.value;
@@ -20,7 +26,7 @@ export async function getCurrentUser() {
       }
     );
     return res.data;
-  } catch (error) {
+  } catch (err) {
     return null;
   }
 }

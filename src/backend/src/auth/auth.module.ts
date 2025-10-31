@@ -11,6 +11,8 @@ import { GoogleStrategy } from "./strategies/google.strategy";
 import { AccountsModule } from "./accounts/accounts.module";
 import { RefreshTokenModule } from "./refresh-token/refresh-token.module";
 import { AuthCookieService } from "./auth-cookies.service";
+import { GithubAuthGuard } from "./guards/github-auth.guard";
+import { GithubStrategy } from "./strategies/github.strategy";
 
 @Module({
   imports: [
@@ -26,6 +28,7 @@ import { AuthCookieService } from "./auth-cookies.service";
     JwtStrategy,
     SignupStepGuard,
     GoogleStrategy,
+    GithubStrategy,
     AuthCookieService,
   ],
   controllers: [AuthController],

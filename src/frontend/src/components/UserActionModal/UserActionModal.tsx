@@ -45,6 +45,7 @@ export default function UserActionModal({
                 isBordered
                 color="default"
                 className="opa h-20 w-20"
+                fallback={DEFAULT_AVATAR_IMG}
               />
               Hello, {name ? name?.split(" ")[0] : email?.split("@")[0]}
             </ModalHeader>

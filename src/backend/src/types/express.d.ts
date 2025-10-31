@@ -1,7 +1,7 @@
-import type { AuthUser } from "src/auth/types/jwt";
+import type { AuthUser } from "src/auth/interfaces/jwt";
 import "express";
 import "express-session";
-import type { UserSignupState } from "src/auth/types/signup-state";
+import type { UserSignupState } from "src/auth/interfaces/signup-state";
 
 declare module "express" {
   interface Request {

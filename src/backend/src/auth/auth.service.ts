@@ -13,8 +13,8 @@ import type {
   JwtPayload,
   JwtRefPayload,
   TokenPair,
-} from "./types/jwt";
-import { UserSignupStep } from "./types/signup-state";
+} from "./interfaces/jwt";
+import { UserSignupStep } from "./interfaces/signup-state";
 import { RefreshTokenService } from "./refresh-token/refresh-token.service";
 import bcrypt from "bcrypt";
 import { REFRESH_TOKEN_COOKIE_EXPIRES, SALT_ROUNDS } from "utils/constants";

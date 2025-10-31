@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { TokenPair } from "./types/jwt";
+import { TokenPair } from "./interfaces/jwt";
 import { IS_PROD } from "utils/env";
 import type { CookieOptions, Response, Request } from "express";
 import {
@@ -11,22 +11,22 @@ import {
 
 @Injectable()
 export class AuthCookieService {
+  private readonly cookieBase: CookieOptions = {
+    httpOnly: true,
+    sameSite: IS_PROD ? "none" : "lax",
+    secure: IS_PROD,
+  };
   setAuthCookies(res: Response, tokens: Partial<TokenPair>) {
-    const base: CookieOptions = {
-      httpOnly: true,
-      sameSite: IS_PROD ? "none" : "lax",
-      secure: IS_PROD,
-    };
     const { access_token, refresh_token } = tokens;
     if (access_token) {
       res.cookie(JWT_COOKIE_NAME, access_token, {
-        ...base,
+        ...this.cookieBase,
         maxAge: JWT_COOKIE_EXPIRES,
       });
     }
     if (refresh_token) {
       res.cookie(REFRESH_TOKEN_COOKIE_NAME, refresh_token, {
-        ...base,
+        ...this.cookieBase,
         maxAge: REFRESH_TOKEN_COOKIE_EXPIRES,
       });
     }
@@ -39,5 +39,10 @@ export class AuthCookieService {
       case "refresh_token":
         return req.cookies[REFRESH_TOKEN_COOKIE_NAME];
     }
+  }
+
+  clearAuthCookies(res: Response) {
+    res.clearCookie(JWT_COOKIE_NAME, this.cookieBase);
+    res.clearCookie(REFRESH_TOKEN_COOKIE_NAME, this.cookieBase);
   }
 }
