@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   transpilePackages: ["@repo/types", "@repo/typescript-config"],
   outputFileTracingRoot: path.join(__dirname, "../.."),
   reactStrictMode: true,
+  cacheComponents: true,
   images: {
     remotePatterns: [
       {
