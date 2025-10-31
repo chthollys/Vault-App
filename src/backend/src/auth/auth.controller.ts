@@ -9,7 +9,6 @@ import {
   Req,
 } from "@nestjs/common";
 import { AuthService } from "./auth.service";
-import { AuthGuard as PassportAuthGuard } from "@nestjs/passport";
 import {
   RegisterEmailDto,
   SetPasswordDto,
@@ -18,16 +17,19 @@ import {
 } from "./dtos";
 import { User } from "../decorators/current-user.decorator";
 import { Serialize } from "src/interceptors/serialize.interceptor";
-import { SignupGuard } from "./guards/signup.guard";
+import { SignupStepGuard } from "./guards/signup-step.guard";
 import { SignupStep } from "src/decorators/signup-step.decorator";
 import { UserSignupStep } from "./types/signup-state";
-import { RefreshGuard } from "./guards/refresh.guard";
+import { RefreshTokenGuard } from "./guards/refresh-token.guard";
 import { LoginDto } from "src/dtos";
 import type { AuthUser } from "./types/jwt";
 import type { Response, Request } from "express";
 import type { Session } from "express-session";
 import { AuthCookieService } from "./auth-cookies.service";
 import { FRONTEND_URL } from "utils/env";
+import { GoogleAuthGuard } from "./guards/google-auth.guard";
+import { JwtAuthGuard } from "./guards/jwt-auth.guard";
+import { GithubAuthGuard } from "./guards/github-auth.guard";
 
 @Controller("auth")
 export class AuthController {
@@ -37,7 +39,7 @@ export class AuthController {
   ) {}
 
   @Get("/me")
-  @UseGuards(PassportAuthGuard("jwt"))
+  @UseGuards(JwtAuthGuard)
   getCurrentUser(@User() user: AuthUser): AuthUser {
     return user;
   }
@@ -50,7 +52,7 @@ export class AuthController {
 
   @Post("/signup/email/req-otp")
   @SignupStep(UserSignupStep.Start)
-  @UseGuards(SignupGuard)
+  @UseGuards(SignupStepGuard)
   async registerEmailForOtp(
     @SessionValue() session: Session,
     @Body() { email }: RegisterEmailDto,
@@ -62,7 +64,7 @@ export class AuthController {
 
   @Post("signup/email/verify-otp")
   @SignupStep(UserSignupStep.VerifyOtp)
-  @UseGuards(SignupGuard)
+  @UseGuards(SignupStepGuard)
   verifyOtp(
     @SessionValue() session: Session,
     @Body() { otp }: VerifyOtpDto,
@@ -75,7 +77,7 @@ export class AuthController {
 
   @Post("signup/email/set-password")
   @SignupStep(UserSignupStep.SetPassword)
-  @UseGuards(SignupGuard)
+  @UseGuards(SignupStepGuard)
   async setPassword(
     @Res({ passthrough: true }) res: Response,
     @SessionValue() session: Session,
@@ -103,18 +105,37 @@ export class AuthController {
   }
 
   @Get("/google")
-  @UseGuards(PassportAuthGuard("google"))
+  @UseGuards(GoogleAuthGuard)
   googleAuth() {}
 
   @Get("/google/callback")
-  @UseGuards(PassportAuthGuard("google"))
+  @UseGuards(GoogleAuthGuard)
   async googleCallback(
     @User() user: AuthUser,
     @Res({ passthrough: true }) res: Response,
   ): Promise<AuthUser> {
     const tokens = await this.authService.issueTokenPair({
-      sub: user?.id,
-      email: user?.email,
+      sub: user.id,
+      email: user.email,
+    });
+    this.authCookieService.setAuthCookies(res, tokens);
+    res.redirect(`${FRONTEND_URL}`);
+    return user;
+  }
+
+  @Get("/github")
+  @UseGuards(GithubAuthGuard)
+  githubAuth() {}
+
+  @Get("/github/callback")
+  @UseGuards(GithubAuthGuard)
+  async githubCallback(
+    @User() user: AuthUser,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<AuthUser> {
+    const tokens = await this.authService.issueTokenPair({
+      sub: user.id,
+      email: user.email,
     });
     this.authCookieService.setAuthCookies(res, tokens);
     res.redirect(`${FRONTEND_URL}`);
@@ -122,7 +143,7 @@ export class AuthController {
   }
 
   @Post("/refresh-token")
-  @UseGuards(RefreshGuard)
+  @UseGuards(RefreshTokenGuard)
   async refreshToken(
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,

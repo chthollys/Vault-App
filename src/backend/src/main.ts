@@ -12,9 +12,7 @@ async function bootstrap() {
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   });
-
   const port = PORT ?? 8000;
   await app.listen(port);
-  console.log("NEST runs in port", port);
 }
 bootstrap();

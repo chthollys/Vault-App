@@ -6,7 +6,7 @@ import { PassportModule } from "@nestjs/passport";
 import { UsersModule } from "src/users/users.module";
 import { VerificationTokenModule } from "src/verification-token/verification-token.module";
 import { MailModule } from "src/mail/mail.module";
-import { SignupGuard } from "./guards/signup.guard";
+import { SignupStepGuard } from "./guards/signup-step.guard";
 import { GoogleStrategy } from "./strategies/google.strategy";
 import { AccountsModule } from "./accounts/accounts.module";
 import { RefreshTokenModule } from "./refresh-token/refresh-token.module";
@@ -24,7 +24,7 @@ import { AuthCookieService } from "./auth-cookies.service";
   providers: [
     AuthService,
     JwtStrategy,
-    SignupGuard,
+    SignupStepGuard,
     GoogleStrategy,
     AuthCookieService,
   ],

@@ -6,7 +6,7 @@ import { UserSignupStep } from "../types/signup-state";
 import { SIGNUP_STEPS } from "utils/constants";
 
 @Injectable()
-export class SignupGuard implements CanActivate {
+export class SignupStepGuard implements CanActivate {
   constructor(private reflector: Reflector) {}
   canActivate(context: ExecutionContext): boolean {
     const req = context.switchToHttp().getRequest() as Request;

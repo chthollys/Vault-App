@@ -3,7 +3,7 @@ import { Request } from "express";
 import { REFRESH_TOKEN_COOKIE_NAME } from "utils/constants";
 
 @Injectable()
-export class RefreshGuard implements CanActivate {
+export class RefreshTokenGuard implements CanActivate {
   constructor() {}
   canActivate(context: ExecutionContext): boolean {
     const req = context.switchToHttp().getRequest() as Request;
