@@ -1,6 +1,8 @@
-import { S3_BUCKET_NAME, S3_REGION } from "@/lib/env";
+import { API_URL, S3_BUCKET_NAME, S3_REGION } from "@/lib/env";
 import type { NextConfig } from "next";
 import path from "path";
+
+const backendOrigin = API_URL.endsWith("/") ? API_URL.slice(0, -1) : API_URL;
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
@@ -53,6 +55,14 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     externalDir: true,
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: `${backendOrigin}/:path*`,
+      },
+    ];
   },
 };
 
