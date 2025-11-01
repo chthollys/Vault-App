@@ -1,4 +1,4 @@
-import { API_URL, NEXT_PUBLIC_API_PROXY_BASE } from "@/lib/env";
+import { NEST_API_URL, NEXT_PUBLIC_API_PROXY_BASE } from "@/lib/env";
 import {
   type ApiFetchOptions,
   ApiRequestError,
@@ -12,7 +12,7 @@ export async function clientApiFetch<T>(
 ): Promise<T> {
   const { params, json, headers, method, credentials, ...rest } = options;
 
-  const base = NEXT_PUBLIC_API_PROXY_BASE ?? API_URL ?? "/api";
+  const base = NEXT_PUBLIC_API_PROXY_BASE ?? NEST_API_URL ?? "/api";
   const url = buildUrl(base, path, params);
 
   const init: RequestInit = {
