@@ -1,8 +1,10 @@
-import { API_URL, S3_BUCKET_NAME, S3_REGION } from "@/lib/env";
+import { NEST_API_URL, S3_BUCKET_NAME, S3_REGION } from "@/lib/env";
 import type { NextConfig } from "next";
 import path from "path";
 
-const backendOrigin = API_URL.endsWith("/") ? API_URL.slice(0, -1) : API_URL;
+const backendOrigin = NEST_API_URL.endsWith("/")
+  ? NEST_API_URL.slice(0, -1)
+  : NEST_API_URL;
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
