@@ -3,18 +3,20 @@
 import { useGames } from "@/app/hooks/useGames";
 import { Autocomplete, AutocompleteItem } from "@heroui/react";
 import { useFilter } from "@react-aria/i18n";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { useDebounce } from "@uidotdev/usehooks";
 import { usePathname, useRouter } from "next/navigation";
 import ImageOptimized from "../ImageOptimized";
 import { formatToUSD } from "@/lib/utils";
-import { GiGamepad } from "react-icons/gi";
+import GamePadIcon from "./GamePadIcon";
 
 export default function SearchBar() {
   // Get all the prefetched game
   const { data: games } = useGames();
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
+  const [iconAnimate, setIconAnimate] = useState<boolean>(true);
   const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -30,9 +32,18 @@ export default function SearchBar() {
       : games.filter((game) => contains(game.title, normalizedInput));
 
   const handleSelection = (key: React.Key | null) => {
-    if (key) {
+    if (!key) return null;
+    startTransition(() => {
       router.push(`/game/${key}`);
-    }
+    });
+  };
+
+  const handleStartIconAnimation = () => {
+    setIconAnimate(true);
+  };
+
+  const handleStopIconAnimation = () => {
+    setIconAnimate(false);
   };
 
   // Handle blur focus when navigating other route
@@ -46,8 +57,9 @@ export default function SearchBar() {
       <Autocomplete
         ref={inputRef}
         variant="underlined"
-        startContent={<GiGamepad size={35} className="mr-1" />}
-        placeholder="Start searching your games"
+        startContent={<GamePadIcon isAnimate={iconAnimate} />}
+        isLoading={isPending}
+        placeholder="Start searching your games ..."
         radius="full"
         menuTrigger="input"
         inputValue={inputValue}
@@ -56,6 +68,8 @@ export default function SearchBar() {
         defaultFilter={() => true}
         aria-label="search-bar"
         selectorIcon={<></>}
+        onFocus={handleStopIconAnimation}
+        onBlur={handleStartIconAnimation}
       >
         {inputValue ? (
           matchedGames.map((game) => (
