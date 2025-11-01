@@ -12,6 +12,8 @@ import type {
   GamesQuery,
 } from "@repo/types";
 
+
+
 export async function getUsers(): Promise<User> {
   const res = await serverApiFetch<ApiDataResponse<User>>("/users");
   return res.data;

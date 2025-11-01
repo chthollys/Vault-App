@@ -7,10 +7,15 @@ import {
   DEFAULT_SORTBY,
   GAME_INFINITE_PERPAGE,
 } from "@/lib/utils/constants";
+import { fetchCurrentUser } from "@/lib/auth-server";
 
 export default async function Hydration({ children }: HydrationProps) {
   const queryClient = getQueryClient();
   await Promise.all([
+    queryClient.prefetchQuery({
+      queryKey: ["user"],
+      queryFn: fetchCurrentUser,
+    }),
     queryClient.prefetchQuery({
       queryKey: ["games", DEFAULT_CATEGORIES, DEFAULT_SORTBY],
       queryFn: () => getGames(null),
