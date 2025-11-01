@@ -1,6 +1,6 @@
 "use server";
 
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 import { API_URL, NEXT_PUBLIC_API_PROXY_BASE } from "@/lib/env";
 import {
   ApiRequestError,
@@ -25,9 +25,8 @@ export async function serverApiFetch<T>(
   // const headerList = await headers();
   // const protocol = headerList.get("x-forwarded-proto") ?? "http";
   // const host = headerList.get("x-forwarded-host") ?? headerList.get("host");
-  const origin = NEXT_PUBLIC_API_PROXY_BASE ?? API_URL;
-
-  const url = buildUrl(origin, path, params);
+  const base = NEXT_PUBLIC_API_PROXY_BASE ?? API_URL ?? "/api";
+  const url = buildUrl(base, path, params);
   const cookieHeader = (await cookies()).toString();
 
   const requestInit: RequestInit = {
