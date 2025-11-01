@@ -1,6 +1,6 @@
 export const IS_PROD = process.env.NODE_ENV === "production";
 
-export const NEST_API_URL = process.env.NEST_API_URL
+export const NEST_API_URL = process.env.NEST_API_URL || "http://localhost:8000";
 export const NEXT_PUBLIC_API_PROXY_BASE =
   process.env.NEXT_PUBLIC_API_PROXY_BASE;
 

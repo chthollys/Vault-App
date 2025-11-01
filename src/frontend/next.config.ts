@@ -7,7 +7,7 @@ const backendOrigin = NEST_API_URL.endsWith("/")
   : NEST_API_URL;
 
 const nextConfig: NextConfig = {
-  reactCompiler: true,
+  // reactCompiler: true,
   transpilePackages: ["@repo/types", "@repo/typescript-config"],
   outputFileTracingRoot: path.join(__dirname, "../.."),
   reactStrictMode: true,
