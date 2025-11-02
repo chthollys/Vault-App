@@ -22,7 +22,7 @@ export default function ImageCarouselItem({
           <Image
             src={image}
             alt={"Carousel Image"}
-            priority
+            preload
             draggable={false}
             className="h-full w-full object-cover"
           />

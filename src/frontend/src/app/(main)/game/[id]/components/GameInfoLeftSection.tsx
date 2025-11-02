@@ -13,7 +13,7 @@ export default function GameInfoLeftSection({ game }: GameInfoLeftSection) {
           src={game?.coverImageUrl}
           alt={`${game.title ?? "game"}-image`}
           className="h-full w-full rounded-xl rounded-br-sm object-cover !transition-none"
-          priority
+          preload
         />
       </GameCoverWrapper>
 

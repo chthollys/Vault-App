@@ -4,6 +4,7 @@ import { GameCardWrapper as CartItemWrapper } from "@/components/Wrapper";
 import type { Game } from "@repo/types";
 import { DeleteCartItemButton } from "@/UI/buttons";
 import { GameBadge } from "@/UI/icons";
+import { GameTitle } from "@/components/Typography";
 import Link from "next/link";
 
 interface CartItemProps {
@@ -19,14 +20,14 @@ export default function CartItem({ game }: CartItemProps) {
             <ImageOptimized
               alt="game-image"
               src={game.coverImageUrl}
-              priority
+              loading="eager"
               className="min-h-40 w-full object-cover transition group-hover/game-card:scale-105 hover:scale-105"
             />
           </div>
         </Link>
         <div className="flex flex-col justify-between">
           <GameBadge>{game.developer}</GameBadge>
-          <p>{game.title}</p>
+          <GameTitle>{game.title}</GameTitle>
           <PriceSection price={game.price} afterPrice={game.discountedPrice} />
         </div>
       </div>

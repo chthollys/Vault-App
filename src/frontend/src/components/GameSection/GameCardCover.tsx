@@ -14,7 +14,7 @@ export default function GameCardCover({
         src={game.coverImageUrl || defaultImg}
         alt={"GAME ALT"}
         className="h-full w-full object-cover transition-(--transition-normal) group-hover/game-card:scale-105"
-        priority
+        loading="eager"
       />
       <HeartButtonSVG
         isActive={isInWishlist || false}

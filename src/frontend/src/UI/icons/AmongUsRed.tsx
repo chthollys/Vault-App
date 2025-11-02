@@ -11,7 +11,7 @@ export default function AmoungUsRed({
         "https://vault-app-bucket.s3.ap-southeast-2.amazonaws.com/default-cover/default-game-not-found.svg"
       }
       alt="game-not-found icon"
-      priority
+      loading="eager"
     />
   );
 }
