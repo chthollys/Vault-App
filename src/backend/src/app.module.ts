@@ -11,13 +11,7 @@ import { ApiResponseInterceptor } from "./interceptors/api-response.interceptor"
 import { ApiExceptionFilter } from "./filters/api-exception.filter";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { UsersModule } from "./users/users.module";
 import { PrismaModule } from "./prisma/prisma.module";
-import { GamesModule } from "./games/games.module";
-import { GenresModule } from "./genres/genres.module";
-import { ReviewsModule } from "./reviews/reviews.module";
-import { AuthModule } from "./auth/auth.module";
-import { MailModule } from "./mail/mail.module";
 import { RedisModule } from "./redis/redis.module";
 import session from "express-session";
 import { RedisService } from "./redis/redis.service";
@@ -25,7 +19,11 @@ import { RedisStore } from "connect-redis";
 import Joi from "joi";
 import { JwtModule } from "@nestjs/jwt";
 import { IS_PROD, JWT_SECRET, SESSION_SECRET } from "utils/env";
-
+import { GamesModule } from "./games/games.module";
+import { GenresModule } from "./genres/genres.module";
+import { AuthModule } from "./auth/auth.module";
+import { ReviewsModule } from "./reviews/reviews.module";
+import { CartModule } from "./cart/cart.module";
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -43,14 +41,12 @@ import { IS_PROD, JWT_SECRET, SESSION_SECRET } from "utils/env";
         signOptions: { expiresIn: "15m" },
       }),
     }),
-    UsersModule,
     PrismaModule,
+    RedisModule,
     GamesModule,
     GenresModule,
-    ReviewsModule,
     AuthModule,
-    MailModule,
-    RedisModule,
+    ReviewsModule,
   ],
   controllers: [AppController],
   providers: [

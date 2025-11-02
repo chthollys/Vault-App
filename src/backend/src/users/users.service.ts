@@ -1,13 +1,17 @@
 import bcrypt from "bcrypt";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { UsersRepository } from "./users.repository";
-import type { User } from "@prisma/client";
+import type { User, Cart } from "@prisma/client";
 import type { RegisterUserDto } from "src/dtos";
 import { SALT_ROUNDS } from "utils/constants";
+import { CartService } from "src/cart/cart.service";
 
 @Injectable()
 export class UsersService {
-  constructor(private usersRepo: UsersRepository) {}
+  constructor(
+    private usersRepo: UsersRepository,
+    private cartService: CartService,
+  ) {}
   findAll(): Promise<User[]> {
     return this.usersRepo.findAll();
   }
@@ -77,4 +81,6 @@ export class UsersService {
       data: { emailVerified: new Date() },
     });
   }
+
+  async findCart(userId: string) {}
 }

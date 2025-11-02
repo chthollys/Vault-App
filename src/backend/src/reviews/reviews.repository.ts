@@ -2,7 +2,6 @@ import { Injectable } from "@nestjs/common";
 import { Prisma, Review } from "@prisma/client";
 import { PrismaErrorCatcher } from "src/error/error.handler";
 import { PrismaService } from "src/prisma/prisma.service";
-import { handlePrismaError } from "utils/prisma.util";
 
 @Injectable()
 export class ReviewsRepository extends PrismaErrorCatcher {

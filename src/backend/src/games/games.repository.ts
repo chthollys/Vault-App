@@ -10,7 +10,7 @@ export class GamesRepository extends PrismaErrorCatcher {
   }
   async findAll(args: Prisma.GameFindManyArgs): Promise<Game[]> {
     try {
-      return this.prisma.game.findMany(args);
+      return await this.prisma.game.findMany(args);
     } catch (err) {
       return this.errorHandler(err, "Failed to fetch games");
     }

@@ -21,22 +21,22 @@ export class UsersRepository extends PrismaErrorCatcher {
   async findUnique(args: Prisma.UserFindUniqueArgs): Promise<User | null> {
     try {
       return await this.prisma.user.findUnique(args);
-    } catch (error) {
-      return this.errorHandler(error, "Failed to fetch user.");
+    } catch (err) {
+      return this.errorHandler(err, "Failed to fetch user.");
     }
   }
 
   async findOne(args: Prisma.UserFindFirstArgs): Promise<User | null> {
     try {
       return await this.prisma.user.findFirst(args);
-    } catch (error) {
-      return this.errorHandler(error, "Failed to fetch user.");
+    } catch (err) {
+      return this.errorHandler(err, "Failed to fetch user.");
     }
   }
 
   async create(args: Prisma.UserCreateArgs): Promise<User> {
     try {
-      return this.prisma.user.create(args);
+      return await this.prisma.user.create(args);
     } catch (err) {
       return this.errorHandler(err, "Failed to create new user");
     }

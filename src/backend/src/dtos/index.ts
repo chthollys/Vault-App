@@ -6,6 +6,7 @@ import { ReviewDto } from "./review.dto";
 import { UsersQueryDto } from "./users-query.dto";
 import { RegisterUserDto } from "./register-user.dto";
 import { LoginDto } from "./login.dto";
+import { CartDto } from "./cart.dto";
 
 export {
   GameDto,
@@ -16,4 +17,5 @@ export {
   ReviewDto,
   UsersQueryDto,
   LoginDto,
+  CartDto,
 };
