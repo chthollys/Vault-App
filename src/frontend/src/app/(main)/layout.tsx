@@ -18,7 +18,7 @@ export default function MainLayout({
         <ScrollToTop />
         <main
           id="main-content"
-          className="main-content mx-auto my-0 max-w-[1600px] p-8 pt-6"
+          className="main-content mx-auto my-0 min-h-screen max-w-[1600px] p-8 pt-6"
         >
           <div className="grid grid-cols-[250px_1fr] items-start gap-12">
             <NavAsideBar />
