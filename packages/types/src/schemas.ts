@@ -176,3 +176,24 @@ export const ReviewSchema = CreateReviewSchema.extend({
   id: z.cuid(),
   createdAt: z.date(),
 });
+
+export const CartItemSchema = z.object({
+  id: z.cuid(),
+  cartId: z.cuid(),
+  gameId: z.cuid(),
+  quantity: z.number().min(0),
+  isChecked: z.boolean().nullable(),
+  addedAt: z.date(),
+  game: z.object({ id: z.cuid(), price: z.number().min(0) }),
+});
+
+export const CartSchema = z.object({
+  id: z.cuid(),
+  userId: z.cuid(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
+export const CartWithItems = CartSchema.extend({
+  items: z.array(CartItemSchema),
+});

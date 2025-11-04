@@ -12,6 +12,9 @@ import {
   CreateProfileSchema,
   UserSchema,
   UserDtoSchema,
+  CartItemSchema,
+  CartSchema,
+  CartWithItems,
 } from "./schemas";
 
 export * from "./schemas";
@@ -36,6 +39,11 @@ export type GamesInfinite = {
   games: Game[];
   hasMore: boolean;
 };
+
+export type CartItem = z.infer<typeof CartItemSchema>;
+
+export type Cart = z.infer<typeof CartSchema>;
+export type CartWithItems = z.infer<typeof CartWithItems>;
 
 export type GenreFormData = z.infer<typeof GenreFormSchema>;
 export type CreateGenreData = z.infer<typeof CreateGenreSchema>;
