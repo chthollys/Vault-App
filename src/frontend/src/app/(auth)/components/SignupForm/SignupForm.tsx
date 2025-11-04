@@ -12,7 +12,7 @@ import { EmailSchema } from "@repo/types";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
-import { getSession, getSignupStep } from "@/lib/db/client";
+import { getSignupStep } from "@/lib/db/client";
 import type { SignupFormProps } from "@/lib/types/props";
 
 type Inputs = z.infer<typeof EmailSchema>;
