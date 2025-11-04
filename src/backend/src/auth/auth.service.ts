@@ -182,7 +182,8 @@ export class AuthService {
       );
     }
 
-    const isPasswordValid = bcrypt.compare(password, user.password);
+    console.log(user, "with pass:", password);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       throw new BadRequestException("Invalid email or password");
     }

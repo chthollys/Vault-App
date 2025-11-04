@@ -1,7 +1,17 @@
 import { Injectable } from "@nestjs/common";
-import type { Cart, CartItem } from "@prisma/client";
+import type { Cart, CartItem, Game } from "@prisma/client";
 import { PrismaErrorCatcher } from "src/error/error.handler";
 import { PrismaService } from "src/prisma/prisma.service";
+
+type CartItemFullObj = CartItem & {
+  game: Pick<Game, "id" | "price">;
+};
+
+type CartFullObj = Cart & { items: CartItemFullObj[] };
+
+const includeGameItem = {
+  items: { include: { game: { select: { price: true, id: true } } } },
+};
 
 @Injectable()
 export class CartRepository extends PrismaErrorCatcher {
@@ -19,18 +29,22 @@ export class CartRepository extends PrismaErrorCatcher {
     }
   }
 
-  async findCartById(id: string): Promise<Cart | null> {
+  async findCartById(id: string): Promise<CartFullObj | null> {
     try {
-      return await this.prisma.cart.findUnique({ where: { id } });
+      return await this.prisma.cart.findUnique({
+        where: { id },
+        include: includeGameItem,
+      });
     } catch (err) {
       return this.errorHandler(err, "Failed to find cart");
     }
   }
 
-  async findCartByUserId(userId: string): Promise<Cart | null> {
+  async findCartByUserId(userId: string): Promise<CartFullObj | null> {
     try {
-      return await this.prisma.cart.findFirst({
+      return await this.prisma.cart.findUnique({
         where: { userId },
+        include: includeGameItem,
       });
     } catch (error) {
       return this.errorHandler(error, "Failed to find cart");
@@ -47,11 +61,13 @@ export class CartRepository extends PrismaErrorCatcher {
     }
   }
 
-  async findCartItemsByUserId(userId: string): Promise<CartItem[]> {
+  async findCartItemsByUserId(userId: string): Promise<CartItemFullObj[]> {
     try {
       const cart = await this.prisma.cart.findUnique({
         where: { userId },
-        select: { items: true },
+        select: {
+          items: { include: { game: { select: { price: true, id: true } } } },
+        },
       });
       return cart?.items ?? [];
     } catch (err) {

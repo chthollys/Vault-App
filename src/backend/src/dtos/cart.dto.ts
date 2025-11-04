@@ -1,8 +1,8 @@
-import type { Cart, CartItem } from "@repo/types";
+import type { CartItem, CartWithItems } from "@repo/types";
 import { IsArray, IsDate, IsString, ValidateNested } from "class-validator";
 import { Expose } from "class-transformer";
 
-export class CartDto implements Cart {
+export class CartDto implements CartWithItems {
   @Expose()
   @IsString()
   id: string;

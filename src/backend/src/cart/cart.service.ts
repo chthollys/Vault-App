@@ -14,15 +14,8 @@ export class CartService {
     return this.cartRepo.findCartById(id);
   }
 
-  async maybeGetCartByUserId(userId: string): Promise<CartDto | null> {
-    const [cart, items] = await Promise.all([
-      this.cartRepo.findCartByUserId(userId),
-      this.cartRepo.findCartItemsByUserId(userId),
-    ]);
-    if (!cart) {
-      return null;
-    }
-    return { ...cart, items };
+  maybeGetCartByUserId(userId: string): Promise<CartDto | null> {
+    return this.cartRepo.findCartByUserId(userId);
   }
 
   insertCartItem(cartId: string, itemId: string) {

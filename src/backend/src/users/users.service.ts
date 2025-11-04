@@ -76,7 +76,9 @@ export class UsersService {
     if (data.password) {
       newUserData.password = await bcrypt.hash(data.password, SALT_ROUNDS);
     }
-    return this.usersRepo.create({ data: newUserData });
+    return this.usersRepo.create({
+      data: { ...newUserData, cart: { create: {} } },
+    });
   }
 
   async verifyEmail(email: string): Promise<User> {

@@ -56,23 +56,23 @@ export class AuthController {
   async registerEmailForOtp(
     @SessionValue() session: Session,
     @Body() { email }: RegisterEmailDto,
-  ): Promise<{ message: string }> {
+  ): Promise<string> {
     const response = await this.authService.registerEmailForOtp(email);
     session["signup-state"] = { step: UserSignupStep.VerifyOtp, email };
-    return response;
+    return response.message;
   }
 
   @Post("signup/email/verify-otp")
   @SignupStep(UserSignupStep.VerifyOtp)
   @UseGuards(SignupStepGuard)
-  verifyOtp(
+  async verifyOtp(
     @SessionValue() session: Session,
     @Body() { otp }: VerifyOtpDto,
-  ): Promise<{ message: string }> {
+  ): Promise<string> {
     const email = session["signup-state"]?.email;
-    const response = this.authService.verifyOtp(otp, email);
+    const response = await this.authService.verifyOtp(otp, email);
     session["signup-state"] = { step: UserSignupStep.SetPassword, email };
-    return response;
+    return response.message;
   }
 
   @Post("signup/email/set-password")

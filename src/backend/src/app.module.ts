@@ -47,6 +47,7 @@ import { CartModule } from "./cart/cart.module";
     GenresModule,
     AuthModule,
     ReviewsModule,
+    CartModule,
   ],
   controllers: [AppController],
   providers: [
@@ -79,7 +80,7 @@ export class AppModule implements NestModule {
           saveUninitialized: false,
           cookie: {
             httpOnly: true,
-            secure: true,
+            secure: IS_PROD,
             sameSite: "none",
             maxAge: IS_PROD ? 24 * 60 * 60 * 1000 : 5 * 60 * 1000,
           },
