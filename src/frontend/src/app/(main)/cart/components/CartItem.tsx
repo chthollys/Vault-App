@@ -1,17 +1,14 @@
 import { PriceSection } from "@/components/GameSection";
 import ImageOptimized from "@/components/ImageOptimized";
 import { GameCardWrapper as CartItemWrapper } from "@/components/Wrapper";
-import type { Game } from "@repo/types";
 import { DeleteCartItemButton } from "@/UI/buttons";
 import { GameBadge } from "@/UI/icons";
 import { GameTitle } from "@/components/Typography";
 import Link from "next/link";
+import type { CartItemProps } from "@/lib/types/props";
 
-interface CartItemProps {
-  game: Game;
-}
-
-export default function CartItem({ game }: CartItemProps) {
+export default function CartItem({ game, item }: CartItemProps) {
+  if (!game || !item) return <></>;
   return (
     <CartItemWrapper className="w-full flex-row justify-between gap-14 px-8 py-6">
       <div className="flex gap-12">
