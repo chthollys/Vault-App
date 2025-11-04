@@ -10,9 +10,9 @@ import type {
   Review,
   User,
   GamesQuery,
+  Cart,
+  CartWithItems,
 } from "@repo/types";
-
-
 
 export async function getUsers(): Promise<User> {
   const res = await serverApiFetch<ApiDataResponse<User>>("/users");
@@ -95,7 +95,13 @@ export const getSignupStep = async (): Promise<{ step: UserSignupStep }> => {
   return res.data;
 };
 
-export const getSession = async () => {
-  const res = await serverApiFetch("/auth/session");
-  return res;
+export const getCartByUserId = async (userId: string) => {
+  const res = await serverApiFetch<ApiDataResponse<Cart>>(
+    `/cart/user/${userId}`
+  );
+};
+
+export const getCart = async (): Promise<CartWithItems> => {
+  const res = await serverApiFetch<ApiDataResponse<CartWithItems>>("/cart");
+  return res.data;
 };

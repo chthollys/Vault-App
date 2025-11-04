@@ -9,15 +9,15 @@ import type {
   ApiDataResponse,
   CurrentUserSession,
   ApiError,
+  CartWithItems,
 } from "@repo/types";
 import type { GamesQuery } from "@repo/types";
 import { UserSignupStep } from "@/lib/types/auth";
 
 export async function getCurrentUserSession(): Promise<CurrentUserSession | null> {
   try {
-    const res = await clientApiFetch<ApiDataResponse<CurrentUserSession>>(
-      "/auth/me",
-    );
+    const res =
+      await clientApiFetch<ApiDataResponse<CurrentUserSession>>("/auth/me");
     return res.data;
   } catch (err) {
     const error = err as ApiError | ApiRequestError;
@@ -64,29 +64,28 @@ export async function getGamesPaginated(
 }
 
 export async function getNestedGenres(): Promise<ParentChildrenGenre[]> {
-  const res = await clientApiFetch<ApiDataResponse<ParentChildrenGenre[]>>(
-    "/genres",
-  );
+  const res =
+    await clientApiFetch<ApiDataResponse<ParentChildrenGenre[]>>("/genres");
   return res.data;
 }
 
 export async function getGenresByGameId(gameId: string): Promise<Genre[]> {
   const res = await clientApiFetch<ApiDataResponse<Genre[]>>(
-    `/games/${gameId}/genres`,
+    `/games/${gameId}/genres`
   );
   return res.data;
 }
 
 export const getReviewsByGameId = async (gameId: string): Promise<Review[]> => {
   const res = await clientApiFetch<ApiDataResponse<Review[]>>(
-    `/games/${gameId}/reviews`,
+    `/games/${gameId}/reviews`
   );
   return res.data;
 };
 
 export const getUserByReviewId = async (reviewId: string): Promise<User> => {
   const res = await clientApiFetch<ApiDataResponse<User>>(
-    `/users/review-id/${reviewId}`,
+    `/users/review-id/${reviewId}`
   );
   return res.data;
 };
@@ -98,19 +97,20 @@ export const getUserById = async (id: string): Promise<User> => {
 
 export const getUserByEmail = async (email: string) => {
   const res = await clientApiFetch<ApiDataResponse<User>>(
-    `/users/email/${email}`,
+    `/users/email/${email}`
   );
   return res.data;
 };
 
 export const getSignupStep = async (): Promise<{ step: UserSignupStep }> => {
-  const res = await clientApiFetch<ApiDataResponse<{ step: UserSignupStep }>>(
-    "/auth/signup/step",
-  );
+  const res =
+    await clientApiFetch<ApiDataResponse<{ step: UserSignupStep }>>(
+      "/auth/signup/step"
+    );
   return res.data;
 };
 
-export const getSession = async () => {
-  const res = await clientApiFetch("/auth/session");
-  return res;
+export const getCart = async (): Promise<CartWithItems> => {
+  const res = await clientApiFetch<ApiDataResponse<CartWithItems>>("/cart");
+  return res.data;
 };

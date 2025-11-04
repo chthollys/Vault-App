@@ -9,7 +9,7 @@ import SearchBar from "@/components/MainHeader/SearchBar";
 import { useCurrentUser } from "@/app/hooks/useCurrentUser";
 
 export default function MainHeader() {
-  const user = useCurrentUser();
+  const { data: user } = useCurrentUser();
   let headerAction = (
     <Link href={"/login"}>
       <LoginButton>Sign in</LoginButton>
