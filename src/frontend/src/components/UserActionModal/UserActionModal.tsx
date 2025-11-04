@@ -51,7 +51,7 @@ export default function UserActionModal({
             </ModalHeader>
 
             <ModalBody className="flex w-full flex-col items-center">
-              <UserModalAccordion />
+              <UserModalAccordion onClose={onClose} />
               <LogoutButton />
             </ModalBody>
 

@@ -7,30 +7,43 @@ import { IoNotifications } from "react-icons/io5";
 import { FaCartArrowDown } from "react-icons/fa6";
 import { AiFillNotification } from "react-icons/ai";
 import { BadgedIcon } from "@/UI/icons";
+import { useRouter } from "next/navigation";
 
 const accordionItems = [
   {
     key: "cart",
     title: "Cart",
+    route: "/cart",
     icon: <FaCartArrowDown size={20} />,
   },
   {
     key: "event",
     title: "Event and promotion",
+    route: "/",
     icon: <AiFillNotification size={20} />,
   },
   {
     key: "notification",
     title: "Notification",
+    route: "/",
     icon: <IoNotifications size={20} />,
   },
 ];
 
-export default function UserModalAccordion() {
-  const [hiddenBadges, setHiddenBadges] = useState<Record<string, boolean>>({});
+interface UserModalAccordionProps {
+  onClose: () => void;
+}
 
-  const handleHideBadge = (key: string) => {
-    setHiddenBadges((prev) => ({ ...prev, [key]: true }));
+export default function UserModalAccordion({
+  onClose,
+}: UserModalAccordionProps) {
+  const [hiddenBadges, setHiddenBadges] = useState<Record<string, boolean>>({});
+  const router = useRouter();
+
+  const handleOnPress = (key: string, route: string) => {
+    onClose();
+    router.push(route);
+    // setHiddenBadges((prev) => ({ ...prev, [key]: true }));
   };
 
   return (
@@ -44,7 +57,7 @@ export default function UserModalAccordion() {
             <BadgedIcon icon={item.icon} isInvisible={hiddenBadges[item.key]} />
           }
           indicator={<IoIosArrowForward />}
-          onPress={() => handleHideBadge(item.key)}
+          onPress={() => handleOnPress(item.key, item.route)}
           classNames={{
             trigger: "cursor-pointer",
           }}
