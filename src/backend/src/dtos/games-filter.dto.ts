@@ -2,7 +2,7 @@ import { Transform, Type } from "class-transformer";
 import { IsArray, IsOptional, IsString } from "class-validator";
 import type { GamesQuery, SortBy } from "@repo/types";
 
-export class GamesQueryDto implements GamesQuery {
+export class GamesFilterDto implements GamesQuery {
   @IsOptional()
   @Transform(({ value }) =>
     typeof value === "string" ? value.split(",") : value,

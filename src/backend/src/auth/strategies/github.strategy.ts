@@ -29,7 +29,7 @@ export class GithubStrategy extends PassportStrategy(Strategy, "github") {
       throw new BadGatewayException("Github profile didn't provide an email");
     }
 
-    const existingUser = await this.usersService.upsertByEmail(email, {
+    const existingUser = await this.usersService.upsertByEmailForOauth(email, {
       name,
       image,
     });

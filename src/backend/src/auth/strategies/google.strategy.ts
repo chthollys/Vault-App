@@ -29,7 +29,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, "google") {
       throw new BadGatewayException("Google profile didn't provide an email");
     }
 
-    const existingUser = await this.usersService.upsertByEmail(email, {
+    const existingUser = await this.usersService.upsertByEmailForOauth(email, {
       name,
       image,
     });

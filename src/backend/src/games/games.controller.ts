@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Query } from "@nestjs/common";
 import { GamesService } from "./games.service";
-import { GamesQueryDto, GenreDto } from "src/dtos";
+import { GamesFilterDto, GenreDto } from "src/dtos";
 import { Serialize } from "src/interceptors/serialize.interceptor";
 import { GameDto } from "src/dtos";
 import { ReviewDto } from "src/dtos/review.dto";
@@ -10,7 +10,7 @@ export class GamesController {
   constructor(private gamesService: GamesService) {}
   @Get()
   @Serialize(GameDto)
-  getAllGame(@Query() sortingRules: GamesQueryDto): Promise<GameDto[]> {
+  getAllGame(@Query() sortingRules: GamesFilterDto): Promise<GameDto[]> {
     return this.gamesService.findAll(sortingRules);
   }
 

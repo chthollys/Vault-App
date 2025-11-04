@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { UsersRepository } from "./users.repository";
 import type { User, Cart } from "@prisma/client";
-import type { RegisterUserDto } from "src/dtos";
+import type { CreateUserDto } from "src/dtos";
 import { SALT_ROUNDS } from "utils/constants";
 import { CartService } from "src/cart/cart.service";
 
@@ -12,6 +12,7 @@ export class UsersService {
     private usersRepo: UsersRepository,
     private cartService: CartService,
   ) {}
+
   findAll(): Promise<User[]> {
     return this.usersRepo.findAll();
   }
@@ -52,10 +53,17 @@ export class UsersService {
     return await this.usersRepo.findUnique({ where: { email } });
   }
 
-  async upsertByEmail(
+  async upsertByEmailForOauth(
     email: string,
-    data?: Omit<RegisterUserDto, "email">,
+    data?: Omit<CreateUserDto, "email">,
   ): Promise<User> {
+    const existingUser = await this.usersRepo.findUnique({ where: { email } });
+    if (!existingUser) {
+      // Create Cart
+      return await this.usersRepo.create({
+        data: { email, ...data, cart: { create: {} } },
+      });
+    }
     return await this.usersRepo.upsert({
       where: { email },
       update: { ...data },
@@ -63,7 +71,7 @@ export class UsersService {
     });
   }
 
-  async create(data: RegisterUserDto): Promise<User> {
+  async create(data: CreateUserDto): Promise<User> {
     const newUserData = { ...data };
     if (data.password) {
       newUserData.password = await bcrypt.hash(data.password, SALT_ROUNDS);
@@ -81,6 +89,4 @@ export class UsersService {
       data: { emailVerified: new Date() },
     });
   }
-
-  async findCart(userId: string) {}
 }

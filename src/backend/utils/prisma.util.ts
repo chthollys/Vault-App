@@ -4,8 +4,8 @@ import {
   ConflictException,
   InternalServerErrorException,
 } from "@nestjs/common";
-import type { GamesQuery, OrderBy } from "@repo/types";
-import { GamesQueryDto } from "src/dtos";
+import type { OrderBy } from "@repo/types";
+import { GamesFilterDto } from "src/dtos";
 
 export function handlePrismaError(err: any, message: string): never {
   if (err instanceof Prisma.PrismaClientValidationError) {
@@ -17,11 +17,17 @@ export function handlePrismaError(err: any, message: string): never {
   ) {
     throw new ConflictException(`Unique constraint violation.`);
   }
+  if (
+    err instanceof Prisma.PrismaClientKnownRequestError &&
+    err.code === "P2003"
+  ) {
+    throw new ConflictException(`Foreign key constraint violation.`);
+  }
   throw new InternalServerErrorException(message);
 }
 
 export const buildGamesQuery = (
-  sortRule?: GamesQueryDto | null,
+  sortRule?: GamesFilterDto | null,
 ): Prisma.GameFindManyArgs => {
   if (!sortRule) {
     return {};

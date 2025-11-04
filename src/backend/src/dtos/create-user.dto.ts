@@ -1,7 +1,7 @@
 import { IsEmail, IsOptional, IsString, IsUrl } from "class-validator";
 import type { CreateUserData } from "@repo/types";
 
-export class RegisterUserDto implements CreateUserData {
+export class CreateUserDto implements CreateUserData {
   @IsEmail()
   email: string;
 

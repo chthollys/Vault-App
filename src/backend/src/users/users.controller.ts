@@ -26,9 +26,4 @@ export class UsersController {
   getUserByReviewId(@Param("id") id: string) {
     return this.usersService.findByReviewId(id);
   }
-
-  @Get("/:id/cart")
-  getCartByUser(@Param("id") id: string) {
-    return this.usersService.findCart(id);
-  }
 }
