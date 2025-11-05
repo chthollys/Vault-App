@@ -81,7 +81,7 @@ export class AppModule implements NestModule {
           cookie: {
             httpOnly: true,
             secure: IS_PROD,
-            sameSite: "none",
+            sameSite: "lax",
             maxAge: IS_PROD ? 24 * 60 * 60 * 1000 : 5 * 60 * 1000,
           },
         }),
