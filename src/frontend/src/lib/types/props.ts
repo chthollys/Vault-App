@@ -195,7 +195,7 @@ export interface SignupFlowProps {
 }
 
 export interface SignupFormProps {
-  onSuccess: (step: UserSignupStep) => void;
+  onRefresh: () => Promise<void>;
 }
 
 export interface BadgedIconProps {

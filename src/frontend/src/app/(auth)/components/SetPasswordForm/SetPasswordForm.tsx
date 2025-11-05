@@ -13,13 +13,12 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useDebounce } from "@uidotdev/usehooks";
 import { setPassword } from "@/lib/otp-signup";
-import { getCurrentUserSession, getSignupStep } from "@/lib/db/client";
-import { SignupFormProps } from "@/lib/types/props";
+import { getCurrentUserSession } from "@/lib/db/client";
 import { useRouter } from "next/navigation";
 
 type Input = z.infer<typeof PasswordSchema>;
 
-export default function SetPasswordForm({ onSuccess }: SignupFormProps) {
+export default function SetPasswordForm() {
   const router = useRouter();
   const [passwordErrorsArray, setPasswordErrorsArray] = useState<string[]>([]);
   const {
