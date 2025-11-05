@@ -46,9 +46,9 @@ export default async function Hydration({ children }: HydrationProps) {
     }),
   ]);
 
+  const dehydratedState = dehydrate(queryClient);
+
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      {children}
-    </HydrationBoundary>
+    <HydrationBoundary state={dehydratedState}>{children}</HydrationBoundary>
   );
 }

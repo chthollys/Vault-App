@@ -12,11 +12,13 @@ import { OTPSchema } from "@repo/types";
 import { GameCardWrapper } from "@/components/Wrapper";
 import { toast } from "react-toastify";
 import { SignupFormProps } from "@/lib/types/props";
-import { getSignupStep } from "@/lib/db/client";
+import { useSignupStep } from "@/app/hooks/useSignupStep";
 
 type Input = z.infer<typeof OTPSchema>;
 
-export default function VerifyEmailForm({ onSuccess }: SignupFormProps) {
+export default function VerifyEmailForm({
+  onRefresh: onRefresh,
+}: SignupFormProps) {
   const {
     register,
     handleSubmit,
@@ -26,13 +28,12 @@ export default function VerifyEmailForm({ onSuccess }: SignupFormProps) {
     resolver: zodResolver(OTPSchema),
     mode: "onSubmit",
   });
-
+  const step = useSignupStep();
   const { mutate, isPending } = useMutation({
     mutationFn: verifyOtp,
     onSuccess: async (data) => {
       toast.success(data.message ?? "OTP verified succesfully");
-      const { step } = await getSignupStep();
-      onSuccess(step);
+      await onRefresh();
     },
     onError: (err) => {
       toast.error(err.message ?? "Something went wrong.");

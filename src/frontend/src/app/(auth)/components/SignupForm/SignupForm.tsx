@@ -12,12 +12,11 @@ import { EmailSchema } from "@repo/types";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
-import { getSignupStep } from "@/lib/db/client";
 import type { SignupFormProps } from "@/lib/types/props";
 
 type Inputs = z.infer<typeof EmailSchema>;
 
-export default function SignupForm({ onSuccess }: SignupFormProps) {
+export default function SignupForm({ onRefresh }: SignupFormProps) {
   const {
     register,
     handleSubmit,
@@ -27,16 +26,13 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
     mode: "onSubmit",
     resolver: zodResolver(EmailSchema),
   });
-
   const { mutate, isPending } = useMutation({
     mutationFn: sendOtpFn,
     onSuccess: async (data) => {
       toast.success(
         data.message ?? "OTP sent succesfully, please check your email."
       );
-      const { step } = await getSignupStep();
-      console.log(step);
-      onSuccess(step);
+      await onRefresh();
     },
     onError: (err) => toast.error(err.message ?? "Something went wrong."),
   });
@@ -73,7 +69,6 @@ export default function SignupForm({ onSuccess }: SignupFormProps) {
             className="min-w-40 rounded-md normal-case"
             showIcon={false}
             loading={isPending}
-            disabled={isPending}
           >
             Submit
           </SignInButton>

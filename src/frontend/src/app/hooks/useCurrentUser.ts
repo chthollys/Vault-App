@@ -1,8 +1,8 @@
 import { getCurrentUser } from "@/lib/auth-client";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 export const useCurrentUser = () => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ["user"],
     queryFn: getCurrentUser,
   });
