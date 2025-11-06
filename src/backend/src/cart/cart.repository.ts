@@ -3,14 +3,14 @@ import type { Cart, CartItem, Game } from "@prisma/client";
 import { PrismaErrorCatcher } from "src/error/error.handler";
 import { PrismaService } from "src/prisma/prisma.service";
 
-type CartItemFullObj = CartItem & {
-  game: Pick<Game, "id" | "price">;
+type CartItemWithGame = CartItem & {
+  game: Game;
 };
 
-type CartFullObj = Cart & { items: CartItemFullObj[] };
+type CartFullObj = Cart & { items: CartItemWithGame[] };
 
 const includeGameItem = {
-  items: { include: { game: { select: { price: true, id: true } } } },
+  items: { include: { game: true } },
 };
 
 @Injectable()
@@ -61,13 +61,11 @@ export class CartRepository extends PrismaErrorCatcher {
     }
   }
 
-  async findCartItemsByUserId(userId: string): Promise<CartItemFullObj[]> {
+  async findCartItemsByUserId(userId: string): Promise<CartItemWithGame[]> {
     try {
       const cart = await this.prisma.cart.findUnique({
         where: { userId },
-        select: {
-          items: { include: { game: { select: { price: true, id: true } } } },
-        },
+        include: includeGameItem,
       });
       return cart?.items ?? [];
     } catch (err) {
