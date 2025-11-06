@@ -1,18 +1,25 @@
-import type { CartItem, CartWithItems } from "@repo/types";
-import { createContext, useMemo, useState } from "react";
+import type { CartItem, CartWithItems, Game } from "@repo/types";
+import { createContext, useContext, useMemo, useState } from "react";
 
 interface CartContextObj {
-  cart: CartWithItems | null;
   items: CartItem[];
+  games: Game[];
   totalPrice: number;
 }
 
 export const CartContext = createContext<CartContextObj>({
-  cart: null,
   items: [],
+  games: [],
   totalPrice: 0,
 });
 
+export const useCartContext = () => {
+  const ctx = useContext(CartContext);
+  if (!ctx) {
+    throw new Error("Use cart within parent context component");
+  }
+  return ctx;
+};
 interface CartContextProviderProps {
   cart: CartWithItems;
   children: React.ReactNode;
@@ -30,9 +37,10 @@ export function CartContextProvider({
   cart,
   children,
 }: CartContextProviderProps) {
-  const [items, setItems] = useState<CartItem[]>(cart.items);
+  const [items, _] = useState<CartItem[]>(cart.items);
   const totalPrice = useMemo(() => calculateTotalPrice(items), [items]);
+  const games = useMemo(() => items.map((item) => item.game), [items]);
 
-  const ctxVal: CartContextObj = { cart, items, totalPrice };
+  const ctxVal: CartContextObj = { items, games, totalPrice };
   return <CartContext.Provider value={ctxVal}>{children}</CartContext.Provider>;
 }

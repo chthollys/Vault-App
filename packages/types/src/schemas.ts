@@ -184,7 +184,7 @@ export const CartItemSchema = z.object({
   quantity: z.number().min(0),
   isChecked: z.boolean().nullable(),
   addedAt: z.date(),
-  game: z.object({ id: z.cuid(), price: z.number().min(0) }),
+  game: GameSchema,
 });
 
 export const CartSchema = z.object({
