@@ -38,6 +38,7 @@ export const useCartAction = () => {
     },
     onError: (_err, _vars, ctx) => {
       ctx?.prev && queryClient.setQueryData<CartWithItems>(["cart"], ctx.prev);
+      toast.error("Something went wrong, please wait and try again");
     },
     onSettled: invalidate,
   });
