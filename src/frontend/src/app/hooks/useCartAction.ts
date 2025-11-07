@@ -1,4 +1,4 @@
-import { addCartItem, removeCartItem } from "@/lib/db/client";
+import { addCartItem, removeCartItem, toggleCartItem } from "@/lib/db/client";
 import { getQueryClient } from "@/lib/utils/get-query-client";
 import type { CartWithItems } from "@repo/types";
 import { useMutation } from "@tanstack/react-query";
@@ -12,6 +12,12 @@ export const useCartAction = () => {
 
   const cancelQuery = () => queryClient.cancelQueries({ queryKey: ["cart"] });
 
+  const setQueryData = (data: CartWithItems) =>
+    queryClient.setQueryData<CartWithItems>(["cart"], data);
+
+  const getPrevQueryData = () =>
+    queryClient.getQueryData<CartWithItems>(["cart"]);
+
   const add = useMutation({
     mutationFn: addCartItem,
     onSuccess: (data) => {
@@ -24,26 +30,44 @@ export const useCartAction = () => {
     mutationFn: removeCartItem,
     onMutate: async (itemId) => {
       await cancelQuery();
-      const prev = queryClient.getQueryData<CartWithItems>(["cart"]);
+      const prev = getPrevQueryData();
       if (prev) {
-        queryClient.setQueryData<CartWithItems>(["cart"], {
+        setQueryData({
           ...prev,
           items: prev.items.filter((item) => item.id !== itemId),
         });
       }
       return { prev };
     },
-    onSuccess: (data) => {
-      toast.success(`${data.game.title} removed from cart`);
-    },
     onError: (_err, _vars, ctx) => {
-      ctx?.prev && queryClient.setQueryData<CartWithItems>(["cart"], ctx.prev);
+      ctx?.prev && setQueryData(ctx.prev);
       toast.error("Something went wrong, please wait and try again");
     },
     onSettled: invalidate,
   });
 
-  return { add, remove };
+  const toggle = useMutation({
+    mutationFn: toggleCartItem,
+    onMutate: async (itemId) => {
+      await cancelQuery();
+      const prev = getPrevQueryData();
+      if (prev) {
+        const updatedItems = prev.items.map((item) =>
+          item.id === itemId ? { ...item, isChecked: !item.isChecked } : item
+        );
+        setQueryData({ ...prev, items: updatedItems });
+      }
+
+      return { prev };
+    },
+    onError: (_err, _vars, ctx) => {
+      ctx?.prev && setQueryData(ctx.prev);
+      toast.error("Something went wrong, please wait and try again");
+    },
+    onSettled: invalidate,
+  });
+
+  return { add, remove, toggle };
 };
 
 export default useCartAction;

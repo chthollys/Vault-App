@@ -85,3 +85,13 @@ export const removeCartItem = async (itemId: string) => {
   );
   return res.data;
 };
+
+export const toggleCartItem = async (itemId: string) => {
+  const res = await clientApiFetch<ApiDataResponse<CartItem>>(
+    `/cart/toggle-check/${itemId}`,
+    {
+      method: "PATCH",
+    }
+  );
+  return res.data;
+};
