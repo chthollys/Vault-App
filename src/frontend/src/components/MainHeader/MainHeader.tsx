@@ -6,7 +6,7 @@ import Menu from "./Menu";
 import { LoginButton } from "@/UI/buttons";
 import { UserActionModal } from "../UserActionModal";
 import SearchBar from "@/components/MainHeader/SearchBar";
-import { useCurrentUser } from "@/app/hooks/useCurrentUser";
+import useCurrentUser from "@/app/hooks/useCurrentUser";
 
 export default function MainHeader() {
   const { data: user } = useCurrentUser();

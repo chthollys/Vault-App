@@ -64,6 +64,8 @@
 }
 
 @theme {
+  --color-dark-header: #0d1117;
+
   --color-primary: #8b5cf6;
   --color-primary-light: #a78bfa;
   --color-primary-dark: #7c3aed;

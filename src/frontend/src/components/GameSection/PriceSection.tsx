@@ -22,5 +22,5 @@ export default function PriceSection({ price, afterPrice }: PriceSectionProps) {
       </>
     );
   }
-  return <div className="mb-[14px] flex items-center gap-3">{content}</div>;
+  return <div className="flex items-center gap-3">{content}</div>;
 }

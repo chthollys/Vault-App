@@ -182,9 +182,9 @@ export const CartItemSchema = z.object({
   cartId: z.cuid(),
   gameId: z.cuid(),
   quantity: z.number().min(0),
-  isChecked: z.boolean().nullable(),
+  isChecked: z.boolean(),
   addedAt: z.date(),
-  game: z.object({ id: z.cuid(), price: z.number().min(0) }),
+  game: GameSchema,
 });
 
 export const CartSchema = z.object({

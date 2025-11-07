@@ -2,7 +2,7 @@
 
 import { AsideBar } from "@/components/AsideBar";
 import { usePathname } from "next/navigation";
-import { useGenres } from "@/app/hooks/useGenres";
+import useGenres from "@/app/hooks/useGenres";
 import QuickAction from "./QuickAction";
 import GenreNav from "./GenresNav";
 import GenresCheckbox from "./GenresCheckbox";

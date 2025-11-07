@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { CartRepository } from "./cart.repository";
 import type { CartDto } from "src/dtos";
 
@@ -10,23 +10,28 @@ export class CartService {
     return this.cartRepo.createCart(userId);
   }
 
-  getCartById(id: string) {
-    return this.cartRepo.findCartById(id);
-  }
-
   maybeGetCartByUserId(userId: string): Promise<CartDto | null> {
     return this.cartRepo.findCartByUserId(userId);
-  }
-
-  insertCartItem(cartId: string, itemId: string) {
-    return this.cartRepo.createCartItem(cartId, itemId);
   }
 
   getCartItemsByUserId(userId: string) {
     return this.cartRepo.findCartItemsByUserId(userId);
   }
 
-  deleteCartItem(cartId: string, itemId: string) {
-    return this.cartRepo.deleteCartItem(cartId, itemId);
+  async addCartItem(userId: string, gameId: string) {
+    const cartId = await this.cartRepo.findCartIdByUserId(userId);
+    return this.cartRepo.createCartItem(cartId, gameId);
+  }
+
+  removeCartItem(itemId: string) {
+    return this.cartRepo.deleteCartItem(itemId);
+  }
+
+  async toggleCartItem(itemId: string) {
+    const existingItems = await this.cartRepo.findCartItemById(itemId);
+    if (!existingItems) {
+      throw new BadRequestException("Item with given id not found");
+    }
+    return this.cartRepo.toggleCartItem(itemId, !existingItems.isChecked);
   }
 }

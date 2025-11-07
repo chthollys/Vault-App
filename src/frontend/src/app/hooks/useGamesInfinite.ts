@@ -25,3 +25,5 @@ export const useGamesInfinite = (
     initialPageParam: 0,
   });
 };
+
+export default useGamesInfinite;

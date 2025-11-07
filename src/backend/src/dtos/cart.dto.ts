@@ -1,6 +1,7 @@
-import type { CartItem, CartWithItems } from "@repo/types";
+import type { CartWithItems } from "@repo/types";
 import { IsArray, IsDate, IsString, ValidateNested } from "class-validator";
-import { Expose } from "class-transformer";
+import { Expose, Type } from "class-transformer";
+import { CartItemDto } from "./cart-item.dto";
 
 export class CartDto implements CartWithItems {
   @Expose()
@@ -22,5 +23,6 @@ export class CartDto implements CartWithItems {
   @Expose()
   @IsArray()
   @ValidateNested({ each: true })
-  items: CartItem[];
+  @Type(() => CartItemDto)
+  items: CartItemDto[];
 }

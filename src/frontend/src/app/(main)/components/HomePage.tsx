@@ -2,7 +2,7 @@
 
 import type { Game } from "@repo/types";
 import { useState, useEffect } from "react";
-import { useGames } from "@/app/hooks/useGames";
+import useGames from "@/app/hooks/useGames";
 import { getRandomSubArray } from "@/lib/utils";
 import FeaturedGames from "./FeaturedGames";
 import GameGridsSection from "./GameGridsSection";

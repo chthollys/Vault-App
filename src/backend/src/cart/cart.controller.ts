@@ -1,4 +1,12 @@
-import { Controller, Get, Param, UseGuards } from "@nestjs/common";
+import {
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from "@nestjs/common";
 import { CartService } from "./cart.service";
 import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
 import type { AuthUser } from "src/auth/interfaces/jwt";
@@ -14,13 +22,18 @@ export class CartController {
     return this.cartService.maybeGetCartByUserId(user.id);
   }
 
-  @Get("/:id")
-  getCartById(@Param("id") id: string) {
-    return this.cartService.getCartById(id);
+  @Post("/add/:id")
+  addCartItem(@User() user: AuthUser, @Param("id") gameId: string) {
+    return this.cartService.addCartItem(user.id, gameId);
   }
 
-  // @Get("/user/:id")
-  // getCartByUserId(@Param("id") id: string) {
-  //   return this.cartService.maybeGetCartByUserId(id);
-  // }
+  @Delete("/remove/:id")
+  removeCartItem(@Param("id") itemId: string) {
+    return this.cartService.removeCartItem(itemId);
+  }
+
+  @Patch("/toggle-check/:id")
+  toggleCartItem(@Param("id") itemId: string) {
+    return this.cartService.toggleCartItem(itemId);
+  }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { useGamesInfinite } from "@/app/hooks/useGamesInfinite";
+import useGamesInfinite from "@/app/hooks/useGamesInfinite";
 import GamesGrid from "./GamesGrid";
 import Loading from "@/app/loading";
 import { GridButton } from "@/UI/buttons";

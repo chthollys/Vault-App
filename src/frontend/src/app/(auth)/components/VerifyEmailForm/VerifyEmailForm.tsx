@@ -12,7 +12,7 @@ import { OTPSchema } from "@repo/types";
 import { GameCardWrapper } from "@/components/Wrapper";
 import { toast } from "react-toastify";
 import { SignupFormProps } from "@/lib/types/props";
-import { useSignupStep } from "@/app/hooks/useSignupStep";
+import useSignupStep from "@/app/hooks/useSignupStep";
 
 type Input = z.infer<typeof OTPSchema>;
 
