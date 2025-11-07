@@ -2,19 +2,17 @@ import { clientApiFetch } from "@/lib/http/client";
 import { ApiRequestError } from "@/lib/http/common";
 import type {
   Game,
-  Genre,
   ParentChildrenGenre,
-  Review,
-  User,
   ApiDataResponse,
   CurrentUserSession,
   ApiError,
   CartWithItems,
+  CartItem,
 } from "@repo/types";
 import type { GamesQuery } from "@repo/types";
 import { UserSignupStep } from "@/lib/types/auth";
 
-export async function getCurrentUserSession(): Promise<CurrentUserSession | null> {
+export async function getCurrentUserSession() {
   try {
     const res =
       await clientApiFetch<ApiDataResponse<CurrentUserSession>>("/auth/me");
@@ -29,20 +27,10 @@ export async function getCurrentUserSession(): Promise<CurrentUserSession | null
   }
 }
 
-export async function getUsers(): Promise<User> {
-  const res = await clientApiFetch<ApiDataResponse<User>>("/users");
-  return res.data;
-}
-
-export async function getGames(sortRule?: GamesQuery | null): Promise<Game[]> {
+export async function getGames(sortRule?: GamesQuery | null) {
   const res = await clientApiFetch<ApiDataResponse<Game[]>>("/games", {
     params: { ...sortRule },
   });
-  return res.data;
-}
-
-export async function getGame(id: string): Promise<Game> {
-  const res = await clientApiFetch<ApiDataResponse<Game>>(`/games/${id}`);
   return res.data;
 }
 
@@ -50,7 +38,7 @@ export async function getGamesPaginated(
   sortRule: GamesQuery | null | undefined,
   page: number,
   perPage: number
-): Promise<{ games: Game[]; hasMore: boolean }> {
+) {
   const params: GamesQuery = { ...sortRule, limit: perPage, page };
   const res = await clientApiFetch<ApiDataResponse<Game[]>>("/games", {
     params,
@@ -63,46 +51,13 @@ export async function getGamesPaginated(
   };
 }
 
-export async function getNestedGenres(): Promise<ParentChildrenGenre[]> {
+export async function getNestedGenres() {
   const res =
     await clientApiFetch<ApiDataResponse<ParentChildrenGenre[]>>("/genres");
   return res.data;
 }
 
-export async function getGenresByGameId(gameId: string): Promise<Genre[]> {
-  const res = await clientApiFetch<ApiDataResponse<Genre[]>>(
-    `/games/${gameId}/genres`
-  );
-  return res.data;
-}
-
-export const getReviewsByGameId = async (gameId: string): Promise<Review[]> => {
-  const res = await clientApiFetch<ApiDataResponse<Review[]>>(
-    `/games/${gameId}/reviews`
-  );
-  return res.data;
-};
-
-export const getUserByReviewId = async (reviewId: string): Promise<User> => {
-  const res = await clientApiFetch<ApiDataResponse<User>>(
-    `/users/review-id/${reviewId}`
-  );
-  return res.data;
-};
-
-export const getUserById = async (id: string): Promise<User> => {
-  const res = await clientApiFetch<ApiDataResponse<User>>(`/users/${id}`);
-  return res.data;
-};
-
-export const getUserByEmail = async (email: string) => {
-  const res = await clientApiFetch<ApiDataResponse<User>>(
-    `/users/email/${email}`
-  );
-  return res.data;
-};
-
-export const getSignupStep = async (): Promise<{ step: UserSignupStep }> => {
+export const getSignupStep = async () => {
   const res =
     await clientApiFetch<ApiDataResponse<{ step: UserSignupStep }>>(
       "/auth/signup/step"
@@ -110,7 +65,21 @@ export const getSignupStep = async (): Promise<{ step: UserSignupStep }> => {
   return res.data;
 };
 
-export const getCart = async (): Promise<CartWithItems> => {
+export const getCart = async () => {
   const res = await clientApiFetch<ApiDataResponse<CartWithItems>>("/cart");
+  return res.data;
+};
+
+export const addCartItem = async (gameId: string) => {
+  const res = await clientApiFetch<ApiDataResponse<CartItem>>(
+    `/cart/add/${gameId}`
+  );
+  return res.data;
+};
+
+export const removeCartItem = async (itemId: string) => {
+  const res = await clientApiFetch<ApiDataResponse<CartItem>>(
+    `/cart/remove/${itemId}`
+  );
   return res.data;
 };
