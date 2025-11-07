@@ -9,7 +9,7 @@ export default function GameCardInfo({ game, isInCart }: GameCardInfoProps) {
   return (
     <GameCardInfoWrapper>
       <PriceSection price={game.price} afterPrice={game.discountedPrice} />
-      <GameTitle>{game?.title}</GameTitle>
+      <GameTitle className="mt-4">{game?.title}</GameTitle>
       <GameDeveloper className="mb-3">{game?.developer}</GameDeveloper>
       <GameCardRating rating={game?.rating} />
 
