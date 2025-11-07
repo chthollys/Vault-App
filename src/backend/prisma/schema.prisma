@@ -162,7 +162,7 @@ model CartItem {
   cartId     String
   gameId     String
   quantity   Int      @default(1)
-  isChecked  Boolean? @default(true)
+  isChecked  Boolean  @default(true)
   addedAt    DateTime @default(now())
   cart       Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
   game       Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)

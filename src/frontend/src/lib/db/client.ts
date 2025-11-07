@@ -81,7 +81,7 @@ export const addCartItem = async (gameId: string) => {
 export const removeCartItem = async (itemId: string) => {
   const res = await clientApiFetch<ApiDataResponse<CartItem>>(
     `/cart/remove/${itemId}`,
-    { method: "POST" }
+    { method: "DELETE" }
   );
   return res.data;
 };

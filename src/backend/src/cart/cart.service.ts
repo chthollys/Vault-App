@@ -10,23 +10,20 @@ export class CartService {
     return this.cartRepo.createCart(userId);
   }
 
-  getCartById(id: string) {
-    return this.cartRepo.findCartById(id);
-  }
-
   maybeGetCartByUserId(userId: string): Promise<CartDto | null> {
     return this.cartRepo.findCartByUserId(userId);
-  }
-
-  insertCartItem(cartId: string, itemId: string) {
-    return this.cartRepo.createCartItem(cartId, itemId);
   }
 
   getCartItemsByUserId(userId: string) {
     return this.cartRepo.findCartItemsByUserId(userId);
   }
 
-  deleteCartItem(cartId: string, itemId: string) {
-    return this.cartRepo.deleteCartItem(cartId, itemId);
+  async addCartItem(userId: string, gameId: string) {
+    const cartId = await this.cartRepo.findCartIdByUserId(userId);
+    return this.cartRepo.createCartItem(cartId, gameId);
+  }
+
+  removeCartItem(itemId: string) {
+    return this.cartRepo.deleteCartItem(itemId);
   }
 }

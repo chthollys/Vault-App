@@ -19,24 +19,14 @@ export class CartRepository extends PrismaErrorCatcher {
     super();
   }
 
-  async createCart(userId: string): Promise<Cart> {
+  async createCart(userId: string): Promise<CartFullObj> {
     try {
       return await this.prisma.cart.create({
         data: { userId },
-      });
-    } catch (err) {
-      return this.errorHandler(err, "Failed to create cart");
-    }
-  }
-
-  async findCartById(id: string): Promise<CartFullObj | null> {
-    try {
-      return await this.prisma.cart.findUnique({
-        where: { id },
         include: includeGameItem,
       });
     } catch (err) {
-      return this.errorHandler(err, "Failed to find cart");
+      return this.errorHandler(err, "Failed to create cart");
     }
   }
 
@@ -46,15 +36,34 @@ export class CartRepository extends PrismaErrorCatcher {
         where: { userId },
         include: includeGameItem,
       });
+    } catch (err) {
+      return this.errorHandler(err, "Failed to find cart");
+    }
+  }
+
+  async findCartIdByUserId(userId: string): Promise<string> {
+    try {
+      let cart = await this.prisma.cart.findUnique({
+        where: { userId },
+        include: includeGameItem,
+      });
+      if (!cart) {
+        throw new Error("Cart is not found");
+      }
+      return cart.id;
     } catch (error) {
       return this.errorHandler(error, "Failed to find cart");
     }
   }
 
-  async createCartItem(cartId: string, itemId: string): Promise<CartItem> {
+  async createCartItem(
+    cartId: string,
+    gameId: string,
+  ): Promise<CartItemWithGame> {
     try {
       return await this.prisma.cartItem.create({
-        data: { cartId, gameId: itemId },
+        data: { cartId, gameId },
+        include: { game: true },
       });
     } catch (err) {
       return this.errorHandler(err, "Failed to insert game into cart");
@@ -73,13 +82,14 @@ export class CartRepository extends PrismaErrorCatcher {
     }
   }
 
-  async deleteCartItem(cartId: string, itemId: string): Promise<CartItem> {
+  async deleteCartItem(itemId: string): Promise<CartItemWithGame> {
     try {
       return await this.prisma.cartItem.delete({
-        where: { cartId_gameId: { cartId, gameId: itemId } },
+        where: { id: itemId },
+        include: { game: true },
       });
     } catch (err) {
-      return this.errorHandler(err, "Failed to delete item");
+      return this.errorHandler(err, "Failed to delete game in cart");
     }
   }
 }
