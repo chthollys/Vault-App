@@ -15,3 +15,5 @@ export const useGames = (sortRule?: GamesQuery | null) => {
     staleTime: 1000 * 120,
   });
 };
+
+export default useGames;

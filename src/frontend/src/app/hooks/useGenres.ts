@@ -9,3 +9,5 @@ export const useGenres = () => {
   });
   return result;
 };
+
+export default useGenres;

@@ -5,7 +5,7 @@ import { VerifyEmailForm } from "./VerifyEmailForm";
 import { SetPasswordForm } from "./SetPasswordForm";
 import { SignupForm } from "./SignupForm";
 import { useQueryClient } from "@tanstack/react-query";
-import { useSignupStep } from "@/app/hooks/useSignupStep";
+import useSignupStep from "@/app/hooks/useSignupStep";
 
 export default function SignupFlow() {
   const step = useSignupStep();

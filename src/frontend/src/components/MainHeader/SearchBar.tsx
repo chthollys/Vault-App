@@ -1,6 +1,6 @@
 "use client";
 
-import { useGames } from "@/app/hooks/useGames";
+import useGames from "@/app/hooks/useGames";
 import { Autocomplete, AutocompleteItem } from "@heroui/react";
 import { useFilter } from "@react-aria/i18n";
 import { useEffect, useRef, useState, useTransition } from "react";

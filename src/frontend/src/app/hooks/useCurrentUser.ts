@@ -7,3 +7,5 @@ export const useCurrentUser = () => {
     queryFn: getCurrentUser,
   });
 };
+
+export default useCurrentUser;

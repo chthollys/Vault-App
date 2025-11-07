@@ -8,3 +8,5 @@ export const useSignupStep = () => {
   });
   return data.step;
 };
+
+export default useSignupStep;

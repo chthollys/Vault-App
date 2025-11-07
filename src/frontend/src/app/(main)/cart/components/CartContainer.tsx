@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { CartContextProvider, useCartContext } from "@/store/cart-context";
 import { CartContainerProps, CartItemProps } from "@/lib/types/props";
 import { PriceSection } from "@/components/GameSection";
 import ImageOptimized from "@/components/ImageOptimized";
@@ -14,20 +13,28 @@ import {
 import { SectionTitle } from "@/components/Typography";
 import { GameBadge } from "@/UI/icons";
 import { DeleteCartItemButton } from "@/UI/buttons";
+import type { CartWithItems, Game } from "@repo/types";
+import { useMemo } from "react";
 
-export default function CartContainer({ data }: CartContainerProps) {
+export default function CartContainer({ cart }: CartContainerProps) {
+  const cartedGames = useMemo(
+    () => cart.items.map((item) => item.game),
+    [cart]
+  );
   return (
     <div className="flex justify-between gap-20">
-      <CartContextProvider cart={data}>
-        <CartDisplay />
-        <CartCheckout />
-      </CartContextProvider>
+      <CartDisplay cart={cart} />
+      <CartCheckout games={cartedGames} />
     </div>
   );
 }
 
-function CartDisplay() {
-  const { items } = useCartContext();
+interface CartConsumerProps {
+  cart: CartWithItems;
+}
+
+function CartDisplay({ cart }: CartConsumerProps) {
+  const { items } = cart;
   return (
     <div className="w-full min-w-[48rem]">
       <ul className="flex w-full flex-col gap-4">
@@ -69,8 +76,11 @@ function CartItem({ cartItem }: CartItemProps) {
   );
 }
 
-function CartCheckout() {
-  const { games } = useCartContext();
+interface CartCheckoutProps {
+  games: Game[];
+}
+
+function CartCheckout({ games }: CartCheckoutProps) {
   return (
     <CardWrapper className="flex min-h-72 w-full max-w-[30rem] flex-col px-6 py-4">
       <SectionTitle>Checkout</SectionTitle>
