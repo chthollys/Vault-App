@@ -4,28 +4,13 @@ import type {
   Game,
   ParentChildrenGenre,
   ApiDataResponse,
-  CurrentUserSession,
+  UserSession,
   ApiError,
   CartWithItems,
   CartItem,
 } from "@repo/types";
 import type { GamesQuery } from "@repo/types";
 import { UserSignupStep } from "@/lib/types/auth";
-
-export async function getCurrentUserSession() {
-  try {
-    const res =
-      await clientApiFetch<ApiDataResponse<CurrentUserSession>>("/auth/me");
-    return res.data;
-  } catch (err) {
-    const error = err as ApiError | ApiRequestError;
-    const status = "status" in error ? error.status : undefined;
-    if (status === 401 || status === 403) {
-      return null;
-    }
-    throw new Error(error.message);
-  }
-}
 
 export async function getGames(sortRule?: GamesQuery | null) {
   const res = await clientApiFetch<ApiDataResponse<Game[]>>("/games", {

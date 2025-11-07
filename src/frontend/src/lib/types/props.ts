@@ -2,7 +2,7 @@ import React from "react";
 import type {
   CartItem,
   CartWithItems,
-  CurrentUserSession,
+  UserSession,
   Game,
   ParentChildrenGenre,
   User,

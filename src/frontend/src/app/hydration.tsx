@@ -1,11 +1,6 @@
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getQueryClient } from "@/lib/utils/get-query-client";
-import {
-  getCart,
-  getGames,
-  getGamesPaginated,
-  getNestedGenres,
-} from "../lib/db/server";
+import { getGames, getGamesPaginated, getNestedGenres } from "../lib/db/server";
 import type { HydrationProps } from "@/lib/types/props";
 import {
   DEFAULT_CATEGORIES,
@@ -31,11 +26,6 @@ export default async function Hydration({ children }: HydrationProps) {
     queryClient.prefetchQuery({
       queryKey: ["genres"],
       queryFn: getNestedGenres,
-    }),
-    // Prefetch Cart for current user
-    queryClient.prefetchQuery({
-      queryKey: ["cart"],
-      queryFn: getCart,
     }),
     // Prefetch Paginated Games
     queryClient.prefetchInfiniteQuery({

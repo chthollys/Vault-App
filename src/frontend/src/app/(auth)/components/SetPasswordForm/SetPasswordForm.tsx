@@ -13,8 +13,8 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useDebounce } from "@uidotdev/usehooks";
 import { setPassword } from "@/lib/otp-signup";
-import { getCurrentUserSession } from "@/lib/db/client";
 import { useRouter } from "next/navigation";
+import { getCurrentUser } from "@/lib/auth-client";
 
 type Input = z.infer<typeof PasswordSchema>;
 
@@ -35,7 +35,7 @@ export default function SetPasswordForm() {
   const { mutate, isPending } = useMutation({
     mutationFn: setPassword,
     onSuccess: async () => {
-      const user = await getCurrentUserSession();
+      const user = await getCurrentUser();
       toast.success(
         user
           ? `Account created successfully, you're logged in as ${user.email}`

@@ -1,4 +1,5 @@
 import { CreateOAuthAccountDto } from "./create-oauth-account.dto";
+import { CurrentUserDto } from "./current-user.dto";
 import { RegisterEmailDto } from "./register-email.dto";
 import { SetPasswordDto } from "./set-password.dto";
 import { UserSignupStepDto } from "./user-signup-step.dto";
@@ -10,4 +11,5 @@ export {
   UserSignupStepDto,
   VerifyOtpDto,
   RegisterEmailDto,
+  CurrentUserDto,
 };

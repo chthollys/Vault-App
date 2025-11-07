@@ -1,7 +1,8 @@
 import type {
   ApiDataResponse,
   ApiError,
-  CurrentUserSession,
+  UserSession,
+  UserSessionDto,
 } from "@repo/types";
 import { ApiRequestError } from "./http/common";
 import { ApiResponse } from "@repo/types";
@@ -29,11 +30,11 @@ export async function logout() {
   }
 }
 
-export async function getCurrentUser(): Promise<CurrentUserSession | null> {
+export async function getCurrentUser(): Promise<UserSession | null> {
   try {
     const res =
-      await clientApiFetch<ApiDataResponse<CurrentUserSession>>("/auth/me");
-    return res.data;
+      await clientApiFetch<ApiDataResponse<UserSessionDto>>("/auth/me");
+    return res.data.user;
   } catch (err) {
     const status = extractStatus(err);
     if (status === 401 || status === 403) {

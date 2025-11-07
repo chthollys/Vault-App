@@ -14,6 +14,7 @@ import {
   SetPasswordDto,
   VerifyOtpDto,
   UserSignupStepDto,
+  CurrentUserDto,
 } from "./dtos";
 import { User } from "../decorators/current-user.decorator";
 import { Serialize } from "src/interceptors/serialize.interceptor";
@@ -28,7 +29,7 @@ import type { Session } from "express-session";
 import { AuthCookieService } from "./auth-cookies.service";
 import { FRONTEND_URL } from "utils/env";
 import { GoogleAuthGuard } from "./guards/google-auth.guard";
-import { JwtAuthGuard } from "./guards/jwt-auth.guard";
+import { JwtAuthGuard, OptionalJwtAuthGuard } from "./guards/jwt-auth.guard";
 import { GithubAuthGuard } from "./guards/github-auth.guard";
 
 @Controller("auth")
@@ -39,9 +40,9 @@ export class AuthController {
   ) {}
 
   @Get("/me")
-  @UseGuards(JwtAuthGuard)
-  getCurrentUser(@User() user: AuthUser): AuthUser {
-    return user;
+  @UseGuards(OptionalJwtAuthGuard)
+  getCurrentUser(@User() currentUser: AuthUser): CurrentUserDto {
+    return { user: currentUser ?? null };
   }
 
   @Get("signup/step")

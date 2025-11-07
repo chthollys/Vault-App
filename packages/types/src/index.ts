@@ -22,11 +22,15 @@ export * from "./schemas";
 export type CreateUserData = z.infer<typeof CreateUserSchema>;
 export type User = z.infer<typeof UserSchema>;
 export type UserDto = z.infer<typeof UserDtoSchema>;
-export type CurrentUserSession = {
+export type UserSession = {
   id: string;
   email: string;
   name?: string | null;
   image?: string | null;
+};
+
+export type UserSessionDto = {
+  user: UserSession | null;
 };
 
 export type CreateProfileData = z.infer<typeof CreateProfileSchema>;
