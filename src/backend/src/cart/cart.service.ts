@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { CartRepository } from "./cart.repository";
 import type { CartDto } from "src/dtos";
 
@@ -25,5 +25,13 @@ export class CartService {
 
   removeCartItem(itemId: string) {
     return this.cartRepo.deleteCartItem(itemId);
+  }
+
+  async toggleCartItem(itemId: string) {
+    const existingItems = await this.cartRepo.findCartItemById(itemId);
+    if (!existingItems) {
+      throw new BadRequestException("Item with given id not found");
+    }
+    return this.cartRepo.toggleCartItem(itemId, !existingItems.isChecked);
   }
 }

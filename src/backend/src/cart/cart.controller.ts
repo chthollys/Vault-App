@@ -3,6 +3,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   UseGuards,
 } from "@nestjs/common";
@@ -29,5 +30,10 @@ export class CartController {
   @Delete("/remove/:id")
   removeCartItem(@Param("id") itemId: string) {
     return this.cartService.removeCartItem(itemId);
+  }
+
+  @Patch("/toggle-check/:id")
+  toggleCartItem(@Param("id") itemId: string) {
+    return this.cartService.toggleCartItem(itemId);
   }
 }

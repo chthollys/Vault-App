@@ -19,6 +19,8 @@ export class CartRepository extends PrismaErrorCatcher {
     super();
   }
 
+  // Cart Methods
+
   async createCart(userId: string): Promise<CartFullObj> {
     try {
       return await this.prisma.cart.create({
@@ -56,6 +58,8 @@ export class CartRepository extends PrismaErrorCatcher {
     }
   }
 
+  // Cart Item Methods
+
   async createCartItem(
     cartId: string,
     gameId: string,
@@ -67,6 +71,17 @@ export class CartRepository extends PrismaErrorCatcher {
       });
     } catch (err) {
       return this.errorHandler(err, "Failed to insert game into cart");
+    }
+  }
+
+  async findCartItemById(itemId: string): Promise<CartItemWithGame | null> {
+    try {
+      return await this.prisma.cartItem.findUnique({
+        where: { id: itemId },
+        include: { game: true },
+      });
+    } catch (err) {
+      return this.errorHandler(err, "Failed to find cart item");
     }
   }
 
@@ -90,6 +105,21 @@ export class CartRepository extends PrismaErrorCatcher {
       });
     } catch (err) {
       return this.errorHandler(err, "Failed to delete game in cart");
+    }
+  }
+
+  async toggleCartItem(
+    itemId: string,
+    isChecked: boolean,
+  ): Promise<CartItemWithGame> {
+    try {
+      return await this.prisma.cartItem.update({
+        where: { id: itemId },
+        data: { isChecked },
+        include: { game: true },
+      });
+    } catch (err) {
+      return this.errorHandler(err, "Failed to toggle selection cart item");
     }
   }
 }
