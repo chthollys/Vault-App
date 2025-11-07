@@ -12,9 +12,12 @@ import {
 } from "@/components/Wrapper";
 import { SectionTitle } from "@/components/Typography";
 import { GameBadge } from "@/UI/icons";
-import { DeleteCartItemButton } from "@/UI/buttons";
+import { DeleteCartItemButton, PurpleButton } from "@/UI/buttons";
 import type { CartWithItems, Game } from "@repo/types";
 import { useMemo } from "react";
+import useCartAction from "@/app/hooks/useCartAction";
+import { Button, useDisclosure } from "@heroui/react";
+import Modal from "@/components/Modal";
 
 export default function CartContainer({ cart }: CartContainerProps) {
   const cartedGames = useMemo(
@@ -49,7 +52,17 @@ function CartDisplay({ cart }: CartConsumerProps) {
 }
 
 function CartItem({ cartItem }: CartItemProps) {
+  const {
+    remove: { mutate },
+  } = useCartAction();
   const { game, id } = cartItem;
+
+  const handleRemoveItem = () => {
+    mutate(id);
+  };
+
+  const { isOpen, onOpenChange, onOpen, onClose } = useDisclosure();
+
   return (
     <CartItemWrapper className="w-full flex-row justify-between gap-14 px-8 py-6">
       <div className="flex gap-12">
@@ -69,9 +82,17 @@ function CartItem({ cartItem }: CartItemProps) {
           <PriceSection price={game.price} afterPrice={game.discountedPrice} />
         </div>
       </div>
-      <DeleteCartItemButton
-        onClick={() => console.log("Delete game: ", game.title)}
-      />
+
+      <>
+        <DeleteCartItemButton onClick={onOpen} />
+        <RemoveItemModal
+          name={game.title}
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+          onClose={onClose}
+          action={handleRemoveItem}
+        />
+      </>
     </CartItemWrapper>
   );
 }
@@ -94,5 +115,48 @@ function CartCheckout({ games }: CartCheckoutProps) {
         ))}
       </ul>
     </CardWrapper>
+  );
+}
+
+interface RemoveItemModalProps {
+  isOpen: boolean;
+  name?: string;
+  onOpenChange: () => void;
+  onClose: () => void;
+  action: () => void;
+}
+
+function RemoveItemModal({
+  isOpen,
+  name = "item",
+  onOpenChange,
+  onClose,
+  action,
+}: RemoveItemModalProps) {
+  const handleApproveButton = () => {
+    action();
+    onClose();
+  };
+
+  return (
+    <Modal isOpen={isOpen} onClose={onOpenChange}>
+      <Modal.Content>
+        <Modal.Title>Info</Modal.Title>
+        <Modal.Body>Are you sure want to remove {name}?</Modal.Body>
+        <Modal.Footer>
+          <Button
+            color="primary"
+            variant="flat"
+            className="bg-primary text-white"
+            onPress={onClose}
+          >
+            Cancel
+          </Button>
+          <Button color="danger" variant="flat" onPress={handleApproveButton}>
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal.Content>
+    </Modal>
   );
 }

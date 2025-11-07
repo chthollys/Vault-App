@@ -72,14 +72,16 @@ export const getCart = async () => {
 
 export const addCartItem = async (gameId: string) => {
   const res = await clientApiFetch<ApiDataResponse<CartItem>>(
-    `/cart/add/${gameId}`
+    `/cart/add/${gameId}`,
+    { method: "POST" }
   );
   return res.data;
 };
 
 export const removeCartItem = async (itemId: string) => {
   const res = await clientApiFetch<ApiDataResponse<CartItem>>(
-    `/cart/remove/${itemId}`
+    `/cart/remove/${itemId}`,
+    { method: "POST" }
   );
   return res.data;
 };

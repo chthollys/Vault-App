@@ -2,8 +2,10 @@ import React from "react";
 import type {
   CartItem,
   CartWithItems,
+  CurrentUserSession,
   Game,
   ParentChildrenGenre,
+  User,
 } from "@repo/types";
 import type {
   ComponentPropsWithoutRef,
@@ -222,7 +224,7 @@ export interface DetailPriceSectionProps {
 }
 
 export interface CartContainerProps {
-  data: CartWithItems;
+  cart: CartWithItems;
 }
 export interface CartItemProps {
   cartItem: CartItem;
