@@ -1,11 +1,8 @@
 import { clientApiFetch } from "@/lib/http/client";
-import { ApiRequestError } from "@/lib/http/common";
 import type {
   Game,
   ParentChildrenGenre,
   ApiDataResponse,
-  UserSession,
-  ApiError,
   CartWithItems,
   CartItem,
 } from "@repo/types";
