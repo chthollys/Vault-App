@@ -23,6 +23,9 @@ export const useCartAction = () => {
     onSuccess: (data) => {
       toast.success(`${data.game.title} added to cart`);
     },
+    onError: () => {
+      toast.error("Something went wrong, please wait and try again");
+    },
     onSettled: invalidate,
   });
 

@@ -22,6 +22,9 @@ export const useWishlistAction = () => {
     onSuccess: () => {
       toast.success(`Added to cart`);
     },
+    onError: () => {
+      toast.error("Something went wrong, please wait and try again");
+    },
     onSettled: invalidate,
   });
 
