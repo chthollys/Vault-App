@@ -8,7 +8,10 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import { CartService } from "./cart.service";
-import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
+import {
+  JwtAuthGuard,
+  OptionalJwtAuthGuard,
+} from "src/auth/guards/jwt-auth.guard";
 import type { AuthUser } from "src/auth/interfaces/jwt";
 import { User } from "src/decorators/current-user.decorator";
 
