@@ -14,7 +14,7 @@ import UserModalAccordion from "./UserModalAccordion";
 import UserActionModalWrapper from "./UserActionModalWrapper";
 import Link from "next/link";
 import LogoutButton from "./LogoutButton";
-import { DEFAULT_AVATAR_IMG } from "@/lib/utils/constants";
+import { DEFAULT_AVATAR_IMG } from "@/lib/constants";
 
 export default function UserActionModal({
   name,
