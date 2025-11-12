@@ -4,13 +4,27 @@ import { GameCardWrapperWithHover as GameCardWrapper } from "../Wrapper";
 import GameCardCover from "./GameCardCover";
 import GameCardInfo from "./GameCardInfo";
 
-export default function GameCard({ game }: GameCardProps) {
+export default function GameCard({
+  game,
+  isInWishlist = false,
+  isInCart = false,
+  onToggleCartItem,
+  onToggleWishList,
+}: GameCardProps) {
   return (
-    <Link href={`/game/${game.id}`}>
-      <GameCardWrapper role="listitem" tabIndex={0}>
-        <GameCardCover game={game} isInWishlist={false} />
-        <GameCardInfo game={game} isInCart={false} />
-      </GameCardWrapper>
-    </Link>
+    <GameCardWrapper role="listitem" tabIndex={0}>
+      <Link href={`/game/${game.id}`}>
+        <GameCardCover
+          game={game}
+          isInWishlist={isInWishlist}
+          onToggleWishList={onToggleWishList}
+        />
+      </Link>
+      <GameCardInfo
+        game={game}
+        isInCart={isInCart}
+        onToggle={onToggleCartItem}
+      />
+    </GameCardWrapper>
   );
 }
