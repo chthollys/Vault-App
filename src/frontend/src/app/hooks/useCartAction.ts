@@ -7,16 +7,17 @@ import { toast } from "react-toastify";
 export const useCartAction = () => {
   const queryClient = getQueryClient();
 
-  const invalidate = () =>
-    queryClient.invalidateQueries({ queryKey: ["cart"] });
+  const queryKey = ["user", "cart"];
 
-  const cancelQuery = () => queryClient.cancelQueries({ queryKey: ["cart"] });
+  const invalidate = () => queryClient.invalidateQueries({ queryKey });
+
+  const cancelQuery = () => queryClient.cancelQueries({ queryKey });
 
   const setQueryData = (data: CartWithItems) =>
-    queryClient.setQueryData<CartWithItems>(["cart"], data);
+    queryClient.setQueryData<CartWithItems>(queryKey, data);
 
   const getPrevQueryData = () =>
-    queryClient.getQueryData<CartWithItems>(["cart"]);
+    queryClient.getQueryData<CartWithItems>(queryKey);
 
   const add = useMutation({
     mutationFn: addCartItem,
