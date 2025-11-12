@@ -1,4 +1,4 @@
-import { getSignupStep } from "@/lib/db/server";
+import { getSignupStep } from "@/lib/api/server";
 import type { ChildrenProp } from "@/lib/types/props";
 import { getQueryClient } from "@/lib/utils/get-query-client";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";

@@ -1,13 +1,12 @@
-import { addWishlistItem, removeItemWishList } from "@/lib/db/client";
+import { addWishlistItem, removeItemWishList } from "@/lib/api/client";
 import { getQueryClient } from "@/lib/utils/get-query-client";
 import type { Wishlist } from "@repo/types";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { WISHLIST_BASEQUERYKEY as queryKey } from "@/lib/constants";
 
 export const useWishlistAction = () => {
   const queryClient = getQueryClient();
-
-  const queryKey = ["user", "wishlist"];
 
   const invalidate = () => queryClient.invalidateQueries({ queryKey });
 

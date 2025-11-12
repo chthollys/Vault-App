@@ -1,13 +1,12 @@
-import { addCartItem, removeCartItem, toggleCartItem } from "@/lib/db/client";
+import { addCartItem, removeCartItem, toggleCartItem } from "@/lib/api/client";
 import { getQueryClient } from "@/lib/utils/get-query-client";
 import type { CartWithItems } from "@repo/types";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { CART_BASEQUERYKEY as queryKey } from "@/lib/constants";
 
 export const useCartAction = () => {
   const queryClient = getQueryClient();
-
-  const queryKey = ["user", "cart"];
 
   const invalidate = () => queryClient.invalidateQueries({ queryKey });
 

@@ -1,6 +1,6 @@
 import { SectionTitle } from "@/components/Typography";
 import ReviewItem from "./ReviewItem";
-import { getReviewsByGameId } from "@/lib/db/server";
+import { getReviewsByGameId } from "@/lib/api/server";
 
 export interface GameReviewSectionProps {
   gameId: string;

@@ -1,4 +1,5 @@
-import { getCart } from "@/lib/db/server";
+import { CART_BASEQUERYKEY } from "@/lib/constants";
+import { getCart } from "@/lib/api/server";
 import type { ChildrenProp } from "@/lib/types/props";
 import { getQueryClient } from "@/lib/utils/get-query-client";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
@@ -7,7 +8,7 @@ export default async function CartHydration({ children }: ChildrenProp) {
   const queryClient = getQueryClient();
   await Promise.all([
     queryClient.prefetchQuery({
-      queryKey: ["cart"],
+      queryKey: CART_BASEQUERYKEY,
       queryFn: getCart,
     }),
   ]);

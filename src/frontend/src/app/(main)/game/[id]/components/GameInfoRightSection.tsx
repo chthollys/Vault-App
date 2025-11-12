@@ -3,7 +3,7 @@ import GameInfoDetail from "./GameInfoDetail";
 import DescriptionSection from "./Description";
 import RatingSection from "./RatingSection";
 import type { Game } from "@repo/types";
-import { getGenresByGameId, getReviewsByGameId } from "@/lib/db/server";
+import { getGenresByGameId, getReviewsByGameId } from "@/lib/api/server";
 
 export interface GameInfoRightSection {
   game: Game;

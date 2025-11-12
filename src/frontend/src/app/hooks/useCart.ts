@@ -1,7 +1,8 @@
-import { getCart } from "@/lib/db/client";
+import { getCart } from "@/lib/api/client";
 import { useQuery } from "@tanstack/react-query";
+import { CART_BASEQUERYKEY as queryKey } from "@/lib/constants";
 
 export const useCart = (enabled = true) =>
-  useQuery({ queryKey: ["user", "cart"], queryFn: getCart, enabled });
+  useQuery({ queryKey, queryFn: getCart, enabled });
 
 export default useCart;

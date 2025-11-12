@@ -1,9 +1,10 @@
-import { getSignupStep } from "@/lib/db/client";
+import { getSignupStep } from "@/lib/api/client";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { SIGNPSTEP_BASEQUERYKEY as queryKey } from "@/lib/constants";
 
 export const useSignupStep = () => {
   const { data } = useSuspenseQuery({
-    queryKey: ["signup-step"],
+    queryKey,
     queryFn: getSignupStep,
   });
   return data.step;
