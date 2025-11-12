@@ -20,6 +20,7 @@ model User {
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   cart          Cart?
+  wishlist      Wishlist?
   orders        Order[]
   refreshToken  RefreshToken[]
   reviews       Review[]
@@ -97,6 +98,7 @@ model Game {
   recommendedRel  RecommendedGame[] @relation("RecommendedRelatedGame")
   reviews         Review[]
   screenshots     Screenshot[]
+  wishlistItems   WishlistItem[]
 
   @@index([status], map: "idx_game_status")
 }
@@ -169,6 +171,29 @@ model CartItem {
 
   @@unique([cartId, gameId])
   @@index([gameId], map: "idx_cartitem_gameid")
+}
+model Wishlist {
+  id        String     @id @default(cuid())
+  userId    String     @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     WishlistItem[]
+
+  @@index([userId], map: "idx_wishlist_userid")
+	@@map("WishList")
+}
+
+model WishlistItem {
+  id         String     @id @default(cuid())
+  wishlistId String
+  gameId     String
+  addedAt    DateTime   @default(now())
+  wishlist   Wishlist   @relation(fields: [wishlistId], references: [id], onDelete: Cascade)
+  game       Game       @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@unique([wishlistId, gameId])
+  @@index([gameId], map: "idx_wishlistitem_gameid")
 }
 
 model Order {
