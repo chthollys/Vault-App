@@ -2,7 +2,7 @@
 
 import ImageOptimized from "@/components/ImageOptimized";
 import type { UserAvatarIconProps } from "@/lib/types/props";
-import { DEFAULT_AVATAR_IMG } from "@/lib/utils/constants";
+import { DEFAULT_AVATAR_IMG } from "@/lib/constants";
 
 export default function UserAvatarIcon({
   imageUrl,

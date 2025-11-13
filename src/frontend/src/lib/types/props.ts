@@ -136,16 +136,22 @@ export interface GamesGridProps {
 
 export interface GameCardProps {
   game: Game;
+  isInCart?: boolean;
+  isInWishlist?: boolean;
+  onToggleCartItem: (id: string) => void;
+  onToggleWishList: (id: string) => void;
 }
 
 export interface GameCardCoverProps {
   game: Game;
   isInWishlist: boolean;
+  onToggleWishList: (id: string) => void;
 }
 
 export interface GameCardInfoProps {
   game: Game;
   isInCart: boolean;
+  onToggle: (id: string) => void;
 }
 
 export interface GameInfoDetailProps {

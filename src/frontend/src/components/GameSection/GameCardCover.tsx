@@ -7,7 +7,11 @@ import type { GameCardCoverProps } from "@/lib/types/props";
 export default function GameCardCover({
   game,
   isInWishlist,
+  onToggleWishList,
 }: GameCardCoverProps) {
+  const handleToggleWishList = () => {
+    onToggleWishList(game.id);
+  };
   return (
     <GameCoverWrapper>
       <Image
@@ -18,7 +22,7 @@ export default function GameCardCover({
       />
       <HeartButtonSVG
         isActive={isInWishlist || false}
-        onClick={() => console.log("Item triggered wih an id of ", game.id)}
+        onClick={handleToggleWishList}
         className="absolute top-4 right-4 hover:scale-110 hover:bg-black/90"
       />
     </GameCoverWrapper>
