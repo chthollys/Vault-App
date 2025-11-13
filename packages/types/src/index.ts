@@ -15,6 +15,8 @@ import {
   CartItemSchema,
   CartSchema,
   CartWithItems,
+  WishlistSchema,
+  WishlistItemSchema,
 } from "./schemas";
 
 export * from "./schemas";
@@ -48,6 +50,9 @@ export type CartItem = z.infer<typeof CartItemSchema>;
 
 export type Cart = z.infer<typeof CartSchema>;
 export type CartWithItems = z.infer<typeof CartWithItems>;
+
+export type WishlistItem = z.infer<typeof WishlistItemSchema>;
+export type Wishlist = z.infer<typeof WishlistSchema>;
 
 export type GenreFormData = z.infer<typeof GenreFormSchema>;
 export type CreateGenreData = z.infer<typeof CreateGenreSchema>;

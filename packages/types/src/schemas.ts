@@ -197,3 +197,18 @@ export const CartSchema = z.object({
 export const CartWithItems = CartSchema.extend({
   items: z.array(CartItemSchema),
 });
+
+export const WishlistItemSchema = z.object({
+  id: z.cuid(),
+  gameId: z.cuid(),
+  addedAt: z.date(),
+  wishlistId: z.cuid(),
+});
+
+export const WishlistSchema = z.object({
+  id: z.cuid(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  userId: z.string(),
+  items: z.array(WishlistItemSchema),
+});
