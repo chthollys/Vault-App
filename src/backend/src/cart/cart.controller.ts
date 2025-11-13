@@ -30,8 +30,8 @@ export class CartController {
   }
 
   @Delete("/remove/:id")
-  removeCartItem(@Param("id") itemId: string) {
-    return this.cartService.removeCartItem(itemId);
+  removeCartItem(@User() user: AuthUser, @Param("id") gameId: string) {
+    return this.cartService.removeCartItemByGameId(user.id, gameId);
   }
 
   @Patch("/toggle-check/:id")

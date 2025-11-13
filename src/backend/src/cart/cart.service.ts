@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from "@nestjs/common";
 import { CartRepository } from "./cart.repository";
 import type { CartDto } from "src/dtos";
 import { CartItemDto } from "src/dtos/cart-item.dto";
@@ -12,7 +16,6 @@ export class CartService {
   }
 
   async maybeGetCartByUserId(userId: string): Promise<CartDto | null> {
-    if (!userId) return null;
     return this.cartRepo.findCartByUserId(userId);
   }
 
@@ -20,17 +23,21 @@ export class CartService {
     return this.cartRepo.findCartItemsByUserId(userId);
   }
 
-  async addCartItem(
-    userId: string,
-    gameId: string,
-  ): Promise<CartItemDto | null> {
-    if (!userId) return null;
+  async addCartItem(userId: string, gameId: string): Promise<CartItemDto> {
     const cartId = await this.cartRepo.findCartIdByUserId(userId);
+    if (!cartId)
+      throw new InternalServerErrorException("User has invalid cart");
     return this.cartRepo.createCartItem(cartId, gameId);
   }
 
-  removeCartItem(itemId: string): Promise<CartItemDto> {
-    return this.cartRepo.deleteCartItem(itemId);
+  async removeCartItemByGameId(
+    userId: string,
+    gameId: string,
+  ): Promise<CartItemDto> {
+    const existingCartId = await this.cartRepo.findCartIdByUserId(userId);
+    if (!existingCartId)
+      throw new InternalServerErrorException("User has invalid cart");
+    return this.cartRepo.deleteCartItem(existingCartId, gameId);
   }
 
   async toggleCartItem(itemId: string): Promise<CartItemDto> {

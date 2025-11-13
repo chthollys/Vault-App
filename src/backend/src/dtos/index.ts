@@ -8,6 +8,10 @@ import { CreateUserDto } from "./create-user.dto";
 import { LoginDto } from "./login.dto";
 import { CartDto } from "./cart.dto";
 import { CreateCartDto } from "./create-cart.dto";
+import { WishlistDto } from "./wishlist.dto";
+import { CreateWishlistItemDto } from "./create-wishlist-item.dto";
+import { WishlistItemDto } from "./wishlist-item.dto";
+import { CreateCartItemDto } from "./create-cart-item.dto";
 
 export {
   GameDto,
@@ -20,4 +24,8 @@ export {
   LoginDto,
   CartDto,
   CreateCartDto,
+  WishlistDto,
+  CreateWishlistItemDto,
+  WishlistItemDto,
+  CreateCartItemDto,
 };

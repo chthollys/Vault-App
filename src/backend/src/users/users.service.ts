@@ -77,7 +77,7 @@ export class UsersService {
       newUserData.password = await bcrypt.hash(data.password, SALT_ROUNDS);
     }
     return this.usersRepo.create({
-      data: { ...newUserData, cart: { create: {} } },
+      data: { ...newUserData, cart: { create: {} }, wishlist: { create: {} } },
     });
   }
 

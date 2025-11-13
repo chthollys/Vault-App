@@ -24,6 +24,7 @@ import { GenresModule } from "./genres/genres.module";
 import { AuthModule } from "./auth/auth.module";
 import { ReviewsModule } from "./reviews/reviews.module";
 import { CartModule } from "./cart/cart.module";
+import { WishlistModule } from './wishlist/wishlist.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -48,6 +49,7 @@ import { CartModule } from "./cart/cart.module";
     AuthModule,
     ReviewsModule,
     CartModule,
+    WishlistModule,
   ],
   controllers: [AppController],
   providers: [

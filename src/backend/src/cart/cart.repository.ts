@@ -43,16 +43,13 @@ export class CartRepository extends PrismaErrorCatcher {
     }
   }
 
-  async findCartIdByUserId(userId: string): Promise<string> {
+  async findCartIdByUserId(userId: string): Promise<string | null> {
     try {
       let cart = await this.prisma.cart.findUnique({
         where: { userId },
-        include: includeGameItem,
+        select: { id: true },
       });
-      if (!cart) {
-        throw new Error("Cart is not found");
-      }
-      return cart.id;
+      return cart?.id ?? null;
     } catch (error) {
       return this.errorHandler(error, "Failed to find cart");
     }
@@ -97,10 +94,13 @@ export class CartRepository extends PrismaErrorCatcher {
     }
   }
 
-  async deleteCartItem(itemId: string): Promise<CartItemWithGame> {
+  async deleteCartItem(
+    cartId: string,
+    gameId: string,
+  ): Promise<CartItemWithGame> {
     try {
       return await this.prisma.cartItem.delete({
-        where: { id: itemId },
+        where: { cartId_gameId: { gameId, cartId } },
         include: { game: true },
       });
     } catch (err) {
