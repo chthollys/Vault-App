@@ -23,10 +23,14 @@ export default function GameCardInfo({
     <GameCardInfoWrapper>
       <PriceSection price={game.price} afterPrice={game.discountedPrice} />
       <Link href={`/game/${game.id}`} className="hover:underline">
-        <GameTitle className="mt-4">{game?.title}</GameTitle>
+        <GameTitle className="mt-4 overflow-hidden text-nowrap">
+          {game?.title}
+        </GameTitle>
       </Link>
-      <GameDeveloper className="mb-3">{game?.developer}</GameDeveloper>
-      <GameCardRating rating={game?.rating} />
+      <>
+        <GameDeveloper className="mt-3">{game?.developer}</GameDeveloper>
+        <GameCardRating rating={game?.rating} />
+      </>
 
       <Button
         className={classNames}
