@@ -19,10 +19,36 @@ export const useWishlistAction = () => {
 
   const add = useMutation({
     mutationFn: addWishlistItem,
-    onSuccess: () => {
-      toast.success(`Added to cart`);
+    onMutate: async (gameId) => {
+      await cancelQuery();
+      const prev = getPrevQueryData();
+      if (prev) {
+        const alreadyInWishlist = prev.items.some(
+          (item) => item.gameId === gameId
+        );
+
+        if (!alreadyInWishlist) {
+          setQueryData({
+            ...prev,
+            items: [
+              ...prev.items,
+              {
+                id: `temp-${gameId}`,
+                wishlistId: prev.id,
+                gameId,
+                addedAt: new Date(),
+              },
+            ],
+          });
+        }
+      }
+      return { prev };
     },
-    onError: () => {
+    onSuccess: () => {
+      toast.success(`Added to wishlist`);
+    },
+    onError: (_err, _gameId, ctx) => {
+      ctx?.prev && setQueryData(ctx.prev);
       toast.error("Something went wrong, please wait and try again");
     },
     onSettled: invalidate,

@@ -3,13 +3,16 @@ import { HeartButtonSVG } from "@/UI/icons";
 import { GameCoverWrapper } from "../Wrapper";
 import defaultImg from "~/assets/images/gameDefault.png";
 import type { GameCardCoverProps } from "@/lib/types/props";
+import type { MouseEvent } from "react";
 
 export default function GameCardCover({
   game,
   isInWishlist,
   onToggleWishList,
 }: GameCardCoverProps) {
-  const handleToggleWishList = () => {
+  const handleToggleWishList = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
     onToggleWishList(game.id);
   };
   return (

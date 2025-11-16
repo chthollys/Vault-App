@@ -138,6 +138,7 @@ export interface GameCardProps {
   game: Game;
   isInCart?: boolean;
   isInWishlist?: boolean;
+  isPending?: boolean;
   onToggleCartItem: (id: string) => void;
   onToggleWishList: (id: string) => void;
 }
@@ -151,6 +152,7 @@ export interface GameCardCoverProps {
 export interface GameCardInfoProps {
   game: Game;
   isInCart: boolean;
+  isPending?: boolean;
   onToggle: (id: string) => void;
 }
 
@@ -177,7 +179,7 @@ export interface PriceSectionProps {
 
 export interface HeartButtonSVGProps extends ButtonElementProps {
   isActive?: boolean;
-  onClick: () => void;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export interface UserAvatarIconProps {

@@ -5,15 +5,19 @@ import type { GameCardInfoProps } from "@/lib/types/props";
 import PriceSection from "./PriceSection";
 import { Button } from "@heroui/react";
 import Link from "next/link";
+import cn from "@/lib/utils/cn";
 
 export default function GameCardInfo({
   game,
   isInCart,
+  isPending,
   onToggle,
 }: GameCardInfoProps) {
   const handleToggleGame = () => {
     onToggle(game.id);
   };
+
+  const classNames = cn(["mt-4 h-12", isInCart && "bg-gray-600 text-[0.9rem]"]);
 
   return (
     <GameCardInfoWrapper>
@@ -24,23 +28,15 @@ export default function GameCardInfo({
       <GameDeveloper className="mb-3">{game?.developer}</GameDeveloper>
       <GameCardRating rating={game?.rating} />
 
-      {/** Clean separation for keeping the above server comp */}
-      {isInCart ? (
-        <Button
-          className="mt-4 h-12 bg-gray-600 text-[0.9rem]"
-          onPress={handleToggleGame}
-        >
-          Remove from cart
-        </Button>
-      ) : (
-        <Button
-          className="mt-4 h-12"
-          color="primary"
-          onPress={handleToggleGame}
-        >
-          Add to Cart
-        </Button>
-      )}
+      <Button
+        className={classNames}
+        onPress={handleToggleGame}
+        isDisabled={isPending}
+        isLoading={isPending}
+        color={isInCart ? "default" : "primary"}
+      >
+        {isPending ? "" : isInCart ? "Remove from Cart" : "Add to Cart"}
+      </Button>
     </GameCardInfoWrapper>
   );
 }

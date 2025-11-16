@@ -8,6 +8,7 @@ export default function GameCard({
   game,
   isInWishlist = false,
   isInCart = false,
+  isPending,
   onToggleCartItem,
   onToggleWishList,
 }: GameCardProps) {
@@ -24,6 +25,7 @@ export default function GameCard({
         game={game}
         isInCart={isInCart}
         onToggle={onToggleCartItem}
+        isPending={isPending}
       />
     </GameCardWrapper>
   );
