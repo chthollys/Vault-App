@@ -7,6 +7,7 @@ import {
   Res,
   Session as SessionValue,
   Req,
+  Redirect,
 } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import {
@@ -110,6 +111,7 @@ export class AuthController {
   googleAuth() {}
 
   @Get("/google/callback")
+  @Redirect(`${FRONTEND_URL}`, 302)
   @UseGuards(GoogleAuthGuard)
   async googleCallback(
     @User() user: AuthUser,
@@ -120,7 +122,6 @@ export class AuthController {
       email: user.email,
     });
     this.authCookieService.setAuthCookies(res, tokens);
-    res.redirect(`${FRONTEND_URL}`);
     return user;
   }
 
@@ -129,6 +130,7 @@ export class AuthController {
   githubAuth() {}
 
   @Get("/github/callback")
+  @Redirect(`${FRONTEND_URL}`, 302)
   @UseGuards(GithubAuthGuard)
   async githubCallback(
     @User() user: AuthUser,
