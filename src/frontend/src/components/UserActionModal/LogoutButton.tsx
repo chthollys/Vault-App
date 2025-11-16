@@ -6,6 +6,7 @@ import { Button } from "@heroui/react";
 import { IoExitOutline } from "react-icons/io5";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { logout } from "@/lib/auth-client";
+import { CURRENTUSER_BASEQUERYKEY as queryKey } from "@/lib/constants";
 
 export default function LogoutButton() {
   const router = useRouter();
@@ -17,8 +18,8 @@ export default function LogoutButton() {
       toast.error("Something went wrong with logging out.");
     },
     onSuccess: () => {
-      queryClient.setQueryData(["user"], null);
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.setQueryData(queryKey, null);
+      queryClient.invalidateQueries({ queryKey });
       toast.success("Logged out successful");
       router.refresh();
     },
@@ -31,13 +32,13 @@ export default function LogoutButton() {
   return (
     <Button
       variant="light"
-      startContent={<IoExitOutline size={30} />}
+      startContent={isPending ? undefined : <IoExitOutline size={30} />}
       size="lg"
       isLoading={isPending}
       isDisabled={isPending}
       onPress={handleLogout}
     >
-      Logout
+      {isPending ? undefined : "Logout"}
     </Button>
   );
 }

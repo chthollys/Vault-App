@@ -7,14 +7,16 @@ import { AmoungUsRed } from "@/UI/icons";
 import { FeaturedPriceSpan as Typo } from "@/components/Typography";
 import { Button } from "@heroui/react";
 import CartContainer from "./components/CartContainer";
+import useCurrentUser from "@/app/hooks/useCurrentUser";
 
 export default function CartPage() {
-  const { data: cart } = useCart();
+  const { data: user } = useCurrentUser();
+  const { data: cart } = useCart(!!user);
 
   return (
     <div className="col-span-2 flex flex-col gap-8">
       <TitleSection />
-      {cart ? (
+      {user && cart ? (
         <CartContainer cart={cart} />
       ) : (
         <div className="flex flex-col items-center">
