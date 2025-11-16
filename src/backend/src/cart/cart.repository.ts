@@ -94,13 +94,10 @@ export class CartRepository extends PrismaErrorCatcher {
     }
   }
 
-  async deleteCartItem(
-    cartId: string,
-    gameId: string,
-  ): Promise<CartItemWithGame> {
+  async deleteCartItem(id: string, cartId: string): Promise<CartItemWithGame> {
     try {
       return await this.prisma.cartItem.delete({
-        where: { cartId_gameId: { gameId, cartId } },
+        where: { id, cartId },
         include: { game: true },
       });
     } catch (err) {

@@ -30,14 +30,11 @@ export class CartService {
     return this.cartRepo.createCartItem(cartId, gameId);
   }
 
-  async removeCartItemByGameId(
-    userId: string,
-    gameId: string,
-  ): Promise<CartItemDto> {
+  async removeCartItem(userId: string, itemId: string): Promise<CartItemDto> {
     const existingCartId = await this.cartRepo.findCartIdByUserId(userId);
     if (!existingCartId)
       throw new InternalServerErrorException("User has invalid cart");
-    return this.cartRepo.deleteCartItem(existingCartId, gameId);
+    return this.cartRepo.deleteCartItem(itemId, existingCartId);
   }
 
   async toggleCartItem(itemId: string): Promise<CartItemDto> {
