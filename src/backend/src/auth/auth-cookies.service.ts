@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { TokenPair } from "./interfaces/jwt";
-import { IS_PROD } from "utils/env";
 import type { CookieOptions, Response, Request } from "express";
 import {
   JWT_COOKIE_EXPIRES,
@@ -11,10 +10,11 @@ import {
 
 @Injectable()
 export class AuthCookieService {
+  private readonly isProd = process.env.NODE_ENV === "production";
   private readonly cookieBase: CookieOptions = {
     httpOnly: true,
-    sameSite: IS_PROD ? "none" : "lax",
-    secure: IS_PROD,
+    sameSite: this.isProd ? "none" : "lax",
+    secure: this.isProd,
   };
   setAuthCookies(res: Response, tokens: Partial<TokenPair>) {
     const { access_token, refresh_token } = tokens;

@@ -5,7 +5,7 @@ import {
   ValidationPipe,
 } from "@nestjs/common";
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from "@nestjs/core";
-import { ConfigModule } from "@nestjs/config";
+import { ConfigModule, ConfigService } from "@nestjs/config";
 import cookieParser from "cookie-parser";
 import { ApiResponseInterceptor } from "./interceptors/api-response.interceptor";
 import { ApiExceptionFilter } from "./filters/api-exception.filter";
@@ -18,27 +18,28 @@ import { RedisService } from "./redis/redis.service";
 import { RedisStore } from "connect-redis";
 import Joi from "joi";
 import { JwtModule } from "@nestjs/jwt";
-import { IS_PROD, JWT_SECRET, SESSION_SECRET } from "utils/env";
 import { GamesModule } from "./games/games.module";
 import { GenresModule } from "./genres/genres.module";
 import { AuthModule } from "./auth/auth.module";
 import { ReviewsModule } from "./reviews/reviews.module";
 import { CartModule } from "./cart/cart.module";
-import { WishlistModule } from './wishlist/wishlist.module';
+import { WishlistModule } from "./wishlist/wishlist.module";
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
         SESSION_SECRET: Joi.string().required(),
+        JWT_SECRET: Joi.string().required(),
         REDIS_URL: Joi.string().uri().required(),
       }),
     }),
     JwtModule.registerAsync({
       global: true,
       imports: [ConfigModule],
-      useFactory: async () => ({
-        secret: JWT_SECRET,
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.getOrThrow<string>("JWT_SECRET"),
         signOptions: { expiresIn: "15m" },
       }),
     }),
@@ -72,19 +73,21 @@ import { WishlistModule } from './wishlist/wishlist.module';
 export class AppModule implements NestModule {
   constructor(private redisService: RedisService) {}
   configure(consumer: MiddlewareConsumer) {
+    const isProd = process.env.NODE_ENV === "production";
+
     consumer
       .apply(
         cookieParser(),
         session({
           store: new RedisStore({ client: this.redisService.getClient() }),
-          secret: SESSION_SECRET!,
+          secret: process.env.SESSION_SECRET!,
           resave: false,
           saveUninitialized: false,
           cookie: {
             httpOnly: true,
-            secure: IS_PROD,
+            secure: isProd,
             sameSite: "lax",
-            maxAge: IS_PROD ? 24 * 60 * 60 * 1000 : 5 * 60 * 1000,
+            maxAge: isProd ? 24 * 60 * 60 * 1000 : 5 * 60 * 1000,
           },
         }),
       )

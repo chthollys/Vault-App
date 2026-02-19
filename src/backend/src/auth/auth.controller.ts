@@ -28,13 +28,15 @@ import type { AuthUser } from "./interfaces/jwt";
 import type { Response, Request } from "express";
 import type { Session } from "express-session";
 import { AuthCookieService } from "./auth-cookies.service";
-import { FRONTEND_URL } from "utils/env";
 import { GoogleAuthGuard } from "./guards/google-auth.guard";
 import { JwtAuthGuard, OptionalJwtAuthGuard } from "./guards/jwt-auth.guard";
 import { GithubAuthGuard } from "./guards/github-auth.guard";
 
 @Controller("auth")
 export class AuthController {
+  private readonly frontendUrl =
+    process.env.FRONTEND_URL || "http://localhost:3000";
+
   constructor(
     private authService: AuthService,
     private authCookieService: AuthCookieService,
@@ -111,18 +113,18 @@ export class AuthController {
   googleAuth() {}
 
   @Get("/google/callback")
-  @Redirect(`${FRONTEND_URL}`, 302)
+  @Redirect()
   @UseGuards(GoogleAuthGuard)
   async googleCallback(
     @User() user: AuthUser,
     @Res({ passthrough: true }) res: Response,
-  ): Promise<AuthUser> {
+  ): Promise<{ url: string }> {
     const tokens = await this.authService.issueTokenPair({
       sub: user.id,
       email: user.email,
     });
     this.authCookieService.setAuthCookies(res, tokens);
-    return user;
+    return { url: this.frontendUrl };
   }
 
   @Get("/github")
@@ -130,19 +132,18 @@ export class AuthController {
   githubAuth() {}
 
   @Get("/github/callback")
-  @Redirect(`${FRONTEND_URL}`, 302)
+  @Redirect()
   @UseGuards(GithubAuthGuard)
   async githubCallback(
     @User() user: AuthUser,
     @Res({ passthrough: true }) res: Response,
-  ): Promise<AuthUser> {
+  ): Promise<{ url: string }> {
     const tokens = await this.authService.issueTokenPair({
       sub: user.id,
       email: user.email,
     });
     this.authCookieService.setAuthCookies(res, tokens);
-    res.redirect(`${FRONTEND_URL}`);
-    return user;
+    return { url: this.frontendUrl };
   }
 
   @Post("/refresh-token")

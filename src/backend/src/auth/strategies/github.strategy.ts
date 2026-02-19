@@ -2,19 +2,23 @@ import { BadGatewayException, Injectable } from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
 import { Profile, Strategy } from "passport-github2";
 import { UsersService } from "src/users/users.service";
-import { BACKEND_URL } from "utils/env";
 import { AccountsService } from "../accounts/accounts.service";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class GithubStrategy extends PassportStrategy(Strategy, "github") {
   constructor(
     private usersService: UsersService,
     private accountService: AccountsService,
+    private configService: ConfigService,
   ) {
+    const backendUrl =
+      configService.get<string>("BACKEND_URL") || "http://localhost:8000";
+
     super({
-      clientID: process.env.GITHUB_ID!,
-      clientSecret: process.env.GITHUB_SECRET!,
-      callbackURL: `${BACKEND_URL}/auth/github/callback`,
+      clientID: configService.getOrThrow<string>("GITHUB_ID"),
+      clientSecret: configService.getOrThrow<string>("GITHUB_SECRET"),
+      callbackURL: `${backendUrl}/auth/github/callback`,
       scope: ["email", "profile"],
     });
   }

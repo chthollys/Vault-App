@@ -3,7 +3,6 @@ import { createClient } from "redis";
 import { REDIS_CLIENT } from "utils/constants";
 import { RedisService } from "./redis.service";
 import { ConfigService } from "@nestjs/config";
-import { REDIS_URL } from "utils/env";
 
 @Global()
 @Module({
@@ -11,9 +10,12 @@ import { REDIS_URL } from "utils/env";
     {
       provide: REDIS_CLIENT,
       inject: [ConfigService],
-      useFactory: async () => {
-        const url = REDIS_URL;
-        const client = createClient({ url, socket: { tls: true } });
+      useFactory: async (configService: ConfigService) => {
+        const url = configService.getOrThrow<string>("REDIS_URL");
+        const client = createClient({
+          url,
+          ...(url.startsWith("rediss://") ? { socket: { tls: true } } : {}),
+        });
         await client.connect();
         return client;
       },

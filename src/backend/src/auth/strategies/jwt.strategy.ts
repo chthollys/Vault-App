@@ -3,9 +3,9 @@ import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
 import type { AuthUser } from "../interfaces/jwt";
 import type { Request } from "express";
-import { JWT_SECRET } from "utils/env";
 import { JWT_COOKIE_NAME } from "utils/constants";
 import { UsersService } from "src/users/users.service";
+import { ConfigService } from "@nestjs/config";
 
 function cookieExtractor(req: Request) {
   return req.cookies[JWT_COOKIE_NAME] || null;
@@ -13,10 +13,13 @@ function cookieExtractor(req: Request) {
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, "jwt") {
-  constructor(private usersService: UsersService) {
+  constructor(
+    private usersService: UsersService,
+    private configService: ConfigService,
+  ) {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
-      secretOrKey: JWT_SECRET!,
+      secretOrKey: configService.getOrThrow<string>("JWT_SECRET"),
     });
   }
   async validate(payload: any): Promise<AuthUser> {
