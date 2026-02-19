@@ -1,4 +1,4 @@
-import { API_URL, NEST_API_URL } from "@/lib/env";
+import { API_URL, NEST_API_URL, NEXT_APP_ORIGIN_URL } from "@/lib/env";
 import {
   type ApiFetchOptions,
   ApiRequestError,
@@ -13,7 +13,12 @@ export async function clientApiFetch<T>(
   const { params, json, headers, method, credentials, ...rest } = options;
 
   const base = API_URL ?? NEST_API_URL ?? "/api";
-  const url = buildUrl(base, path, params);
+  const isAbsoluteBase = /^https?:\/\//i.test(base);
+  const resolvedBase =
+    typeof window === "undefined" && !isAbsoluteBase
+      ? buildUrl(NEXT_APP_ORIGIN_URL, base)
+      : base;
+  const url = buildUrl(resolvedBase, path, params);
 
   const init: RequestInit = {
     method: method ?? (json !== undefined ? "POST" : "GET"),

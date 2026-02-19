@@ -25,15 +25,17 @@ export async function serverApiFetch<T>(
   // const headerList = await headers();
   // const protocol = headerList.get("x-forwarded-proto") ?? "http";
   // const host = headerList.get("x-forwarded-host") ?? headerList.get("host");
-  const base = API_URL ?? NEST_API_URL ?? "/api";
+  // Server-side fetch in Node requires an absolute URL.
+  // Prefer direct backend URL over proxy-relative paths.
+  const base = NEST_API_URL ?? API_URL ?? "/api";
   const url = buildUrl(base, path, params);
   const cookieHeader = (await cookies()).toString();
 
   const requestInit: RequestInit = {
     method: method ?? (json !== undefined ? "POST" : "GET"),
+    credentials: credentials ?? "include",
     headers: {
       "Content-Type": "application/json",
-      credentials: credentials ?? "include",
       ...(cookieHeader ? { Cookie: cookieHeader } : {}),
       ...(extraHeaders ?? {}),
     },
