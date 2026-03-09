@@ -2,12 +2,12 @@ services:
   postgres:
     container_name: vault-postgres
     image: postgres:18.1-trixie
+    volumes:
+      - postgres_data:/var/lib/postgresql
     environment:
       POSTGRES_DB: ${POSTGRES_DATABASE:-vault}
       POSTGRES_USER: ${POSTGRES_USER:-vault}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-vault123}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test:
         [
