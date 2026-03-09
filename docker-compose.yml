@@ -25,7 +25,7 @@ services:
       context: .
       dockerfile: src/backend/Dockerfile
     env_file:
-      - ./.env.deployment
+      - ./.env
     environment:
       NODE_ENV: production
       PORT: ${PORT:-8000}
@@ -37,7 +37,6 @@ services:
     ports:
       - "8000:8000"
     networks:
-      - default
       - caddynet
     restart: unless-stopped
 
