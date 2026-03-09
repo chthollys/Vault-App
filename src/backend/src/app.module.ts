@@ -24,6 +24,8 @@ import { AuthModule } from "./auth/auth.module";
 import { ReviewsModule } from "./reviews/reviews.module";
 import { CartModule } from "./cart/cart.module";
 import { WishlistModule } from "./wishlist/wishlist.module";
+import { Throttle, ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
+import { THROTTLE_LIMIT, THROTTLE_TTL } from "utils/constants";
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -43,6 +45,7 @@ import { WishlistModule } from "./wishlist/wishlist.module";
         signOptions: { expiresIn: "15m" },
       }),
     }),
+    ThrottlerModule.forRoot([{ ttl: THROTTLE_TTL, limit: THROTTLE_LIMIT }]),
     PrismaModule,
     RedisModule,
     GamesModule,
