@@ -1,37 +1,33 @@
-# Build and setup dependency
-FROM node:22-alpine AS builder
+FROM node:24-alpine3.23 AS base
+RUN apk add --no-cache libc6-compat
+ENV PNPM_HOME=/pnpm
+ENV PATH=/pnpm:$PATH
 WORKDIR /app
+RUN corepack enable
 
-RUN npm install -g pnpm
-RUN npm install -g turbo@2.5.6
-
+FROM base AS builder
 COPY . .
+RUN pnpm dlx turbo@2.8.14 prune backend --docker
 
-RUN turbo prune backend --docker
+FROM base AS installer
+COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
+COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
+COPY --from=builder /app/out/json/ ./
+RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
+    pnpm install --frozen-lockfile
 
-RUN ls -alr /app
-RUN ls -alr /app/src
-RUN ls -alr /app/out
+COPY --from=builder /app/out/full/ ./
+RUN pnpm --filter backend... build
+RUN pnpm --filter backend deploy --legacy --prod /prod/backend
 
-# Install from builder
-FROM node:22-alpine AS installer
+FROM base AS runner
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
+ENV NODE_ENV=production \
+    PORT=8000
 
-RUN npm install -g pnpm
-RUN npm install -g turbo@2.5.6
-
-COPY --from=builder /app/out/full/ .
-RUN pnpm install
-RUN pnpm turbo run build
-
-
-# Runner stage
-FROM node:22-alpine AS runner
-WORKDIR /app
-
-ENV NODE_ENV=production
-
-COPY --from=installer /app ./
+COPY --chown=node:node --from=installer /prod/backend/ ./
+USER node
 EXPOSE 8000
 
-CMD ["node", "src/backend/dist/src/main.js"]
+CMD ["node", "dist/src/main.js"]

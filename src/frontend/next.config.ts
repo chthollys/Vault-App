@@ -1,16 +1,11 @@
-import { NEST_API_URL, S3_BUCKET_NAME, S3_REGION } from "@/lib/env";
+import { S3_BUCKET_NAME, S3_REGION } from "@/lib/env";
 import type { NextConfig } from "next";
 import path from "path";
 
-const backendOrigin = NEST_API_URL.endsWith("/")
-  ? NEST_API_URL.slice(0, -1)
-  : NEST_API_URL;
-
 const nextConfig: NextConfig = {
-  reactCompiler: true,
+  output: "standalone",
   transpilePackages: ["@repo/types", "@repo/typescript-config"],
   outputFileTracingRoot: path.join(__dirname, "../.."),
-  reactStrictMode: true,
   cacheComponents: true,
   images: {
     remotePatterns: [
@@ -57,14 +52,6 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     externalDir: true,
-  },
-  async rewrites() {
-    return [
-      {
-        source: "/api/:path*",
-        destination: `${backendOrigin}/:path*`,
-      },
-    ];
   },
 };
 

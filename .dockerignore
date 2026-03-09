@@ -1,5 +1,11 @@
 node_modules
+.pnpm-store
 .git
 .gitignore
+.turbo
 *.md
 dist
+coverage
+**/.env
+**/.env.*
+!src/backend/.env.example
