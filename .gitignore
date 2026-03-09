@@ -89,3 +89,4 @@ out
 
 .readmeaiignore
 deploy.sh
+.dev
