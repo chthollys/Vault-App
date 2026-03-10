@@ -1,6 +1,6 @@
 services:
-  postgres:
-    container_name: vault-postgres
+  vault-app_postgres:
+    container_name: vault-app_postgres
     image: postgres:18.1-trixie
     volumes:
       - postgres_data:/var/lib/postgresql
@@ -18,21 +18,23 @@ services:
       timeout: 5s
       retries: 5
     restart: unless-stopped
+    networks:
+    - caddynet
 
-  backend:
-    container_name: vault-backend
+  vault-app_backend:
+    container_name: vault-app_backend
     build:
       context: .
       dockerfile: src/backend/Dockerfile
     env_file:
-      - ./.env
+      - ./src/backend/.env
     environment:
       NODE_ENV: production
       PORT: ${PORT:-8000}
       BACKEND_URL: ${BACKEND_URL:-http://localhost:8000}
       FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
     depends_on:
-      postgres:
+      vault-app_postgres:
         condition: service_healthy
     ports:
       - "8000:8000"
@@ -40,28 +42,29 @@ services:
       - caddynet
     restart: unless-stopped
 
-  frontend:
-    container_name: vault-frontend
+  vault-app_frontend:
+    container_name: vault-app_frontend
     build:
       context: .
       dockerfile: src/frontend/Dockerfile
       args:
-        NEST_API_URL: ${NEST_API_URL:-http://backend:8000}
-        NEXT_PUBLIC_NEST_API_URL: ${NEXT_PUBLIC_NEST_API_URL:-http://localhost:8000}
+        NEST_API_URL: ${NEST_API_URL:-http://vault-app_backend:8000}
+        NEXT_PUBLIC_NEST_API_URL: ${NEXT_PUBLIC_NEST_API_URL:-http://vault-app_backend:8000}
         NEXT_PUBLIC_API_PROXY_BASE: ${NEXT_PUBLIC_API_PROXY_BASE:-/api}
-        NEXT_PUBLIC_APP_ORIGIN: ${NEXT_PUBLIC_APP_ORIGIN:-http://localhost:3000}
+        NEXT_PUBLIC_APP_ORIGIN: ${NEXT_PUBLIC_APP_ORIGIN:-http://vault-app_frontend:3000}
+    env_file:
+      - ./src/frontend/.env
     environment:
       NODE_ENV: production
       PORT: 3000
-      HOSTNAME: 0.0.0.0
-      NEST_API_URL: ${NEST_API_URL:-http://backend:8000}
-      NEXT_PUBLIC_NEST_API_URL: ${NEXT_PUBLIC_NEST_API_URL:-http://localhost:8000}
+      NEST_API_URL: ${NEST_API_URL:-http://vault-app_backend:8000}
+      NEXT_PUBLIC_NEST_API_URL: ${NEXT_PUBLIC_NEST_API_URL:-http://vault-app_backend:8000}
       NEXT_PUBLIC_API_PROXY_BASE: ${NEXT_PUBLIC_API_PROXY_BASE:-/api}
-      NEXT_PUBLIC_APP_ORIGIN: ${NEXT_PUBLIC_APP_ORIGIN:-http://localhost:3000}
+      NEXT_PUBLIC_APP_ORIGIN: ${NEXT_PUBLIC_APP_ORIGIN:-http://vault-app_frontend:3000}
       S3_BUCKET_NAME: ${S3_BUCKET_NAME:-}
       S3_REGION: ${S3_REGION:-}
     depends_on:
-      - backend
+      - vault-app_backend
     ports:
       - "3000:3000"
     networks:
