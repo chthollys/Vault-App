@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
+  basePath: '/apps/vaultapp',
   output: "standalone",
   transpilePackages: ["@repo/types", "@repo/typescript-config"],
   outputFileTracingRoot: path.join(__dirname, "../.."),

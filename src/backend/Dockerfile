@@ -17,6 +17,9 @@ RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
     pnpm install --frozen-lockfile
 
 COPY --from=builder /app/out/full/ ./
+
+RUN pnpm --filter backend exec prisma generate
+
 RUN pnpm --filter backend... build
 RUN pnpm --filter backend deploy --legacy --prod /prod/backend
 
