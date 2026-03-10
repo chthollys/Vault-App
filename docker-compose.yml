@@ -5,34 +5,38 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql
     environment:
-      POSTGRES_DB: ${POSTGRES_DATABASE:-vault}
-      POSTGRES_USER: ${POSTGRES_USER:-vault}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-vault123}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "pg_isready -U ${POSTGRES_USER:-vault} -d ${POSTGRES_DATABASE:-vault}",
-        ]
-      interval: 10s
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER}"]
+      interval: 5s
       timeout: 5s
       retries: 5
     restart: unless-stopped
     networks:
-    - caddynet
+      - caddynet
 
   vault-app_backend:
     container_name: vault-app_backend
     build:
       context: .
       dockerfile: src/backend/Dockerfile
+      args:
+        DATABASE_URL: ${DATABASE_URL:-postgresql://vault:VRlzhqSQVolnDEnUw4Sf4qB6xMk5G0QZqvvkP5SQ@vault-app_postgres:5432/vault}
+        DIRECT_URL: ${DIRECT_URL:-postgresql://vault:VRlzhqSQVolnDEnUw4Sf4qB6xMk5G0QZqvvkP5SQ@vault-app_postgres:5432/vault}
+        FRONTEND_URL: ${FRONTEND_URL:-https://vaultapp.my.id}
     env_file:
       - ./src/backend/.env
     environment:
       NODE_ENV: production
       PORT: ${PORT:-8000}
-      BACKEND_URL: ${BACKEND_URL:-http://localhost:8000}
-      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://${POSTGRES_USER:-vault}:${POSTGRES_PASSWORD:-vault123}@vault-app_postgres:5432/${POSTGRES_DATABASE:-vault}}
+      EMAIL_FROM: ${EMAIL_FROM:-Vault App <noreply@vault.com>}
+      EMAIL_SERVER_HOST: ${EMAIL_SERVER_HOST:-smtp.gmail.com}
+      EMAIL_SERVER_PORT: 465
+      EMAIL_SERVER_USER: ${EMAIL_SERVER_USER:-jason130105@gmail.com}
+      EMAIL_SERVER_PASSWORD: ${EMAIL_SERVER_PASSWORD}
     depends_on:
       vault-app_postgres:
         condition: service_healthy
@@ -41,7 +45,7 @@ services:
     networks:
       - caddynet
     restart: unless-stopped
-    command: sh -c "npx prisma migrate deploy && node dist/src/main.js"
+    command: sh -c "npx prisma generate && npx prisma migrate deploy && node dist/src/main.js"
 
   vault-app_frontend:
     container_name: vault-app_frontend
@@ -49,21 +53,18 @@ services:
       context: .
       dockerfile: src/frontend/Dockerfile
       args:
-        NEST_API_URL: ${NEST_API_URL:-http://localhost:8000}
-        NEXT_PUBLIC_NEST_API_URL: ${NEXT_PUBLIC_NEST_API_URL:-http://localhost:8000}
-        NEXT_PUBLIC_API_PROXY_BASE: ${NEXT_PUBLIC_API_PROXY_BASE:-/api}
-        NEXT_PUBLIC_APP_ORIGIN: ${NEXT_PUBLIC_APP_ORIGIN:-http://locahost:3000}
+        NEST_API_URL: ${NEST_API_URL:-http://vault-app_backend:8000}
+        NEXT_PUBLIC_NEST_API_URL: ${NEXT_PUBLIC_NEST_API_URL:-https://vaultapp.my.id/api}
+        S3_BUCKET_NAME: ${S3_BUCKET_NAME:-vault-app-bucket}
+        S3_REGION: ${S3_REGION:-ap-southeast-2}
     env_file:
       - ./src/frontend/.env
     environment:
       NODE_ENV: production
       PORT: 3000
-      NEST_API_URL: ${NEST_API_URL:-http://localhost:8000}
-      NEXT_PUBLIC_NEST_API_URL: ${NEXT_PUBLIC_NEST_API_URL:-http://localhost:8000}
-      NEXT_PUBLIC_API_PROXY_BASE: ${NEXT_PUBLIC_API_PROXY_BASE:-/api}
-      NEXT_PUBLIC_APP_ORIGIN: ${NEXT_PUBLIC_APP_ORIGIN:-http://localhost:3000}
-      S3_BUCKET_NAME: ${S3_BUCKET_NAME:-}
-      S3_REGION: ${S3_REGION:-}
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://vaultapp.my.id/api}
+      NEXT_PUBLIC_NEST_API_URL: ${NEXT_PUBLIC_NEST_API_URL:-https://vaultapp.my.id/api}
+      NEXT_PUBLIC_APP_ORIGIN: ${NEXT_PUBLIC_APP_ORIGIN:-https://vaultapp.my.id}
     depends_on:
       - vault-app_backend
     ports:
@@ -73,7 +74,8 @@ services:
     restart: unless-stopped
 
 volumes:
-  postgres_data:loc
+  postgres_data:
+    driver: local
 
 networks:
   caddynet:

@@ -7,7 +7,6 @@ import {
   Res,
   Session as SessionValue,
   Req,
-  Redirect,
 } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import {
@@ -35,7 +34,7 @@ import { GithubAuthGuard } from "./guards/github-auth.guard";
 @Controller("auth")
 export class AuthController {
   private readonly frontendUrl =
-    process.env.FRONTEND_URL || "http://localhost:3000";
+    process.env.FRONTEND_URL?.trim() || "http://localhost:3000";
 
   constructor(
     private authService: AuthService,
@@ -113,18 +112,17 @@ export class AuthController {
   googleAuth() {}
 
   @Get("/google/callback")
-  @Redirect()
   @UseGuards(GoogleAuthGuard)
   async googleCallback(
     @User() user: AuthUser,
-    @Res({ passthrough: true }) res: Response,
-  ): Promise<{ url: string }> {
+    @Res() res: Response,
+  ): Promise<void> {
     const tokens = await this.authService.issueTokenPair({
       sub: user.id,
       email: user.email,
     });
     this.authCookieService.setAuthCookies(res, tokens);
-    return { url: this.frontendUrl };
+    res.redirect(this.frontendUrl);
   }
 
   @Get("/github")
@@ -132,18 +130,17 @@ export class AuthController {
   githubAuth() {}
 
   @Get("/github/callback")
-  @Redirect()
   @UseGuards(GithubAuthGuard)
   async githubCallback(
     @User() user: AuthUser,
-    @Res({ passthrough: true }) res: Response,
-  ): Promise<{ url: string }> {
+    @Res() res: Response,
+  ): Promise<void> {
     const tokens = await this.authService.issueTokenPair({
       sub: user.id,
       email: user.email,
     });
     this.authCookieService.setAuthCookies(res, tokens);
-    return { url: this.frontendUrl };
+    res.redirect(this.frontendUrl);
   }
 
   @Post("/refresh-token")

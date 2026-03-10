@@ -69,7 +69,7 @@ export const UserSchema = CreateUserSchema.extend({
   image: z.url(),
 });
 
-export const UserDtoSchema = CreateUserSchema.extend({
+export const UserDtoSchema = CreateUserSchema.omit({ password: true }).extend({
   id: z.cuid(),
   createdAt: z.date(),
   updatedAt: z.date(),
@@ -77,7 +77,6 @@ export const UserDtoSchema = CreateUserSchema.extend({
   phone: z.string().nullable(),
   address: z.string().nullable(),
   image: z.url().nullable(),
-  password: z.string().nullable(),
 });
 
 export const CreateProfileSchema = z.object({

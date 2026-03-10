@@ -18,7 +18,8 @@ export class MailService implements OnModuleInit {
     try {
       await this.transporter.verify();
     } catch (err) {
-      throw Error("Mail service failing.");
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      console.error("❌ Mail service failed to initialize:", errorMessage);
     }
   }
   send(options: MailOptions) {

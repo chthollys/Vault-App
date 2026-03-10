@@ -21,10 +21,6 @@ export class UserDto implements User {
 
   @Expose()
   @IsString()
-  password: string | null;
-
-  @Expose()
-  @IsString()
   address: string | null;
 
   @Expose()

@@ -18,6 +18,24 @@ RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
 
 COPY --from=builder /app/out/full/ ./
 
+ARG PORT
+ARG DATABASE_URL
+ARG EMAIL_FROM
+ARG EMAIL_SERVER_HOST
+ARG EMAIL_SERVER_PASSWORD
+ARG EMAIL_SERVER_PORT
+ARG EMAIL_SERVER_USER
+
+ENV NODE_ENV=production \
+    PORT=${PORT} \
+    DATABASE_URL=${DATABASE_URL} \
+    EMAIL_FROM=${EMAIL_FROM} \
+    EMAIL_SERVER_HOST=${EMAIL_SERVER_HOST} \
+    EMAIL_SERVER_PORT=465 \
+    EMAIL_SERVER_USER=${EMAIL_SERVER_USER} \
+    EMAIL_SERVER_PASSWORD=${EMAIL_SERVER_PASSWORD}
+
+
 RUN pnpm --filter backend exec prisma generate
 
 RUN pnpm --filter backend... build
