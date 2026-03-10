@@ -1,4 +1,4 @@
-FROM node:24-alpine3.23 AS base
+FROM node:22-alpine3.21 AS base
 RUN apk add --no-cache libc6-compat
 ENV PNPM_HOME=/pnpm
 ENV PATH=/pnpm:$PATH
@@ -18,7 +18,7 @@ RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
 
 COPY --from=builder /app/out/full/ ./
 
-ARG NEST_API_URL=http://backend:8000
+ARG NEST_API_URL=http:/localhost:8000
 ARG NEXT_PUBLIC_NEST_API_URL=http://localhost:8000
 ARG NEXT_PUBLIC_API_PROXY_BASE=/api
 ARG NEXT_PUBLIC_APP_ORIGIN=http://localhost:3000

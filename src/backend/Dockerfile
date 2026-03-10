@@ -1,4 +1,4 @@
-FROM node:24-alpine3.23 AS base
+FROM node:22-alpine3.21 AS base
 RUN apk add --no-cache libc6-compat
 ENV PNPM_HOME=/pnpm
 ENV PATH=/pnpm:$PATH
