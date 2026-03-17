@@ -3,7 +3,7 @@ import { Footer } from "@/components/Footer";
 import "@/app/globals.css";
 import { NavAsideBar } from "./components/NavAsideBar";
 import ScrollToTop from "@/lib/utils/scroll-to-top";
-import Hydration from "../hydration";
+// import Hydration from "./hydration";
 
 export default function MainLayout({
   children,
@@ -12,7 +12,7 @@ export default function MainLayout({
 }>) {
   return (
     <>
-      <Hydration>
+      {/* <Hydration> */}
         <div id="modal"></div>
         <MainHeader />
         <ScrollToTop />
@@ -26,7 +26,7 @@ export default function MainLayout({
           </div>
         </main>
         <Footer />
-      </Hydration>
+      {/* </Hydration> */}
     </>
   );
 }
