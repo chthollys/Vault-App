@@ -45,7 +45,6 @@ services:
     networks:
       - caddynet
     restart: unless-stopped
-    command: sh -c "npx prisma generate && npx prisma migrate deploy && node dist/src/main.js"
 
   vault-app_frontend:
     container_name: vault-app_frontend
