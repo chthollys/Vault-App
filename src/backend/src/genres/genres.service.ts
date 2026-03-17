@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { GenresRepository } from "./genres.repository";
-import type { Genre } from "@prisma/client";
+import type { Genre } from "src/prisma/client";
 import { when } from "joi";
 
 @Injectable()

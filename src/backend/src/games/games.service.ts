@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { GamesRepository } from "./games.repository";
-import type { Game, Genre, Review } from "@prisma/client";
+import type { Game, Genre, Review } from "src/prisma/client";
 import { buildGamesQuery } from "utils/prisma.util";
 import type { GamesFilterDto } from "src/dtos";
 import { GenresService } from "src/genres/genres.service";

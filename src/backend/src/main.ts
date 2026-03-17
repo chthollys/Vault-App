@@ -7,6 +7,9 @@ import { apiReference } from "@scalar/nestjs-api-reference";
 async function bootstrap() {
   const isProduction = process.env.NODE_ENV === "production";
   const frontendUrl = process.env.FRONTEND_URL || "http://localhost:3000";
+  const docsEnabled = process.env.ENABLE_API_DOCS
+    ? process.env.ENABLE_API_DOCS === "true"
+    : !isProduction;
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     bufferLogs: true,
   });
@@ -16,7 +19,7 @@ async function bootstrap() {
     credentials: true,
   });
 
-  if (!isProduction) {
+  if (docsEnabled) {
     const swaggerConfig = new DocumentBuilder()
       .setTitle("Vault App Backend API")
       .setDescription("API documentation for Vault App backend")
@@ -25,7 +28,6 @@ async function bootstrap() {
       .build();
 
     const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
-    SwaggerModule.setup("api/docs/swagger", app, swaggerDocument);
 
     app.use(
       "/api/docs",

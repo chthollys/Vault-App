@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Account, Prisma } from "@prisma/client";
+import { Account, Prisma } from "src/prisma/client";
 import { PrismaErrorCatcher } from "src/error/error.handler";
 import { PrismaService } from "src/prisma/prisma.service";
 import type { AccountWithUser } from "../interfaces/account";

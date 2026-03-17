@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { ReviewsRepository } from "./reviews.repository";
-import { Review } from "@prisma/client";
+import { Review } from "src/prisma/client";
 
 @Injectable()
 export class ReviewsService {

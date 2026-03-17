@@ -14,20 +14,41 @@ import { Serialize } from "src/interceptors/serialize.interceptor";
 import { WishlistService } from "./wishlist.service";
 import { CreateWishlistItemDto, WishlistItemDto } from "src/dtos";
 import type { AuthUser } from "src/auth/interfaces/jwt";
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from "@nestjs/swagger";
+import {
+  ApiCommonErrorResponses,
+  ApiCreatedWrappedResponse,
+  ApiOkWrappedResponse,
+} from "src/docs/api-response.decorators";
 
 @Controller("wishlist")
 @UseGuards(JwtAuthGuard)
+@ApiTags("Wishlist")
+@ApiBearerAuth("access_token")
 export class WishlistController {
   constructor(private wishlistService: WishlistService) {}
 
   @Get("/my-list")
   @Serialize(WishlistDto)
+  @ApiOperation({ summary: "Get current user wishlist" })
+  @ApiOkWrappedResponse({ type: WishlistDto })
+  @ApiCommonErrorResponses()
   getWishlist(@User() user: AuthUser) {
     return this.wishlistService.getWishlistNyUserId(user.id);
   }
 
   @Post("/my-list")
   @Serialize(WishlistItemDto)
+  @ApiOperation({ summary: "Add item to wishlist" })
+  @ApiBody({ type: CreateWishlistItemDto })
+  @ApiCreatedWrappedResponse({ type: WishlistItemDto })
+  @ApiCommonErrorResponses()
   createWishlistItem(
     @User() user: AuthUser,
     @Body() body: CreateWishlistItemDto,
@@ -37,6 +58,10 @@ export class WishlistController {
 
   @Delete("/my-list/:gameId")
   @Serialize(WishlistItemDto)
+  @ApiOperation({ summary: "Remove item from wishlist" })
+  @ApiParam({ name: "gameId", description: "Game id" })
+  @ApiOkWrappedResponse({ type: WishlistItemDto })
+  @ApiCommonErrorResponses()
   removeItemInWishlist(
     @User() user: AuthUser,
     @Param("gameId") gameId: string,

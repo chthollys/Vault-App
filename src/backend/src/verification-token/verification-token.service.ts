@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { VerificationTokenRepository } from "./verification-token.repository";
 import crypto from "node:crypto";
-import type { VerificationToken } from "@prisma/client";
+import type { VerificationToken } from "src/prisma/client";
 
 @Injectable()
 export class VerificationTokenService {

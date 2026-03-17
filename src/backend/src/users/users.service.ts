@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { UsersRepository } from "./users.repository";
-import type { User, Cart } from "@prisma/client";
+import type { User, Cart } from "src/prisma/client";
 import type { CreateUserDto } from "src/dtos";
 import { SALT_ROUNDS } from "utils/constants";
 import { CartService } from "src/cart/cart.service";

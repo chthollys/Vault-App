@@ -1,4 +1,4 @@
-import type { Account, User } from "@prisma/client";
+import type { Account, User } from "src/prisma/client";
 
 export interface AccountWithUser extends Account  {
   user: User;

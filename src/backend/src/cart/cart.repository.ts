@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import type { Cart, CartItem, Game } from "@prisma/client";
+import type { Cart, CartItem, Game } from "src/prisma/client";
 import { PrismaErrorCatcher } from "src/error/error.handler";
 import { PrismaService } from "src/prisma/prisma.service";
 

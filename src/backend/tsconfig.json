@@ -4,6 +4,7 @@
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "resolvePackageJsonExports": true,
+    "allowJs": false,
     "esModuleInterop": true,
     "isolatedModules": true,
     "declaration": true,
@@ -27,5 +28,7 @@
       "src/*": ["src/*"],
       "utils/*": ["utils/*"]
     }
-  }
+  },
+  "include": ["src/**/*", "utils/**/*"],
+  "exclude": ["node_modules", "dist", "test", "prisma/generated", "**/*spec.ts"]
 }

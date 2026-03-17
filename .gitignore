@@ -76,7 +76,7 @@ coverage/
 .turbo/
 
 # Prisma generated
-/generated/prisma
+generated
 seed.ts
 
 # Other files

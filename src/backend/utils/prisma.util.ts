@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "src/prisma/client";
 import {
   BadRequestException,
   ConflictException,

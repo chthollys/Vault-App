@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import type { Prisma, RefreshToken } from "@prisma/client";
+import type { Prisma, RefreshToken } from "src/prisma/client";
 import prisma from "prisma/db";
 import { PrismaErrorCatcher } from "src/error/error.handler";
 import { PrismaService } from "src/prisma/prisma.service";
