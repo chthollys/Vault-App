@@ -132,6 +132,7 @@ export interface GameSectionHeaderProps {
 export interface GamesGridProps {
   title?: string;
   games: Game[];
+  mobileColumns?: 1 | 2;
 }
 
 export interface GameCardProps {

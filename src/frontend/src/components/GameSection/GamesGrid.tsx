@@ -14,7 +14,11 @@ import useWishlist from "@/app/hooks/useWishlist";
 import useWishlistAction from "@/app/hooks/useWishlistAction";
 import { toast } from "react-toastify";
 
-export default function GamesGrid({ games, title }: GamesGridProps) {
+export default function GamesGrid({
+  games,
+  title,
+  mobileColumns = 2,
+}: GamesGridProps) {
   const { data: user } = useCurrentUser();
   const { data: cart } = useCart(!!user);
   const { data: wishlist } = useWishlist(!!user);
@@ -77,7 +81,7 @@ export default function GamesGrid({ games, title }: GamesGridProps) {
 
   return (
     <div
-      className="grid grid-cols-[repeat(auto-fill,_minmax(280px,_1fr))] gap-6"
+      className={`grid ${mobileColumns === 2 ? "grid-cols-2" : "grid-cols-1"} gap-3 sm:gap-6 md:grid-cols-[repeat(auto-fill,_minmax(240px,_1fr))]`}
       role="list"
       aria-label={`${title ?? "games"} list`}
     >

@@ -57,6 +57,11 @@ export default function SearchBar() {
       <Autocomplete
         ref={inputRef}
         variant="underlined"
+        className="w-full"
+        classNames={{
+          base: "w-full min-w-0",
+          popoverContent: "max-w-[calc(100vw-2rem)]",
+        }}
         startContent={<GamePadIcon isAnimate={iconAnimate} />}
         isLoading={isPending}
         placeholder="Start searching your games ..."

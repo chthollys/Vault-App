@@ -12,7 +12,7 @@ export default function GameSection({
     <section className="mb-12" aria-labelledby={`${label}-section-title`}>
       <GameSectionHeader title={title} href={href} label={label} />
 
-      <GamesGrid title={title} games={games} />
+      <GamesGrid title={title} games={games} mobileColumns={2} />
     </section>
   );
 }
