@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { NEXT_APP_ORIGIN_URL } from "@/lib/env";
 import Provider from "./provider";
-import { Analytics } from "@vercel/analytics/next";
 
 const APP_NAME = "Vault App";
 const APP_DESCRIPTION =
@@ -50,7 +49,6 @@ export default function RootLayout({
         <Provider>
           <div id="modal" className="z-999"></div>
           {children}
-          <Analytics />
         </Provider>
       </body>
     </html>
